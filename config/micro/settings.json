@@ -1,0 +1,13 @@
+{
+    "colorcolumn": 80,
+    "colorscheme": "one-dark",
+    "diffgutter": true,
+    "keymenu": true,
+    "relativeruler": true,
+    "rmtrailingws": true,
+    "softwrap": true,
+    "statusformatl": "$(filename) $(modified) ($(line),$(col)) | ft:$(opt:filetype)",
+    "tabmovement": true,
+    "tabstospaces": true,
+    "wordwrap": true
+}

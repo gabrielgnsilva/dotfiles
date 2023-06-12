@@ -1,0 +1,28 @@
+# shellcheck shell=bash
+
+# PATH
+export PATH="${PATH}":"${HOME}"/.local/bin
+
+# ENVIRONMENT VARIABLES
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export GTK2_RC_FILES="${XDG_CONFIG_HOME}"/gtk-2.0/gtkrc-2.0
+export INPUTRC="${XDG_CONFIG_HOME}"/readline/inputrc
+export LESSHISTFILE="${XDG_CONFIG_HOME}"/less/lesshst
+export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}"/npm/npmrc
+export QT_STYLE_OVERRIDE=kvantum
+export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
+export XAUTHORITY="${XDG_RUNTIME_DIR}"/Xauthority
+export XCOMPOSEFILE="${XDG_CONFIG_HOME}"/X11/xcompose
+export XINITRC="${XDG_CONFIG_HOME}"/X11/xinitrc
+
+# BASHRC
+# shellcheck disable=SC1091
+source "${XDG_CONFIG_HOME}"/bash/bashrc
+
+# XINIT
+de="qtile"  # Desktop Environment
+if [[ "$(tty)" = "/dev/tty1" ]]; then
+    pgrep "${de}" || startx "${XINITRC}" "${de}"
+fi
+
+unset -v de

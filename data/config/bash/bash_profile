@@ -1,10 +1,10 @@
-# shellcheck shell=bash
+# shellcheck shell=bash disable=SC1091,SC2016
 
 # PATH
 export PATH="${PATH}":"${HOME}"/.local/bin
 
 # ENVIRONMENT VARIABLES
-export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export GNUPGHOME="${XDG_DATA_HOME}"/gnupg
 export GTK2_RC_FILES="${XDG_CONFIG_HOME}"/gtk-2.0/gtkrc-2.0
 export INPUTRC="${XDG_CONFIG_HOME}"/readline/inputrc
 export LESSHISTFILE="${XDG_CONFIG_HOME}"/less/lesshst
@@ -14,15 +14,15 @@ export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
 export XAUTHORITY="${XDG_RUNTIME_DIR}"/Xauthority
 export XCOMPOSEFILE="${XDG_CONFIG_HOME}"/X11/xcompose
 export XINITRC="${XDG_CONFIG_HOME}"/X11/xinitrc
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 
 # BASHRC
-# shellcheck disable=SC1091
 source "${XDG_CONFIG_HOME}"/bash/bashrc
 
-# XINIT
+# Startx
 de="qtile"  # Desktop Environment
 if [[ "$(tty)" = "/dev/tty1" ]]; then
-    pgrep "${de}" || startx "${XINITRC}" "${de}"
+    pgrep "${de}" || startx "${XINITRC}" "${de}" &> /dev/null
 fi
 
 unset -v de

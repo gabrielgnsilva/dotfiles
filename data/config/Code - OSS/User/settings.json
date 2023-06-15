@@ -1,5 +1,5 @@
 {
-    // VSCode Settings
+    // EDITOR SETTINGS
 
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "boundary",
@@ -10,16 +10,7 @@
     "editor.wordWrapColumn": 79,
     "editor.tabSize": 4,
     "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": {
-        "source.fixAll": false,
-        "source.sortImports": true
-    },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "[python]": {
-        "editor.formatOnSave": false,
-        "editor.defaultFormatter": "ms-python.python",
-        "editor.rulers": [79]
-    },
     "editor.autoClosingDelete": "never",
     "editor.autoClosingQuotes": "always",
     "editor.foldingImportsByDefault": true,
@@ -35,39 +26,10 @@
     "editor.cursorSmoothCaretAnimation": "on",
     "editor.tabCompletion": "on",
     "editor.cursorBlinking": "phase",
-    "editor.quickSuggestions": {
-        "other": "inline",
-        "comments": "inline",
-        "strings": "inline"
-    },
     "editor.suggest.preview": true,
     "editor.wordBasedSuggestions": false,
-    "editor.rulers": [79, 120],
-
-    "python.linting.enabled": true,
-    "python.linting.pycodestyleEnabled": true,
-    "python.linting.pylintEnabled": false,
-    "[css]": {
-        "editor.formatOnSave": false,
-        "editor.suggest.insertMode": "replace"
-    },
-    "[javascript]": {
-        "editor.formatOnSave": false,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "One Dark Pro Darker",
-    "workbench.preferredDarkColorTheme": "One Dark Pro Darker",
-    "workbench.preferredLightColorTheme": "One Dark Pro Darker",
-    "workbench.preferredHighContrastColorTheme": "One Dark Pro Darker",
-    "workbench.preferredHighContrastLightColorTheme": "One Dark Pro Darker",
-    "oneDarkPro.editorTheme": "One Dark Pro Darker",
     "workbench.editor.enablePreview": false,
-    "workbench.sideBar.location": "right",
     "workbench.editor.wrapTabs": true,
-    "workbench.startupEditor": "newUntitledFile",
-    "workbench.editor.untitled.hint": "text",
     "workbench.statusBar.visible": true,
     "workbench.tree.indent": 16,
     "workbench.tree.renderIndentGuides": "always",
@@ -77,47 +39,59 @@
     "workbench.editor.tabCloseButton": "left",
     "workbench.editor.tabSizing": "shrink",
     "workbench.list.smoothScrolling": true,
-    "workbench.editor.autoLockGroups": {
-        "mainThreadWebview-markdown.preview": true
-    },
-
     "search.collapseResults": "alwaysCollapse",
-
     "debug.confirmOnExit": "always",
     "debug.toolBarLocation": "docked",
-
     "scm.alwaysShowRepositories": true,
     "scm.repositories.sortOrder": "name",
-
     "diffEditor.codeLens": true,
-
     "security.workspace.trust.startupPrompt": "always",
-
     "emmet.showSuggestionsAsSnippets": true,
-
     "telemetry.telemetryLevel": "off",
-
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
-
     "breadcrumbs.filePath": "off",
-
     "window.confirmBeforeClose": "never",
     "window.restoreWindows": "folders",
     "window.menuBarVisibility": "visible",
-
     "explorer.incrementalNaming": "smart",
     "explorer.compactFolders": false,
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
+    "workbench.editor.untitled.hint": "text",
+    "workbench.sideBar.location": "right",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.editor.autoLockGroups": {
+        "mainThreadWebview-markdown.preview": true
+    },
+    "editor.rulers": [72, 79, 120],
+    "editor.codeActionsOnSave": {
+        "source.fixAll": false,
+        "source.sortImports": true
+    },
+    "editor.quickSuggestions": {
+        "other": "inline",
+        "comments": "inline",
+        "strings": "inline"
+    },
 
-    // VSCode Terminal
+    // EDITOR THEME
+
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "workbench.preferredDarkColorTheme": "One Dark Pro Darker",
+    "workbench.preferredLightColorTheme": "One Dark Pro Darker",
+    "workbench.preferredHighContrastColorTheme": "One Dark Pro Darker",
+    "workbench.preferredHighContrastLightColorTheme": "One Dark Pro Darker",
+    "oneDarkPro.editorTheme": "One Dark Pro Darker",
+
+    // INTEGRATED TERMINAL (WINDOWS)
 
     "terminal.integrated.profiles.windows": {
         "Bash": {
-            "path": "S:\\Program Files\\Git\\bin\\bash.exe",
-            "args": ["-i","-l"],
+            "path": "Git Bash",
+            "args": ["-i","--login"],
             "icon": "terminal-bash",
             "color": "terminal.ansiGreen",
             "overrideName": true
@@ -137,10 +111,12 @@
             "overrideName": true
         }
     },
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+
+    // INTEGRATED TERMINAL (LINUX)
 
     "terminal.integrated.profiles.linux": {
-        "bash": null,
-        "JavaScript Debug Terminal": null,
+
         "Bash": {
             "path": "bash",
             "args": ["-i","-l"],
@@ -154,12 +130,16 @@
             "icon": "terminal-bash",
             "color": "terminal.ansiRed",
             "overrideName": true
-        }
+        },
+        "bash": null,
+        "JavaScript Debug Terminal": null
     },
+    "terminal.integrated.defaultProfile.linux": "Bash",
     "terminal.integrated.env.linux": {},
 
-    "terminal.integrated.defaultProfile.windows": "Bash",
-    "terminal.integrated.defaultProfile.linux": "Bash",
+
+    // INTEGRATED TERMINAL SETTINGS
+
     "terminal.integrated.cwd": "",
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.cursorBlinking": true,
@@ -169,7 +149,7 @@
     "terminal.integrated.smoothScrolling": true,
     "terminal.integrated.tabs.focusMode": "singleClick",
 
-    // VSCode Fonts
+    // EDITOR FONTS
 
     "editor.fontLigatures": true,
     "editor.fontFamily": "FiraCode Nerd Font",
@@ -190,25 +170,45 @@
     "notebook.output.fontSize": 13,
     "interactiveSession.editor.fontFamily": "FiraCode Nerd Font",
     "interactiveSession.editor.fontSize": 13,
-
     "screencastMode.fontSize": 20,
     "editor.suggestFontSize": 13,
     "notebook.markup.fontSize": 13,
 
-    // Extentions Setting
+    // LANGUAGE SPECIFIC
 
-    "console-ninja.fontSize": 13,
+    "[python]": {
+        "python.linting.enabled": true,
+        "python.linting.pycodestyleEnabled": true,
+        "python.linting.pylintEnabled": false,
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "ms-python.python",
+    },
 
-    "remote.downloadExtensionsLocally": true,
+    "[css]": {
+        "editor.formatOnSave": false,
+        "editor.suggest.insertMode": "replace"
+    },
+
+    "[javascript]": {
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    // EXTENTIONS SETTINGS
+
+    "oneDarkPro.vivid": false,
+
+    "material-icon-theme.hidesExplorerArrows": true,
 
     "auto-close-tag.activationOnLanguage": ["*"],
     "auto-rename-tag.activationOnLanguage": ["*"],
 
-    "gitlens.showWelcomeOnInstall": false,
-    "gitlens.hovers.currentLine.over": "line",
-    "gitlens.currentLine.enabled": true,
     "gitlens.codeLens.enabled": false,
+    "gitlens.showWelcomeOnInstall": false,
+    "gitlens.hovers.currentLine.over": "annotation",
+    "gitlens.currentLine.enabled": true,
 
+    "git.inputValidationSubjectLength": null,
     "git.suggestSmartCommit": false,
     "git.autofetch": true,
     "git.branchPrefix": "main",
@@ -235,7 +235,7 @@
             "italic": false
         },
         {
-            "tag": "Done",
+            "tag": "done",
             "color": "#39FF14",
             "strikethrough": false,
             "underline": false,
@@ -244,7 +244,7 @@
             "italic": false
         },
         {
-            "tag": "Todo",
+            "tag": "todo",
             "color": "#FF5F1F",
             "strikethrough": false,
             "underline": false,
@@ -253,7 +253,7 @@
             "italic": false
         },
         {
-            "tag": "Section:",
+            "tag": "section:",
             "color": "#FFF01F",
             "strikethrough": false,
             "underline": true,
@@ -265,27 +265,24 @@
 
     "liveServer.settings.donotShowInfoMsg": true,
 
-    "shellcheck.exclude": ["2034"],
-    "shellcheck.customArgs": [
-        "-o require-variable-braces"
+    "shellcheck.enable": true,
+    "shellcheck.exclude": ["2312"],
+    "shellcheck.customArgs":[
+        "--external-sources",
+        "--source-path=SCRIPTDIR",
+        "--enable=all",
+        "--format=tty"
     ],
 
     "color-highlight.markRuler": false,
 
-    "material-icon-theme.hidesExplorerArrows": true,
+    "rainbow_csv.autodetect_separators": ["TAB", ",", ";", "|", "æ"],
 
-    "rainbow_csv.autodetect_separators": [
-        "TAB",
-        ",",
-        ";",
-        "|",
-        "æ"
-    ],
-
-    "code-runner.runInTerminal": true,
     "code-runner.enableAppInsights": false,
+    "code-runner.runInTerminal": true,
     "code-runner.saveFileBeforeRun": true,
     "code-runner.temporaryFileName": "TempCodeRun",
+
     "hediet.vscode-drawio.resizeImages": null
 
 }

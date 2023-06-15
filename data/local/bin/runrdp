@@ -104,6 +104,7 @@ function save_to_file () {
 function connect_to_server () {
     clear ;
     xfreerdp /u:"${REMOTEUSER}" /p:"${REMOTEPASS}" /v:"${REMOTESERV}" /network:auto /dynamic-resolution /size:1910x1031 /sound:sys:pulse /microphone:sys:pulse,format:1 +clipboard ;
+    sleep 10
 }
 
 #done

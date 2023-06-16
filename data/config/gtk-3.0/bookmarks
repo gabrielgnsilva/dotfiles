@@ -8,5 +8,5 @@ file:///home/CURRENTUSERNAME/Repositories
 file:///home/CURRENTUSERNAME/Templates
 file:///home/CURRENTUSERNAME/Videos
 file:///home/CURRENTUSERNAME/Virtual%20Machines
-file://PATH/TO/CONFIG Config
-file://PATH/TO/DOTFILES Dotfiles
+file://PATH/TO/CFG Config
+file://PATH/TO/DOT Dotfiles

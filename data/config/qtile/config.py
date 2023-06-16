@@ -700,3 +700,11 @@ screens = [
         ),
     ),
 ]
+
+
+@hook.subscribe.client_focus
+def bringFloatingWindowToFront(qtile):
+    for window in qtile.group.windows:
+        if window.floating is True or \
+        window.qtile.current_layout.name == 'floating':
+            window.cmd_bring_to_front()

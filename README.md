@@ -1,3 +1,3 @@
 # DOTFILES
 
-This dotfiles (Config files) where edited and created for my own use, but feel free to use any information in this repository as you see fit.
+The dotfiles (config files) in this repository have been customized and created for my personal use. However, you are welcome to utilize any information from this repository in any way you find suitable.

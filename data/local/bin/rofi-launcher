@@ -11,7 +11,7 @@ options=(
     "󰅚 Close Application"
 )
 
-chosen=$(printf "%s\n" "${options[@]}" | rofi -dmenu -i -theme-str '@import "launcher.rasi"')
+chosen="$(printf "%s\n" "${options[@]}" | rofi -dmenu -i -theme-str '@import "launcher.rasi"')"
 
 case "${chosen}" in
     "󰈹 Firefox"            ) firefox      ;;

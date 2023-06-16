@@ -266,7 +266,7 @@
     "liveServer.settings.donotShowInfoMsg": true,
 
     "shellcheck.enable": true,
-    "shellcheck.exclude": ["2312"],
+    "shellcheck.exclude": ["SC2312", "SC2154", "SC1090", "SC2016"],
     "shellcheck.customArgs":[
         "--external-sources",
         "--source-path=SCRIPTDIR",

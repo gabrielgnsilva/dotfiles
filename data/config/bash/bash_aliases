@@ -1,4 +1,4 @@
-# shellcheck shell=bash disable=SC2154,SC2312
+# shellcheck shell=bash
 
 # Aliases
 alias sudo='sudo -v; sudo '
@@ -13,12 +13,13 @@ alias alert='notify-send --urgency=critical                                   \
 
 # enable color support and shorten some commands of ls;
 if [[ -x /usr/bin/dircolors ]]; then
+
     if [[ -r "${XDG_CONFIG_HOME}/dircolors" ]]; then
-        eval "$(dircolors -b ~/.dircolors)" \
-            || eval "$(dircolors -b)"
+        eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     fi
+
     alias diff='diff --color=auto'
-    alias ls='ls -lah --color=auto'
+    alias ls='ls -alsh --color=auto'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
     alias ip='ip -color=auto'

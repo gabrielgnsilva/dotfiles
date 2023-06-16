@@ -1,4 +1,4 @@
-# shellcheck shell=bash disable=SC1091,SC2016
+# shellcheck shell=bash disable=SC1091
 
 # PATH
 export PATH="${PATH}":"${HOME}"/.local/bin

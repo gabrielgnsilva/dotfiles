@@ -24,7 +24,6 @@
 # END_OF_HEADER
 #=======================================================================
 
-# shellcheck disable=SC2120
 function doCountdown() {
 
     if [[ "${#}" -ne 1 ]]; then

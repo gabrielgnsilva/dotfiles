@@ -1,7 +1,9 @@
 # shellcheck shell=bash disable=SC1091
 
 # IF NOT RUNNING INTERACTIVELY, DON'T DO ANYTHING
-if [[ "${-}" != *i* ]]; then return; fi
+if [[ "${-}" != *i* ]]; then
+    return
+fi
 
 # CUSTOMIZATION
 shopt -s checkwinsize  # Line wrap on window resize.
@@ -60,7 +62,9 @@ else
 fi
 
 # MAKE LESS MORE FRIENDLY FOR NON-TEXT INPUT FILES, SEE LESSPIPE(1)
-if [[ -x /usr/bin/lesspipe ]]; then eval "$(SHELL=/bin/sh lesspipe)"; fi
+if [[ -x /usr/bin/lesspipe ]]; then
+    eval "$(SHELL=/bin/sh lesspipe)"
+fi
 
 # NVM
 NVM_DIR="$([[ -z "${XDG_CONFIG_HOME-}" ]] && printf %s "${HOME}/.nvm" \
@@ -68,11 +72,15 @@ NVM_DIR="$([[ -z "${XDG_CONFIG_HOME-}" ]] && printf %s "${HOME}/.nvm" \
 )"
 export NVM_DIR
 
-[[ -s "${NVM_DIR}/nvm.sh" ]] \
-    && source "${NVM_DIR}/nvm.sh"  # This loads nvm
+# This loads nvm
+if [[ -s "${NVM_DIR}/nvm.sh" ]]; then
+    source "${NVM_DIR}/nvm.sh"
+fi
 
-[[ -s "${NVM_DIR}/bash_completion" ]] \
-    && source "${NVM_DIR}/bash_completion"  # This loads nvm completion
+# This loads nvm completion
+if [[ -s "${NVM_DIR}/bash_completion" ]]; then
+    source "${NVM_DIR}/bash_completion"
+fi
 
 # IDENTIFY GROUPS THAT "${USER}" IS NOT A MEMBER
 function userGroups() {

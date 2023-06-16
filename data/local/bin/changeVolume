@@ -82,7 +82,7 @@ function main() {
     mute="$(getmute "${session}")"
     msgTag="myvolume"
 
-    if [ "${mute}" == "true" ]; then
+    if [[ "${mute}" == "true" ]]; then
         # Show the sound muted notification
         dunstify -a "Volume Icon MUTED" -u low -i audio-volume-muted -h string:x-dunst-stack-tag:"${msgTag}" \
             -h int:value:"${currentvol}" "Volume Muted !"

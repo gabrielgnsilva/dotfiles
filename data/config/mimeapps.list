@@ -87,6 +87,7 @@ application/x-7z-compressed=engrampa.desktop
 application/vnd.debian.binary-package=engrampa.desktop
 application/pak=engrampa.desktop
 application/x-archive=engrampa.desktop
+application/x-zerosize=pluma.desktop
 [Added Associations]
 inode/directory=visual-studio-code.desktop;
 application/octet-stream=visual-studio-code.desktop;
@@ -137,6 +138,7 @@ image/png=gimp.desktop;
 image/svg+xml=gimp.desktop;
 image/webp=gimp.desktop;
 image/tiff=gimp.desktop;
+application/x-zerosize=pluma.desktop;
 [Removed Associations]
 image/apng=firefox.desktop;chromium.desktop;
 image/avif=firefox.desktop;chromium.desktop;

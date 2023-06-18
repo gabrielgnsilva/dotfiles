@@ -1,0 +1,10 @@
+!.gitignore
+data/config/wget/wgetrc
+data/config/wget/wget-hsts
+data/config/less/lesshst
+data/config/bash/bash_history
+data/config/qtile/__pycache__
+data/config/qtile/themes/__pycache__
+*.log
+logs
+test

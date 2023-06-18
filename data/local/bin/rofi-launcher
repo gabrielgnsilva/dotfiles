@@ -1,0 +1,28 @@
+#!/bin/bash
+
+options=(
+    "󰈹 Firefox"
+    "󰉖 Thunar"
+    "󰍺 Virtual Manager"
+    "󰓇 Spotify"
+    "󰨞 Visual Studio Code"
+    "󰆍 Terminal"
+    "󰪚 Calculator"
+    "󰅚 Close Application"
+)
+
+chosen="$(printf "%s\n" "${options[@]}" | rofi -dmenu -i -theme-str '@import "launcher.rasi"')"
+
+case "${chosen}" in
+    "󰈹 Firefox"            ) firefox      ;;
+    "󰉖 Thunar"             ) thunar       ;;
+    "󰍺 Virtual Manager"    ) virt-manager ;;
+    "󰓇 Spotify"            ) spotify      ;;
+    "󰨞 Visual Studio Code" ) code         ;;
+    "󰆍 Terminal"           ) alacritty    ;;
+    "󰪚 Calculator"         ) galculator   ;;
+    "󰅚 Close Application"  ) xkill        ;;
+    *                      ) exit 1       ;;
+esac
+
+unset -v options chosen

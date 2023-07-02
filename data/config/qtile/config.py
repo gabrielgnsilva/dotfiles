@@ -334,10 +334,13 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([], "XF86AudioLowerVolume", lazy.spawn("changeVolume -1")),
     ([], "XF86AudioRaiseVolume", lazy.spawn("changeVolume +1")),
 
-    # Scratchpads
+    # Groups manipulation
 
-    ([mod], "Tab", nextgroup_floating_follow()),
-    ([mod, "shift"], "Tab", prevgroup_floating_follow()),
+    ([mod], "Tab", lazy.screen.next_group()),
+    ([mod, "shift"], "Tab", lazy.screen.prev_group()),
+
+    ([mod,"mod1"], "Tab", nextgroup_floating_follow()),
+    ([mod, "mod1", "shift"], "Tab", prevgroup_floating_follow()),
 
     # Scratchpads
 
@@ -376,7 +379,6 @@ for i in groups:
             Key([mod, "control"], i.name, lazy.window.togroup(i.name),
                 desc="move focused window to group {}".format(i.name))
         ])
-
 
 # Widgets
 

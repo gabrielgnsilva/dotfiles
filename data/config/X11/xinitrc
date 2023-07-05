@@ -41,8 +41,7 @@ case "${session}" in
 
         xset s off -dpms
         nitrogen --set-zoom-fill --random ~/Pictures/Wallpapers/
-        run picom --experimental-backends \
-            --config "${XDG_CONFIG_HOME}"/picom/picom.conf -b
+        run picom --config "${XDG_CONFIG_HOME}"/picom/picom.conf -b
         run dunst -conf/config "${XDG_CONFIG_HOME}"/dunst/dunstrc
         run flameshot
         run nm-applet

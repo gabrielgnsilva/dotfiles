@@ -123,7 +123,7 @@ groups = [
 # Custom keybinding functions
 
 @lazy.window.function
-def move_floating_window(window, x: int = 0, y: int = 0):
+def moveFloatingWindow(window, x: int = 0, y: int = 0):
     if window.floating is True or \
        window.qtile.current_layout.name == 'floating':
         new_x = window.float_x + x
@@ -132,7 +132,7 @@ def move_floating_window(window, x: int = 0, y: int = 0):
 
 
 @lazy.window.function
-def resize_floating_window(window, width: int = 0, height: int = 0):
+def resizeFloatingWindow(window, width: int = 0, height: int = 0):
     if window.floating is True or \
        window.qtile.current_layout.name == 'floating':
         window.cmd_set_size_floating(window.width + width,
@@ -140,13 +140,13 @@ def resize_floating_window(window, width: int = 0, height: int = 0):
 
 
 @lazy.function
-def minimize_all(qtile):
+def minimizeAll(qtile):
     for win in qtile.current_group.windows:
         if hasattr(win, "toggle_minimize"):
             win.toggle_minimize()
 
 
-def get_group_state(group_name):
+def getGroupState(group_name):
     group = qtile.groups_map.get(group_name)
     if group:
         return group.info()
@@ -154,11 +154,11 @@ def get_group_state(group_name):
 
 
 @lazy.function
-def nextgroup_floating_follow(qtile):
+def moveFloatingWindowOnGroupChangeNext(qtile):
     qtilegroups = qtile.cmd_groups()
     current_group = qtile.current_group.name
     next_group = str(int(current_group)+1)
-    next_group_state = get_group_state(next_group)
+    next_group_state = getGroupState(next_group)
 
     for window in qtile.current_group.windows:
 
@@ -196,12 +196,12 @@ def nextgroup_floating_follow(qtile):
 
 
 @lazy.function
-def prevgroup_floating_follow(qtile):
+def moveFloatingWindowOnGroupChangePrev(qtile):
     groups_list = [group.name for group in qtile.groups if group.name != "scratchpad"]  # noqa E501
     qtilegroups = qtile.cmd_groups()
     current_group = qtile.current_group.name
     prev_group = str(int(current_group)-1)
-    prev_group_state = get_group_state(prev_group)
+    prev_group_state = getGroupState(prev_group)
 
     for window in qtile.current_group.windows:
 
@@ -243,17 +243,17 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
 
     # Move Floating Window
 
-    ([mod, "mod1"], "l", move_floating_window(x=50)),
-    ([mod, "mod1"], "j", move_floating_window(x=-50)),
-    ([mod, "mod1"], "k", move_floating_window(y=50)),
-    ([mod, "mod1"], "i", move_floating_window(y=-50)),
+    ([mod, "mod1"], "l", moveFloatingWindow(x=50)),
+    ([mod, "mod1"], "j", moveFloatingWindow(x=-50)),
+    ([mod, "mod1"], "k", moveFloatingWindow(y=50)),
+    ([mod, "mod1"], "i", moveFloatingWindow(y=-50)),
 
     # Resize Floating Window
 
-    ([mod, "control", "mod1"], "l", resize_floating_window(width=50)),
-    ([mod, "control", "mod1"], "j", resize_floating_window(width=-50)),
-    ([mod, "control", "mod1"], "k", resize_floating_window(height=50)),
-    ([mod, "control", "mod1"], "i", resize_floating_window(height=-50)),
+    ([mod, "control", "mod1"], "l", resizeFloatingWindow(width=50)),
+    ([mod, "control", "mod1"], "j", resizeFloatingWindow(width=-50)),
+    ([mod, "control", "mod1"], "k", resizeFloatingWindow(height=50)),
+    ([mod, "control", "mod1"], "i", resizeFloatingWindow(height=-50)),
 
     # Move Focus
 
@@ -339,8 +339,8 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "Tab", lazy.screen.next_group()),
     ([mod, "shift"], "Tab", lazy.screen.prev_group()),
 
-    ([mod,"mod1"], "Tab", nextgroup_floating_follow()),
-    ([mod, "mod1", "shift"], "Tab", prevgroup_floating_follow()),
+    ([mod, "control"], "tab", moveFloatingWindowOnGroupChangeNext()),
+    ([mod, "control", "shift"], "tab", moveFloatingWindowOnGroupChangePrev()),
 
     # Scratchpads
 

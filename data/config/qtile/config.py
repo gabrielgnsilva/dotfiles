@@ -324,8 +324,14 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
 
     # Groups manipulation
 
-    ([mod], "Tab", lazy.screen.next_group()),
-    ([mod, "shift"], "Tab", lazy.screen.prev_group()),
+    ([mod], "tab", lazy.screen.next_group()),
+    ([mod, "shift"], "tab", lazy.screen.prev_group()),
+
+    ([mod], "period", lazy.screen.next_group()),
+    ([mod], "comma", lazy.screen.prev_group()),
+
+    ([mod, "control"], "period", moveFloatingWindowOnGroupChangeNext()),
+    ([mod, "control"], "comma", moveFloatingWindowOnGroupChangePrev()),
 
     ([mod, "control"], "tab", moveFloatingWindowOnGroupChangeNext()),
     ([mod, "control", "shift"], "tab", moveFloatingWindowOnGroupChangePrev()),

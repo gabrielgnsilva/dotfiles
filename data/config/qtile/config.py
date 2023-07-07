@@ -206,7 +206,7 @@ def moveFloatingWindowOnGroupChangePrev(qtile):
     for window in qtile.current_group.windows:
 
         if window.floating is not True or \
-           window.qtile.current_layout.name != 'floating':
+           window.qtile.current_layout.name == 'floating':
             continue
 
         for g in qtilegroups:

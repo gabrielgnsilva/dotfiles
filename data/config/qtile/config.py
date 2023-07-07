@@ -310,6 +310,7 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "q", lazy.spawn("firefox")),
     ([mod], "w", lazy.spawn("code")),
     ([mod], "e", lazy.spawn("thunar")),
+    ([mod], "g", lazy.spawn(terminal + " -e htop")),
 
     # Media Keys
 

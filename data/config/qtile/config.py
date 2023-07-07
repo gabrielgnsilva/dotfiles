@@ -483,119 +483,6 @@ def TaskList():
     return tasklist
 
 
-def CheckUpdates(c):
-    checkupdates = widget.CheckUpdates(
-        distro="Arch",
-        colour_have_updates=c,
-        display_format="""<span font='Hack Nerd Font Bold 9' underline='single'
-                        underline_color='{color}'
-                        >{a} Update(s)</span>""".format(
-                            color=c,
-                            a="{updates}"
-                        ),
-        no_update_string="""<span font='Hack Nerd Font Bold 9'
-                        underline='single' underline_color='{color}'
-                        >No Updates</span>""".format(
-                            color=c,
-                        ),
-        colour_no_updates=c,
-        execute=terminal + " --hold --command sudo pacman -Syyu"
-    )
-    return checkupdates
-
-
-def CPU(c):
-    cpu = widget.CPU(
-        update_interval=0.5,
-        mouse_callbacks={"Button1": lazy.spawn(terminal + " --command htop")},
-        format="""<span font='Hack Nerd Font Bold 9' underline='single'
-                underline_color='{color}'>CPU {a}%</span>""".format(
-                    color=c,
-                    a="{load_percent}"
-                )
-    )
-    return cpu
-
-
-def CPUThermalSensor(c):
-    cpu = widget.ThermalSensor(
-        foreground=c,
-        fmt="""<span font='Hack Nerd Font Bold 9' underline='single'
-            underline_color='{color}'>CPU {a}</span>""".format(
-                color=c,
-                a="{}"
-            ),
-        tag_sensor="Package id 0",
-        threshold=90,
-        update_interval=1
-    )
-    return cpu
-
-
-def GPUThermalSensor(c):
-    gpu = widget.ThermalSensor(
-        foreground=c,
-        fmt="""<span font='Hack Nerd Font Bold 9' underline='single'
-            underline_color='{color}'>GPU {a}</span>""".format(
-                color=c,
-                a="{}"
-            ),
-        tag_sensor="edge",
-        threshold=90,
-        update_interval=1
-    )
-    return gpu
-
-
-def Memory(c):
-    ram = widget.Memory(
-            markup=True,
-            format="""<span font='Hack Nerd Font Bold 9' underline='single'
-                underline_color='{color}'>RAM {a}{b}/{c}{d}</span>""".format(
-                    color=c,
-                    a="{MemUsed:.0f}",
-                    b="{mm}",
-                    c="{MemTotal:.0f}",
-                    d="{mm}"
-                ),
-            foreground=c,
-            measure_mem="M",
-            mouse_callbacks={"Button1": lazy.spawn(
-                terminal + " -e htop")}
-    )
-    return ram
-
-
-def Pomodoro(c):
-    pomodoro = widget.Pomodoro(
-        markup=True,
-        color_active=c,
-        color_inactive=c,
-        color_break=c,
-        fmt="""<span font='Hack Nerd Font Bold 9' underline='single'
-            underline_color='{color}'>{br}</span>""".format(color=c, br="{}"),
-        prefix_active="""<span font='Hack Nerd Font Bold 9' underline='single'
-                        underline_color='{color}'></span>""".format(color=c),
-        prefix_inactive="""<span font='Hack Nerd Font Bold 9'
-                        underline='single' underline_color='{color}'
-                        >25min</span>""".format(color=c),
-        prefix_break="""<span font='Hack Nerd Font Bold 9' underline='single'
-                        underline_color='{color}'
-                        >Short Break ! </span>""".format(color=c),
-        prefix_long_break="""<span font='Hack Nerd Font Bold 9'
-                        underline='single' underline_color='{color}'
-                            >Take a Break ! </span>""".format(color=c),
-        prefix_paused="""<span font='Hack Nerd Font Bold 9' underline='single'
-                        underline_color='{color}'
-                        >PAUSE</span>""".format(color=c),
-        num_pomodori=4,
-        length_pomodori=25,
-        length_short_break=5,
-        length_long_break=15
-    )
-    return pomodoro
-
-
 def Clock(c):
     clock = widget.Clock(
         format="""<span font='Hack Nerd Font Bold 9' underline='single'
@@ -661,28 +548,9 @@ screens = [
                 GroupBox(),
                 Spacer(10),
                 TaskList(),
-                Spacer(10),
-                Icon("󰂜", colors["normal"]["red"]),
-                CheckUpdates(colors["normal"]["red"]),
-                Spacer(10),
-                Icon("󰍛", colors["foreground"]),
-                CPU(colors["foreground"]),
-                Spacer(10),
-                Icon("󰸁", colors["normal"]["blue"]),
-                CPUThermalSensor(colors["normal"]["blue"]),
-                Spacer(10),
-                Icon("󰸁", colors["normal"]["blue"]),
-                GPUThermalSensor(colors["normal"]["blue"]),
-                Spacer(10),
-                Icon("󱘲", colors["normal"]["magenta"]),
-                Memory(colors["normal"]["magenta"]),
-                Spacer(10),
-                Icon("󰔛", colors["normal"]["green"]),
-                Pomodoro(colors["normal"]["green"]),
-                Spacer(10),
-                Icon("󰸗", colors["foreground"]),
+                Icon("    󰸗", colors["foreground"]),
                 Clock(colors["foreground"]),
-                Spacer(10),
+                Spacer(),
                 Systray(),
                 VolumeIcon(" 󰕾", colors["foreground"]),
                 Spacer(10),

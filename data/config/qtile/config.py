@@ -386,7 +386,10 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 
-def Spacer(p):
+def Spacer(p=None):
+    if p is None or p == "":
+        return widget.Spacer()
+
     spacer = widget.Spacer(
         length=p,
     )

@@ -290,7 +290,7 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
 
     # Layout manipulation
 
-    ([mod], "Tab", lazy.next_layout()),
+    ([mod], "t", lazy.hide_show_bar()),
 
     # Session Commands
 

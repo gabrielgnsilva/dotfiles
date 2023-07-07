@@ -314,22 +314,9 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # Media Keys
 
     ([], "XF86Explorer", lazy.spawn("thunar")),
-    ([], "XF86HomePage", minimize_all()),
-    ([], "XF86Mail", lazy.spawn("thunderbird")),
+    ([], "XF86HomePage", minimizeAll()),
+    ([], "XF86Mail", lazy.spawn("firefox")),
     ([], "XF86Calculator", lazy.spawn("galculator")),
-    ([], "XF86Tools", lazy.spawn("qtile run-cmd -g 4 spotify")),
-    ([], "XF86AudioStop", lazy.spawn("""dbus-send --print-reply
-        --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2
-        org.mpris.MediaPlayer2.Player.Pause""")),
-    ([], "XF86AudioPrev", lazy.spawn("""dbus-send --print-reply
-        --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2
-        org.mpris.MediaPlayer2.Player.Previous""")),
-    ([], "XF86AudioPlay", lazy.spawn("""dbus-send --print-reply
-        --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2
-        org.mpris.MediaPlayer2.Player.PlayPause""")),
-    ([], "XF86AudioNext", lazy.spawn("""dbus-send --print-reply
-        --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2
-        org.mpris.MediaPlayer2.Player.Next""")),
     ([], "XF86AudioMute", lazy.spawn("pulsemixer --toggle-mute")),
     ([], "XF86AudioLowerVolume", lazy.spawn("changeVolume -1")),
     ([], "XF86AudioRaiseVolume", lazy.spawn("changeVolume +1")),

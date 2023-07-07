@@ -487,7 +487,12 @@ def Clock(c):
     clock = widget.Clock(
         format="""<span font='Hack Nerd Font Bold 9' underline='single'
                 underline_color='{color}'
-                >%a %d - %I:%M %p</span>""".format(color=c)
+                >%a %d - %I:%M %p</span>   """.format(color=c),
+        mouse_callbacks={
+            "Button1": lazy.spawn("show-calendar curr"),
+            "Button4": lazy.spawn("show-calendar next"),
+            "Button5": lazy.spawn("show-calendar prev")
+        }
     )
     return clock
 

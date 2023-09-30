@@ -388,7 +388,7 @@ function configDotfiles() {
         sleep 0.1
 
         case "${config##*/}" in
-            Code\ -\ OSS | Thunar | xfce4 | pluma | less | wget ) : ;;
+            Code | Thunar | xfce4 | pluma | less | wget ) : ;;
             *)
                 println "Configuring '${config##*/}'"
 
@@ -466,14 +466,16 @@ function configDotfiles() {
 
     println "Configuring 'VSCode'"
 
-    mkdir -v --parents "${XDG_CONFIG_HOME:?}"/Code\ -\ OSS/User
+    mkdir -v --parents "${XDG_CONFIG_HOME:?}"/Code/User
+
+    rm --force --recursive "${XDG_CONFIG_HOME:?}"/Code/User/snippets
 
     ln --force --no-dereference --symbolic                    \
-        "${scriptDir}"/data/config/Code\ -\ OSS/User/snippets \
-        "${XDG_CONFIG_HOME:?}"/Code\ -\ OSS/User
+        "${scriptDir}"/data/config/Code/User/snippets \
+        "${XDG_CONFIG_HOME:?}"/Code/User
     ln --force --no-dereference --symbolic                  \
-        "${scriptDir}"/data/config/Code\ -\ OSS/User/*.json \
-        "${XDG_CONFIG_HOME:?}"/Code\ -\ OSS/User
+        "${scriptDir}"/data/config/Code/User/*.json \
+        "${XDG_CONFIG_HOME:?}"/Code/User
 
     println "Configuring 'Thunar'"
 

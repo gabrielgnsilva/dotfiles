@@ -1,6 +1,5 @@
-// Place your key bindings in this file to override the defaultsauto[]
 [
-    // Disable System Shortcuts
+    // #region DISABLE SYSTEM SHORTCUTS
     {
         "key": "ctrl+shift+r",
         "command": "-editor.action.refactor",
@@ -145,6 +144,10 @@
         "key": "ctrl+shift+p",
         "command": "-workbench.action.showCommands"
     },
+    // #endregion
+
+    // #region CUSTOM SHORTCUTS
+
     // Comments
     {
         "key": "ctrl+shift+alt+c",
@@ -161,6 +164,7 @@
         "command": "editor.action.selectHighlights",
         "when": "editorFocus"
     },
+
     // 10X Editing
     {
         "key": "ctrl+shift+d",
@@ -207,11 +211,13 @@
         "command": "editor.action.moveLinesUpAction",
         "when": "editorTextFocus && !editorReadonly"
     },
+
     // Console
     {
         "key": "shift shift",
         "command": "workbench.action.showCommands"
     },
+
     // Terminal
     {
         "key": "ctrl ctrl",
@@ -228,18 +234,7 @@
         "command": "workbench.action.terminal.kill",
         "when": "terminal.active && terminalFocus"
     },
-    // Extention: Advanced New File
-    {
-        "key": "ctrl+n",
-        "command": "extension.advancedNewFile",
-        "when": "!terminalFocus"
-    },
-    // Extention: Code Runner
-    {
-        "key": "ctrl+alt+r",
-        "command": "code-runner.run",
-        "when": "editorFocus"
-    },
+
     // Debugger
     {
         "key": "ctrl+r",
@@ -266,10 +261,27 @@
         "command": "workbench.action.debug.stop",
         "when": "inDebugMode && !focusedSessionIsAttach"
     },
+
     // Refactor
     {
         "key": "ctrl+shift+alt+l",
         "command": "editor.action.refactor",
         "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
+    },
+
+    // Extention: Advanced New File
+    {
+        "key": "ctrl+n",
+        "command": "extension.advancedNewFile",
+        "when": "!terminalFocus"
+    },
+
+    // Extention: Code Runner
+    {
+        "key": "ctrl+alt+r",
+        "command": "code-runner.run",
+        "when": "editorFocus"
     }
+
+    // #endregion
 ]

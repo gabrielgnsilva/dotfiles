@@ -43,9 +43,6 @@ source "${XDG_CONFIG_HOME}"/bash/bash_aliases
 source "${XDG_CONFIG_HOME}"/git/git-prompt.sh
 source "${XDG_CONFIG_HOME}"/git/git-completion.bash
 
-# SUGGEST COMMAND
-source /usr/share/doc/pkgfile/command-not-found.bash
-
 # SET VARIABLE IDENTIFYING THE CHROOT YOU WORK IN
 if [[ -z "${debianChroot:-}" && -r /etc/debian_chroot ]]; then
     debianChroot=$(cat /etc/debian_chroot)

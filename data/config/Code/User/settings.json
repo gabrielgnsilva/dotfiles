@@ -95,14 +95,14 @@
     "terminal.integrated.profiles.windows": {
         "Bash": {
             "path": "Git Bash",
-            "args": ["-i", "--login"],
+            "args": ["-i", "-l"],
             "icon": "terminal-bash",
             "color": "terminal.ansiGreen",
             "overrideName": true
         },
         "Server": {
             "path": "Git Bash",
-            "args": ["-i", "--login"],
+            "args": ["-i", "-l"],
             "icon": "terminal-bash",
             "color": "terminal.ansiRed",
             "overrideName": true
@@ -129,7 +129,7 @@
     "terminal.integrated.profiles.linux": {
         "Bash": {
             "path": "bash",
-            "args": ["-i", "--login"],
+            "args": ["-i", "-l"],
             "icon": "terminal-bash",
             "color": "terminal.ansiGreen",
             "overrideName": true
@@ -137,7 +137,7 @@
 
         "Server": {
             "path": "bash",
-            "args": ["-i", "--login"],
+            "args": ["-i", "-l"],
             "icon": "terminal-bash",
             "color": "terminal.ansiRed",
             "overrideName": true

@@ -1,0 +1,126 @@
+/** @format */
+
+/* #region General */
+
+* {
+    font-family: FiraCode Nerd Font;
+    font-size: 12px;
+    border-radius: 0px;
+}
+/* #endregion */
+
+/* #region Modules */
+
+.modules-left {
+    margin-left: 5px;
+}
+
+.modules-center {
+    margin: 0;
+}
+
+.modules-right {
+    margin-right: 5px;
+}
+/* #endregion */
+
+window#waybar {
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+window#waybar.empty #window {
+    background-color: transparent;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+}
+
+button:hover {
+    background: inherit;
+}
+
+#clock,
+#wireplumber,
+#tray,
+#window,
+#workspaces,
+#custom-apps,
+#custom-logout,
+#taskbar,
+#systray {
+    color: @foreground;
+    padding: 0 10px;
+    border-radius: 15px;
+    background-color: @background;
+}
+
+#window {
+    margin: 2px 4px;
+    color: @foreground;
+}
+
+#workspaces,
+#taskbar,
+#systray {
+    padding: 0 5px;
+}
+
+#workspaces button {
+    margin: 4px 3px;
+    background-color: @nm_white;
+    border-radius: 15px;
+    color: @background;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button:hover {
+    background: @nm_yellow;
+}
+
+#workspaces button.active {
+    background-color: @nm_yellow;
+    min-width: 35px;
+}
+
+#workspaces button.urgent {
+    background-color: @urgent;
+}
+
+#taskbar {
+    padding-right: 0px;
+    padding-left: 6px;
+}
+
+#taskbar.empty {
+    background-color: transparent;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @urgent;
+}
+
+#window,
+#clock,
+#custom-apps {
+    padding-top: 2px;
+}
+
+#clock,
+#window,
+#workspaces,
+#custom-apps,
+#taskbar,
+#systray {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}

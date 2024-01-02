@@ -48,7 +48,7 @@ if [[ "$(tty)" = "/dev/tty1" ]] && ! pgrep "${de}" > /dev/null; then
                     gsettings set "${gnome_schema}" font-name "${font_name}"
                 fi
 
-                exec Hyprland
+                Hyprland
             ;;
         * )
             printf "\nSession '%s' not found!" "${de}"

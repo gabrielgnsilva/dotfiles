@@ -359,14 +359,57 @@ function prompt() {
 function configDotfiles() {
 
     local config
+    local skip
+    local promptInput
+    local de
+    local ignore=()
 
-    println "Setting up 'HOME' directory..."
+    ignore=(
+        "Code"
+        "Thunar"
+        "xfce4"
+        "pluma"
+        "less"
+        "wget"
+    )
 
-    # ...
+    promptInput="$(prompt "What Desktop Environment is being used? ")"
+    while true; do
+        println "\nOptions: [Hyprland(1)] or [Qtile(2)]"
+        read -r -p "${promptInput}" yn
+        case "${yn,,}" in
+            "1" | "hyprland" )
+                de="hyprland"
+                break
+                ;;
+            "2" | "qtile" )
+                de="qtile"
+                break
+                ;;
+            * ) : ;;
+        esac
+    done
+
+    if [[ "${de}" == "hyprland" ]]; then
+        ignore+=(
+            "flameshot"
+            "picom"
+            "qtile"
+            "X11"
+        )
+    fi
+
+    if [[ "${de}" == "qtile" ]]; then
+        ignore+=(
+            "hypr"
+            "waybar"
+        )
+    fi
 
     println "Setting up '${XDG_CONFIG_HOME}' directory..."
 
     for config in "${scriptDir}"/data/config/*; do
+        skip=false
 
         if [[ -f "${config}" ]]; then
 
@@ -387,95 +430,87 @@ function configDotfiles() {
 
         sleep 0.1
 
-        case "${config##*/}" in
-            Code | npm | Thunar | xfce4 | pluma | less | wget ) : ;;
-            *)
-                println "Configuring '${config##*/}'"
+        for value in "${ignore[@]}"; do
+            if [[ "${value}" == "${config##*/}" ]]; then
+                skip=true
+            fi
+        done
 
-                rm --force --recursive "${XDG_CONFIG_HOME:?}"/"${config##*/}"
-                ln --force --no-dereference --symbolic "${config}" \
-                    "${XDG_CONFIG_HOME}"
+        if [[ "${skip:-false}" == true ]]; then
+            continue
+        fi
 
-                if [[ "${config##*/}" == "qtile" ]]; then
+        println "Configuring '${config##*/}'"
 
-                    mkdir --parents "${XDG_DATA_HOME:?}"/qtile
-                    touch "${scriptDir}"/data/config/qtile/qtile.log
+        rm --force --recursive "${XDG_CONFIG_HOME:?}"/"${config##*/}"
+        ln --force --no-dereference --symbolic "${config}" \
+            "${XDG_CONFIG_HOME}"
 
-                    rm --force "${XDG_DATA_HOME:?}"/qtile/qtile.log
-                    ln --force --no-dereference --symbolic     \
-                        "${XDG_CONFIG_HOME:?}"/qtile/qtile.log \
-                        "${XDG_DATA_HOME:?}"/qtile/qtile.log
-                fi
+        if [[ "${config##*/}" == "qtile" ]]; then
 
-                if [[ "${config##*/}" == "X11" ]]; then
+            mkdir --parents "${XDG_DATA_HOME:?}"/qtile
+            touch "${scriptDir}"/data/config/qtile/qtile.log
 
-                    ln --force --no-dereference --symbolic       \
-                        "${config}"/xcompose "${HOME}"/.XCompose
-                fi
+            rm --force "${XDG_DATA_HOME:?}"/qtile/qtile.log
+            ln --force --no-dereference --symbolic     \
+                "${XDG_CONFIG_HOME:?}"/qtile/qtile.log \
+                "${XDG_DATA_HOME:?}"/qtile/qtile.log
+        fi
 
-                if [[ "${config##*/}" == "bash" ]]; then
+        if [[ "${config##*/}" == "X11" ]]; then
 
-                    rm --force                  \
-                        "${HOME}"/.bashrc       \
-                        "${HOME}"/.profile      \
-                        "${HOME}"/.bash_logout  \
-                        "${HOME}"/.bash_profile \
-                        "${HOME}"/.bash_history
+            ln --force --no-dereference --symbolic       \
+                "${config}"/xcompose "${HOME}"/.XCompose
+        fi
 
-                    ln --force --no-dereference --symbolic     \
-                        "${config}"/profile "${HOME}"/.profile
-                    ln --force --no-dereference --symbolic             \
-                        "${config}"/bash_logout "${HOME}"/.bash_logout
-                fi
+        if [[ "${config##*/}" == "bash" ]]; then
 
-                if [[ "${config##*/}" == "gtk-3.0" ]]; then
+            rm --force                  \
+                "${HOME}"/.bashrc       \
+                "${HOME}"/.profile      \
+                "${HOME}"/.bash_logout  \
+                "${HOME}"/.bash_profile \
+                "${HOME}"/.bash_history
 
-                    git update-index --no-skip-worktree "${config}"/bookmarks
+            ln --force --no-dereference --symbolic     \
+                "${config}"/profile "${HOME}"/.profile
+            ln --force --no-dereference --symbolic             \
+                "${config}"/bash_logout "${HOME}"/.bash_logout
+        fi
 
-                    if git status --porcelain | grep -q bookmarks; then
-                        rm --force "${config}"/bookmarks
-                        git restore "${config}"/bookmarks
-                    fi
+        if [[ "${config##*/}" == "gtk-3.0" ]]; then
 
-                    git update-index --skip-worktree "${config}"/bookmarks
+            git update-index --no-skip-worktree "${config}"/bookmarks
 
-                    sed --expression "s/CURRENTUSERNAME/${USER}/g"          \
-                        --expression "s|PATH/TO/DOT|${scriptDir}|g"         \
-                        --expression "s|PATH/TO/CFG|${XDG_CONFIG_HOME:?}|g" \
-                        --in-place "${config}"/bookmarks
-                fi
+            if git status --porcelain | grep -q bookmarks; then
+                rm --force "${config}"/bookmarks
+                git restore "${config}"/bookmarks
+            fi
 
-                if [[ "${config##*/}" == "flameshot" ]]; then
+            git update-index --skip-worktree "${config}"/bookmarks
 
-                    git update-index --no-skip-worktree \
-                        "${config}"/flameshot.ini
+            sed --expression "s/CURRENTUSERNAME/${USER}/g"          \
+                --expression "s|PATH/TO/DOT|${scriptDir}|g"         \
+                --expression "s|PATH/TO/CFG|${XDG_CONFIG_HOME:?}|g" \
+                --in-place "${config}"/bookmarks
+        fi
 
-                    if git status --porcelain | grep -q flameshot.ini; then
-                        rm --force "${config}"/flameshot.ini
-                        git restore "${config}"/flameshot.ini
-                    fi
+        if [[ "${config##*/}" == "flameshot" ]]; then
 
-                    git update-index --skip-worktree "${config}"/flameshot.ini
+            git update-index --no-skip-worktree \
+                "${config}"/flameshot.ini
 
-                    sed --expression "s/CURRENTUSERNAME/${USER}/g" \
-                        --in-place "${config}"/flameshot.ini
-                fi
-                ;;
-        esac
+            if git status --porcelain | grep -q flameshot.ini; then
+                rm --force "${config}"/flameshot.ini
+                git restore "${config}"/flameshot.ini
+            fi
+
+            git update-index --skip-worktree "${config}"/flameshot.ini
+
+            sed --expression "s/CURRENTUSERNAME/${USER}/g" \
+                --in-place "${config}"/flameshot.ini
+        fi
     done
-
-    # println "Configuring 'VSCode'"
-
-    # mkdir -v --parents "${XDG_CONFIG_HOME:?}"/Code/User
-
-    # rm --force --recursive "${XDG_CONFIG_HOME:?}"/Code/User/snippets
-
-    # ln --force --no-dereference --symbolic                    \
-    #     "${scriptDir}"/data/config/Code/User/snippets \
-    #     "${XDG_CONFIG_HOME:?}"/Code/User
-    # ln --force --no-dereference --symbolic                  \
-    #     "${scriptDir}"/data/config/Code/User/*.json \
-    #     "${XDG_CONFIG_HOME:?}"/Code/User
 
     println "Configuring 'Thunar'"
 
@@ -554,9 +589,6 @@ function _main() {
     done
 
     if [[ "${allowSetup}" == true ]]; then
-        println "Setting up dotfiles..."
-
-        doCountdown 5 >&3
         configDotfiles
     fi
 

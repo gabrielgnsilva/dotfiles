@@ -43,7 +43,7 @@ case "${session}" in
         run nm-applet
         run udiskie --tray
         run parcellite
-        run lxsession
+        run /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
         exec qtile start
         ;;
     *     )

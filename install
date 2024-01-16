@@ -360,19 +360,19 @@ function configWSL() {
 
     XDG_CONFIG_HOME="${HOME}"/.config
 
-    mkdir .config
-    mkdir .local
-    mkdir .local/bin
-    mkdir Desktop
-    mkdir Documents
-    mkdir Downloads
-    mkdir Music
-    mkdir Pictures
-    mkdir Projects
-    mkdir Public
-    mkdir Repositories
-    mkdir Templates
-    mkdir Videos
+    mkdir "${HOME}"/.config
+    mkdir "${HOME}"/.local
+    mkdir "${HOME}"/.local/bin
+    mkdir "${HOME}"/Desktop
+    mkdir "${HOME}"/Documents
+    mkdir "${HOME}"/Downloads
+    mkdir "${HOME}"/Music
+    mkdir "${HOME}"/Pictures
+    mkdir "${HOME}"/Projects
+    mkdir "${HOME}"/Public
+    mkdir "${HOME}"/Repositories
+    mkdir "${HOME}"/Templates
+    mkdir "${HOME}"/Videos
 
     local config
     local skip

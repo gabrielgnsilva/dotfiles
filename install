@@ -24,13 +24,13 @@
 #+      -l, --log-file      Custom log file location
 #%                          Regex: ^[a-zA-Z0-9_/\.-]+$
 #%
-#+      -s, --setup         Setup dotfiles
+#+      -s, --setup         Setup dotfiles for linux or wsl
 #+
 #=======================================================================
 #+ EXAMPLES
 #%      Example usages of ${scriptName}.
 #+
-#+      $ ${scriptName} -l script.log -s
+#+      $ ${scriptName} -l script.log -s linux
 #%          This example shows how to use the script with the log file
 #%          set to "script.log", and -s which will setup the dotfiles.
 #+
@@ -356,7 +356,85 @@ function prompt() {
 
 # Section: Script Functions
 
-function configDotfiles() {
+function configWSL() {
+
+    XDG_CONFIG_HOME="${HOME}"/.config
+
+    mkdir .config
+    mkdir .local
+    mkdir .local/bin
+    mkdir Desktop
+    mkdir Documents
+    mkdir Downloads
+    mkdir Music
+    mkdir Pictures
+    mkdir Projects
+    mkdir Public
+    mkdir Repositories
+    mkdir Templates
+    mkdir Videos
+
+    local config
+    local skip
+    local promptInput
+    local de
+    local allow=()
+
+    allow=(
+        "bash"
+        "git"
+        "readline"
+        "vim"
+    )
+
+    println "Setting up '${XDG_CONFIG_HOME}' directory..."
+
+    for config in "${scriptDir}"/data/config/*; do
+        skip=true
+
+        for value in "${allow[@]}"; do
+            if [[ "${value}" == "${config##*/}" ]]; then
+                skip=false
+            fi
+        done
+
+        if [[ "${skip}" == true ]]; then
+            continue
+        fi
+
+        println "Configuring '${config##*/}'"
+
+        rm --force --recursive "${XDG_CONFIG_HOME:?}"/"${config##*/}"
+        ln --force --no-dereference --symbolic "${config}" \
+            "${XDG_CONFIG_HOME}"
+
+        if [[ "${config##*/}" == "bash" ]]; then
+
+            rm --force                  \
+                "${HOME}"/.bashrc       \
+                "${HOME}"/.profile      \
+                "${HOME}"/.bash_logout  \
+                "${HOME}"/.bash_profile \
+                "${HOME}"/.bash_history
+
+            ln --force --no-dereference --symbolic     \
+                "${config}"/profile-wsl "${HOME}"/.profile
+            ln --force --no-dereference --symbolic             \
+                "${config}"/bash_logout "${HOME}"/.bash_logout
+        fi
+    done
+
+    println "Configuring 'wget'"
+
+    create --file "${XDG_CONFIG_HOME:?}"/wget/wgetrc
+    create --file "${XDG_CONFIG_HOME:?}"/wget/wget-hsts
+
+    println "Configuring 'less'"
+
+    create --file "${XDG_CONFIG_HOME:?}"/less/lesshst
+}
+
+function configLinuxDotfiles() {
 
     local config
     local skip
@@ -571,13 +649,19 @@ function _main() {
         esac
     done
 
-    local allowSetup=false
+    local setup
 
     cd "${scriptDir}" || exit 1
     while [[ "${#}" -gt 0 ]]; do
         case "${1:-}" in
             -s | --setup )
-                allowSetup=true
+                shift
+                if [[ ! "${1:-}" =~ ^(linux|wsl)$ ]]; then
+                    println "${msgInvalid} \"${1:-}\""
+                    println "${msgTryHelp}"
+                    exit 1
+                fi
+                setup="${1}"
                 ;;
             * )
                 println "${msgInvalid} \"${1:-}\""
@@ -588,8 +672,12 @@ function _main() {
         shift
     done
 
-    if [[ "${allowSetup}" == true ]]; then
-        configDotfiles
+    if [[ "${setup}" == 'linux' ]]; then
+        configLinuxDotfiles
+    fi
+
+    if [[ "${setup}" == 'wsl' ]]; then
+        configWSL
     fi
 
     println "${scriptName}: script completed successfully"

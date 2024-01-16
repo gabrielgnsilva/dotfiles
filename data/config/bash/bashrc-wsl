@@ -63,4 +63,26 @@ if [[ -x /usr/bin/lesspipe ]]; then
     eval "$(SHELL=/bin/sh lesspipe)"
 fi
 
+# IDENTIFY GROUPS THAT "${USER}" IS NOT A MEMBER
+function userGroups() {
+    local groups=( "i2c" "libvirt" )
+    local noGroups=()
+    local IFS=','
+
+    for group in "${groups[@]}"; do
+        if ! groups "${USER}" | grep -q "${group}"; then
+            noGroups+=( "${group}" )
+        fi
+    done
+
+    if [[ "${#noGroups[@]}" -gt 0 ]]; then
+        printf "Consider adding your user to '%s' Group(s).\n" "${noGroups[*]}"
+        printf "\t$ sudo usermod -aG %s %s\n" "${noGroups[*]}" "${USER}"
+    fi
+
+    unset -v noGroups groups group IFS
+}
+userGroups
+
+unset -f userGroups
 unset -v colorPrompt forceColorPrompt debianChroot

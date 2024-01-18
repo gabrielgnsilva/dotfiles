@@ -1,0 +1,344 @@
+{
+    // #region EDITOR SETTINGS
+
+    "breadcrumbs.filePath": "off",
+    "debug.confirmOnExit": "always",
+    "debug.toolBarLocation": "docked",
+    "diffEditor.codeLens": true,
+    "editor.autoClosingDelete": "never",
+    "editor.autoClosingQuotes": "always",
+    "editor.cursorBlinking": "phase",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.find.loop": false,
+    "editor.foldingHighlight": false,
+    "editor.foldingImportsByDefault": true,
+    "editor.inlayHints.padding": true,
+    "editor.lineNumbers": "relative",
+    "editor.linkedEditing": true,
+    "editor.minimap.enabled": false,
+    "editor.mouseWheelZoom": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.padding.bottom": 10,
+    "editor.padding.top": 10,
+    "editor.renderLineHighlight": "gutter",
+    "editor.renderWhitespace": "boundary",
+    "editor.scrollbar.verticalScrollbarSize": 12,
+    "editor.scrollBeyondLastLine": false,
+    "editor.smoothScrolling": true,
+    "editor.snippetSuggestions": "top",
+    "editor.suggest.preview": true,
+    "editor.tabCompletion": "on",
+    "editor.tabSize": 4,
+    "editor.wordBasedSuggestions": "off",
+    "editor.wordWrap": "off",
+    "editor.wordWrapColumn": 79,
+    "emmet.showSuggestionsAsSnippets": true,
+    "explorer.compactFolders": false,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.incrementalNaming": "smart",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "scm.alwaysShowRepositories": true,
+    "scm.repositories.sortOrder": "name",
+    "search.collapseResults": "alwaysCollapse",
+    "security.workspace.trust.startupPrompt": "always",
+    "telemetry.telemetryLevel": "off",
+    "window.confirmBeforeClose": "never",
+    "window.menuBarVisibility": "visible",
+    "window.restoreWindows": "folders",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.openPositioning": "last",
+    "workbench.editor.tabCloseButton": "left",
+    "workbench.editor.tabSizing": "shrink",
+    "workbench.editor.wrapTabs": true,
+    "workbench.list.smoothScrolling": true,
+    "workbench.sideBar.location": "right",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.statusBar.visible": true,
+    "workbench.tree.indent": 16,
+    "workbench.tree.renderIndentGuides": "always",
+    "workbench.view.alwaysShowHeaderActions": true,
+    "workbench.editor.autoLockGroups": {
+        "mainThreadWebview-markdown.preview": true
+    },
+    "editor.rulers": [72, 79, 120],
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "never",
+        "source.sortImports": "explicit"
+    },
+    "editor.quickSuggestions": {
+        "other": "inline",
+        "comments": "inline",
+        "strings": "inline"
+    },
+
+    // Git
+    "git.autofetch": true,
+    "git.branchPrefix": "main",
+    "git.inputValidationSubjectLength": null,
+    "git.suggestSmartCommit": false,
+
+    // Theme
+    "oneDarkPro.editorTheme": "One Dark Pro Darker",
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.preferredDarkColorTheme": "One Dark Pro Darker",
+    "workbench.preferredHighContrastColorTheme": "One Dark Pro Darker",
+    "workbench.preferredHighContrastLightColorTheme": "One Dark Pro Darker",
+    "workbench.preferredLightColorTheme": "One Dark Pro Darker",
+
+    // Windows Terminal
+    "terminal.integrated.profiles.windows": {
+        "Bash": {
+            "path": "Git Bash",
+            "args": ["-i", "-l"],
+            "icon": "terminal-bash",
+            "color": "terminal.ansiGreen",
+            "overrideName": true
+        },
+        "Server": {
+            "path": "Git Bash",
+            "args": ["-i", "-l"],
+            "icon": "terminal-bash",
+            "color": "terminal.ansiRed",
+            "overrideName": true
+        },
+        "Command Prompt": {
+            "path": "C:\\Windows\\System32\\cmd.exe",
+            "args": [""],
+            "icon": "terminal-cmd",
+            "color": "terminal.ansiBlack",
+            "overrideName": true
+        },
+        "PowerShell": {
+            "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "args": [""],
+            "icon": "terminal-powershell",
+            "color": "terminal.ansiBlue",
+            "overrideName": true
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+
+    // Linux Terminal
+
+    "terminal.integrated.profiles.linux": {
+        "Bash": {
+            "path": "bash",
+            "args": ["-i", "-l"],
+            "icon": "terminal-bash",
+            "color": "terminal.ansiGreen",
+            "overrideName": true
+        },
+
+        "Server": {
+            "path": "bash",
+            "args": ["-i", "-l"],
+            "icon": "terminal-bash",
+            "color": "terminal.ansiRed",
+            "overrideName": true
+        },
+        "bash": null,
+        "JavaScript Debug Terminal": null
+    },
+    "terminal.integrated.defaultProfile.linux": "Bash",
+    "terminal.integrated.env.linux": {},
+
+    // Integrated Terminal Settings
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.cursorWidth": 2,
+    "terminal.integrated.cwd": "",
+    "terminal.integrated.drawBoldTextInBrightColors": false,
+    "terminal.integrated.smoothScrolling": true,
+    "terminal.integrated.tabs.focusMode": "singleClick",
+
+    // Editor Font Settings
+    "chat.editor.fontFamily": "FiraCode Nerd Font",
+    "chat.editor.fontSize": 16,
+    "debug.console.fontFamily": "FiraCode Nerd Font",
+    "debug.console.fontSize": 16,
+    "editor.codeLensFontFamily": "FiraCode Nerd Font",
+    "editor.codeLensFontSize": 16,
+    "editor.fontFamily": "FiraCode Nerd Font",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 16,
+    "editor.inlayHints.fontFamily": "FiraCode Nerd Font",
+    "editor.inlayHints.fontSize": 16,
+    "editor.suggestFontSize": 16,
+    "markdown.preview.fontFamily": "FiraCode Nerd Font",
+    "markdown.preview.fontSize": 16,
+    "notebook.markup.fontSize": 16,
+    "notebook.output.fontFamily": "FiraCode Nerd Font",
+    "notebook.output.fontSize": 16,
+    "scm.inputFontFamily": "FiraCode Nerd Font",
+    "scm.inputFontSize": 16,
+    "screencastMode.fontSize": 20,
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font",
+    "terminal.integrated.fontSize": 13,
+
+    // #endregion
+
+    // #region EXTENTIONS SETTINGS
+
+    // Language Specific
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.vscode-pylance"
+    },
+
+    "[css]": {
+        "editor.formatOnSave": true,
+        "editor.suggest.insertMode": "replace",
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "css.format.spaceAroundSelectorSeparator": true,
+
+    "[javascript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    "[html]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "html.completion.attributeDefaultValue": "singlequotes",
+
+    "[json]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    "[jsonc]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    // Prettier
+    "prettier.bracketSameLine": true,
+    "prettier.bracketSpacing": false,
+    "prettier.insertPragma": true,
+    "prettier.singleQuote": true,
+    "prettier.tabWidth": 4,
+    "prettier.useEditorConfig": false,
+
+    // One Dark Pro
+    "oneDarkPro.vivid": false,
+
+    // Material Icon Theme
+    "material-icon-theme.hidesExplorerArrows": true,
+
+    // Git Lens
+    "gitlens.codeLens.enabled": false,
+    "gitlens.showWelcomeOnInstall": false,
+    "gitlens.hovers.currentLine.over": "annotation",
+    "gitlens.currentLine.enabled": true,
+    "gitlens.statusBar.alignment": "left",
+
+    // Better Comments
+    "better-comments.multilineComments": true,
+    "better-comments.highlightPlainText": true,
+    "better-comments.tags": [
+        {
+            "tag": "!",
+            "color": "#FF3131",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "?",
+            "color": "#83EEFF",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "done",
+            "color": "#39FF14",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "todo",
+            "color": "#FF5F1F",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "#region",
+            "color": "#FFF01F",
+            "strikethrough": false,
+            "underline": true,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        }
+    ],
+
+    // Live Server
+    "liveServer.settings.donotShowInfoMsg": true,
+
+    // Shellcheck
+    "shellcheck.enable": true,
+    "shellcheck.exclude": ["SC2312", "SC2154", "SC1090", "SC2016"],
+    "shellcheck.customArgs": [
+        "--external-sources",
+        "--source-path=SCRIPTDIR",
+        "--enable=all",
+        "--format=tty"
+    ],
+
+    // Color Highlight
+    "color-highlight.markRuler": false,
+
+    // Rainbow CSV
+    "rainbow_csv.autodetect_separators": ["TAB", ",", ";", "|", "æ"],
+
+    // Code Runner
+    "code-runner.enableAppInsights": false,
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.temporaryFileName": "TempCodeRun",
+
+    // Python
+    "python.defaultInterpreterPath": "C:\\Users\\gabri\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+
+    // Remote Development
+    "remote.downloadExtensionsLocally": true,
+
+    // Advanced New File
+    "advancedNewFile.convenienceOptions": ["current", "root", "last"],
+
+    // Github Copilot
+    "github.copilot.enable": {
+        "*": false,
+        "markdown": true,
+        "javascript": true,
+        "html": true,
+        "css": true,
+        "python": true,
+        "shellscript": true,
+        "jsonc": true,
+        "json": true
+    },
+    "workbench.editor.empty.hint": "text",
+    "workbench.editor.tabActionLocation": "left"
+
+    // #endregion
+}

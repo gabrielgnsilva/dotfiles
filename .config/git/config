@@ -1,0 +1,18 @@
+[core]
+    editor = vim
+
+[user]
+    name = Gabriel Nascimento
+    email = 135087316+gabrielgnsilva@users.noreply.github.com
+
+[init]
+    defaultBranch = main
+
+[diff]
+    tool = nvimdiff
+
+[difftool "nvimdiff"]
+    cmd = vim -d $LOCAL $REMOTE
+
+[credential]
+    helper = /usr/lib/git-core/git-credential-libsecret

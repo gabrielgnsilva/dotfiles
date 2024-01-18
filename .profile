@@ -11,4 +11,4 @@ export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
 
 # BASHRC
-source "${XDG_CONFIG_HOME}"/bash/bashrc-wsl
+source "${XDG_CONFIG_HOME}"/bash/bashrc

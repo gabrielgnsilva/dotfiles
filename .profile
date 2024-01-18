@@ -1,0 +1,1 @@
+/home/gnascsilva/.local/olddotfiles/data/config/bash/profile

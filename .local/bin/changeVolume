@@ -1,0 +1,102 @@
+#!/bin/bash
+# Change the volume for the current audio session (PulseAudio or PipeWire)
+
+function getsession() {
+
+    local cmd
+    cmd=$(pactl info | grep -i 'server name:')
+
+    if [[ "${cmd}" =~ .*"on PipeWire".* ]]; then
+        printf "PipeWire"
+    fi
+    if [[ "${cmd}" =~ .*"pulseaudio"$ ]]; then
+        printf "PulseAudio"
+    fi
+
+    unset -v cmd
+}
+
+function getvolume() {
+
+    local audio_session
+    audio_session="${1}"
+    shift
+
+    if [[ "${audio_session}" == "PipeWire" ]]; then
+        printf "%s" "$(pamixer --get-volume)"
+    fi
+    if [[ "${audio_session}" == "PulseAudio" ]]; then
+        printf "%s" "$(pulsemixer --get-volume)"
+    fi
+
+    unset -v audio_session
+}
+
+function getmute() {
+
+    local audio_session
+    audio_session="${1}"
+    shift
+
+    if [[ "${audio_session}" == "PipeWire" ]]; then
+        printf "%s" "$(pamixer --get-mute)"
+    fi
+    if [[ "${audio_session}" == "PulseAudio" ]]; then
+        printf "%s" "$(pulsemixer --get-mute)"
+    fi
+
+    unset -v audio_session
+}
+
+    # pulsemixer --change-volume "${@}" --max-volume 100
+
+function main() {
+    if [[ "${#}" -lt 1 && "${#}" -gt 1 ]]; then
+        exit 1
+    fi
+
+    if [[ ! "$1" =~ ^[-+][0-9]+$ ]]; then
+        printf "The input does not match the required pattern (+ or - followed by numbers).\n"
+        exit 1
+    fi
+
+    local session
+    local msgTag
+    local currentvol
+    local mute
+    local volume
+
+    volume="${1}"
+    shift
+
+    session="$(getsession)"
+
+    if [[ "${session}" == "PipeWire" && "${volume}" =~ ^[+][0-9]+$ ]]; then
+        pamixer --increase "${volume#+}"
+    fi
+    if [[ "${session}" == "PipeWire" && "${volume}" =~ ^[-][0-9]+$ ]]; then
+        pamixer --decrease "${volume#-}"
+    fi
+
+    currentvol="$(getvolume "${session}")"
+    mute="$(getmute "${session}")"
+    msgTag="myvolume"
+
+    if [[ "${mute}" == "true" ]]; then
+        # Show the sound muted notification
+        dunstify -a "Volume Icon MUTED" -u low -i audio-volume-muted -h string:x-dunst-stack-tag:"${msgTag}" \
+            -h int:value:"${currentvol}" "Volume Muted !"
+    else
+        # Show the volume notification
+        dunstify -a "Volume Icon" -u low -i audio-volume-high -h string:x-dunst-stack-tag:"${msgTag}" \
+            -h int:value:"${currentvol}" "Volume: ${currentvol}%"
+    fi
+
+    unset -v session msgTag currentvol mute volume
+    unset -f getsession getvolume getmute main
+}
+
+# Invoke main with args only if not sourced
+if ! (return 0 2> /dev/null); then
+    main "${@}"
+fi

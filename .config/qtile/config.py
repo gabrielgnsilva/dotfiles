@@ -155,7 +155,7 @@ def getGroupState(group_name):
 
 @lazy.function
 def moveFloatingWindowOnGroupChangeNext(qtile):
-    qtilegroups = qtile.cmd_groups()
+    qtilegroups = qtile.get_groups()
     current_group = qtile.current_group.name
     next_group = str(int(current_group)+1)
     next_group_state = getGroupState(next_group)
@@ -198,7 +198,7 @@ def moveFloatingWindowOnGroupChangeNext(qtile):
 @lazy.function
 def moveFloatingWindowOnGroupChangePrev(qtile):
     groups_list = [group.name for group in qtile.groups if group.name != "scratchpad"]  # noqa E501
-    qtilegroups = qtile.cmd_groups()
+    qtilegroups = qtile.get_groups()
     current_group = qtile.current_group.name
     prev_group = str(int(current_group)-1)
     prev_group_state = getGroupState(prev_group)
@@ -250,10 +250,10 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
 
     # Resize Floating Window
 
-    ([mod, "control", "mod1"], "l", resizeFloatingWindow(width=50)),
-    ([mod, "control", "mod1"], "j", resizeFloatingWindow(width=-50)),
-    ([mod, "control", "mod1"], "k", resizeFloatingWindow(height=50)),
-    ([mod, "control", "mod1"], "i", resizeFloatingWindow(height=-50)),
+    ([mod, "shift", "mod1"], "l", resizeFloatingWindow(width=50)),
+    ([mod, "shift", "mod1"], "j", resizeFloatingWindow(width=-50)),
+    ([mod, "shift", "mod1"], "k", resizeFloatingWindow(height=50)),
+    ([mod, "shift", "mod1"], "i", resizeFloatingWindow(height=-50)),
 
     # Move Focus
 
@@ -264,18 +264,18 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
 
     # Move Window
 
-    ([mod, "shift"], "i", lazy.layout.shuffle_up()),
-    ([mod, "shift"], "j", lazy.layout.swap_left()),
-    ([mod, "shift"], "k", lazy.layout.shuffle_down()),
-    ([mod, "shift"], "l", lazy.layout.swap_right()),
+    ([mod, "control"], "i", lazy.layout.shuffle_up()),
+    ([mod, "control"], "j", lazy.layout.swap_left()),
+    ([mod, "control"], "k", lazy.layout.shuffle_down()),
+    ([mod, "control"], "l", lazy.layout.swap_right()),
     ([mod], "space", lazy.layout.flip()),
 
     # Resize Window
 
-    ([mod, "control"], "i", lazy.layout.grow()),
-    ([mod, "control"], "j", lazy.layout.shrink_main()),
-    ([mod, "control"], "k", lazy.layout.shrink()),
-    ([mod, "control"], "l", lazy.layout.grow_main()),
+    ([mod, "shift"], "i", lazy.layout.grow()),
+    ([mod, "shift"], "j", lazy.layout.shrink_main()),
+    ([mod, "shift"], "k", lazy.layout.shrink()),
+    ([mod, "shift"], "l", lazy.layout.grow_main()),
     ([mod], "f", lazy.layout.maximize()),
     ([mod], "n", lazy.layout.normalize()),
     ([mod, "control"], "space", lazy.layout.reset()),
@@ -308,7 +308,7 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "period", lazy.spawn("rofi -modi emoji -show emoji")),
     ([mod], "b", lazy.spawn("changebg")),
     ([mod], "q", lazy.spawn("firefox")),
-    ([mod], "w", lazy.spawn("code")),
+    ([mod], "w", lazy.spawn(terminal + " -e vim")),
     ([mod], "e", lazy.spawn("thunar")),
     ([mod], "g", lazy.spawn(terminal + " -e htop")),
 

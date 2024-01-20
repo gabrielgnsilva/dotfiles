@@ -226,6 +226,7 @@
     "prettier.singleQuote": true,
     "prettier.tabWidth": 4,
     "prettier.useEditorConfig": false,
+    "prettier.printWidth": 9999,
 
     // One Dark Pro
     "oneDarkPro.vivid": false,

@@ -2,16 +2,16 @@
 
 # PATH
 export PATH="${PATH}":"${HOME}"/.local/bin
+export PATH="${PATH}":/usr/local/lib/java/jdk1.8.0_202/bin/
 
 # ENVIRONMENT VARIABLES
-export DOTFILES="${HOME}"/.local/dotfiles
 export GNUPGHOME="${XDG_DATA_HOME}"/gnupg
 export GTK2_RC_FILES="${XDG_CONFIG_HOME}"/gtk-2.0/gtkrc-2.0
 export INPUTRC="${XDG_CONFIG_HOME}"/readline/inputrc
 export LESSHISTFILE="${XDG_CONFIG_HOME}"/less/lesshst
 export QT_STYLE_OVERRIDE=kvantum
 export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
-#export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/lua/custom/init.lua" | source $MYVIMRC'
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
 
 # BASHRC
 source "${XDG_CONFIG_HOME}"/bash/bashrc

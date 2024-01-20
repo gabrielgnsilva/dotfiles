@@ -17,7 +17,7 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
 source "${XDG_CONFIG_HOME}"/bash/bashrc
 
 # SESSION
-de="Hyprland"  # Desktop Environment
+de="qtile"  # Desktop Environment
 if [[ "$(tty)" = "/dev/tty1" ]] && ! pgrep "${de}" > /dev/null; then
     case "${de,,}" in
         'qtile' )

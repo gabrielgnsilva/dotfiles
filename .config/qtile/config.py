@@ -19,7 +19,7 @@ bring_front_click = "floating_only"
 cursor_warp = False
 dgroups_key_binder = None
 dgroups_app_rules = []
-follow_mouse_focus = False
+follow_mouse_focus = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
 auto_minimize = True
@@ -283,8 +283,8 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # Window Commands
 
     ([mod, "shift"], "c", lazy.spawn("xkill")),
-    ([mod], "c", lazy.window.toggle_minimize()),
-    ([mod, "control"], "c", lazy.window.kill()),
+    ([mod], "c", lazy.window.kill()),
+    ([mod, "control"], "c", lazy.window.toggle_minimize()),
     ([mod], "v", lazy.window.toggle_floating()),
     ([mod, "control"], "f", lazy.window.toggle_fullscreen()),
 
@@ -504,7 +504,7 @@ def Launcher(i, c):
         fontsize=18,
         padding=0,
         foreground=c,
-        mouse_callbacks={"Button1": lazy.spawn("rofi-launcher")}
+        mouse_callbacks={"Button1": lazy.spawn("rofi-app_launcher")}
     )
     return launcher
 
@@ -538,7 +538,7 @@ def QuickExit(i, c):
         foreground=c,
         default_text=i,
         fontsize=18,
-        mouse_callbacks={"Button1": lazy.spawn("rofi-exitmenu")}
+        mouse_callbacks={"Button1": lazy.spawn("rofi-exit_menu")}
     )
     return quickexit
 

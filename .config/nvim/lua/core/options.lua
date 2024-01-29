@@ -10,7 +10,7 @@ opt.relativenumber = true
 -- Tabs and Indentation
 opt.tabstop = 4
 opt.shiftwidth = 4
-opt.softtabstop= 4
+opt.softtabstop = 4
 opt.expandtab = true
 opt.smartindent = true
 
@@ -32,10 +32,9 @@ opt.ignorecase = true
 opt.termguicolors = true
 opt.signcolumn = "yes"
 opt.colorcolumn = "80"
-
--- Split windows
--- opt.splitright = true
--- opt.splitleft = true
+opt.syntax = "on"
+opt.list = true
+opt.listchars = "tab:+-+,multispace:·,trail:·"
 
 -- Clipboard
 opt.clipboard:append("unnamedplus")

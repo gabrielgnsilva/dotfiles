@@ -5,7 +5,7 @@ return {
         "linrongbin16/lsp-progress.nvim"
     },
 
-    opts={
+    opts = {
         options = {
             theme = "onedark"
         },
@@ -15,7 +15,11 @@ return {
                     "filename",
                     file_status = true,     -- File status (Readonly, modified, etc.)
                     newfile_status = false, -- New file status
-                    path = 4,               -- 0 (Filename), 1 (Relative), 2 (Absolute), 3 (Absolute, with tilde as homedir), 4 (Filename and parent dir, with tilde as homedir)
+                    path = 4,               -- 0 (Filename)
+                    -- 1 (Relative)
+                    -- 2 (Absolute)
+                    -- 3 (Absolute, with tilde as homedir)
+                    -- 4 (Filename and parent dir, with tilde as homedir)
                     symbols = {
                         modified = "[+]",
                         readonly = "[-]"
@@ -33,7 +37,11 @@ return {
                         if not package.loaded["copilot"] then
                             return
                         end
-                        local ok, clients = pcall(require("lazyvim.util").lsp.get_clients, { name = "copilot", bufnr = 0 })
+                        local ok, clients = pcall(
+                            require("lazyvim.util").lsp.get_clients, {
+                                name = "copilot",
+                                bufnr = 0,
+                            })
                         if not ok then
                             return false
                         end

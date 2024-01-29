@@ -12,8 +12,12 @@ keymap.set('v', 'J', ":move '>+1<CR>gv=gv", {desc = "Move line down"})
 -- Append the line below to the current line while preserving cursor position
 keymap.set("n", "J", "mzJ`z", { desc = "Append line below to current line" })
 
+-- Add a new line above or below the current line
+keymap.set("n", "<leader>nj", "o<Esc>\"_D", { desc = "Add new line below" })
+keymap.set("n", "<leader>nk", "O<Esc>\"_D", { desc = "Add new line above" })
+
 -- Move page up or down while positioning the cursor on the center of the screen
-keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Move page down" })
+keymap.set("n", "<C-n>", "<C-d>zz", { desc = "Move page down" })
 keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Move page up" })
 
 -- When searching, center the screen on the current match
@@ -50,7 +54,7 @@ keymap.set("n", "<leader>se", "<C-w>=", {desc = "Equalize window sizes"})
 keymap.set("n", "<leader>cw", ":close<CR>", {desc = "Close window"})
 
 -- Split window resizing
-keymap.set("n", "<C-k>", "<C-w>+", {desc = "Increase window height"})
+keymap.set("n", "<C-k>", "<C-w>+", { desc = "Increase window height" })
 keymap.set("n", "<C-j>", "<C-w>-", {desc = "Decrease window height"})
 keymap.set("n", "<C-l>", "<C-w><5", {desc = "Decrease window width"})
 keymap.set("n", "<C-h>", "<C-w>>5", {desc = "Increase window width"})
@@ -63,7 +67,7 @@ keymap.set("n", "<C-h>", "<C-w>>5", {desc = "Increase window width"})
 -- TODO
 
 -- Nvim-tree
-keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", {desc = "Toggle Nvim-tree"})
+keymap.set("n", "<C-d>", ":NvimTreeToggle<CR>", {desc = "Toggle Nvim-tree"})
 
 -- Telescope
 keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", {desc = "Fuzzy find files"})
@@ -87,4 +91,4 @@ keymap.set("n", "<C-c>", ":Commentary<CR>", {desc = "Comment line"})
 keymap.set("v", "<C-c>", ":Commentary<CR>", { desc = "Comment selection" })
 
 -- TreeSJ
-keymap.set("n", "<C-d>", ":TSJToggle<CR>", {desc = "Toggle block splitting"})
+keymap.set("n", "<C-i>", ":TSJToggle<CR>", { desc = "Toggle block splitting" })

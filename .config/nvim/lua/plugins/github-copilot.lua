@@ -3,20 +3,15 @@ return {
     "github/copilot.vim",
     cmd = "Copilot",
     build = ":Copilot auth",
-    opts = {
-        suggestion = {
-            enabled = false,
-        },
-        panel = {
-            enabled = false,
-        },
-        filetypes = {
+    opts = {},
+    config = function()
+        vim.g.copilot_filetypes = {
+            ["*"] = false,
             javascript = true,
             html = true,
             css = true,
             markdown = true,
             lua = true,
         }
-    }
+    end
 }
-

@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 -- Cursor
-opt.guicursor = { 'a:ver25' }
+-- opt.guicursor = { 'a:ver25' }
 
 -- Line numbers
 opt.nu = true

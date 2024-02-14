@@ -16,6 +16,30 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
 # BASHRC
 source "${XDG_CONFIG_HOME}"/bash/bashrc
 
+function setGSettings() {
+    local gnome_schema="org.gnome.desktop.interface"
+
+    gsettings set "${gnome_schema}" gtk-theme "$(grep 'gtk-theme-name' "${1}" | sed 's/.*\s*=\s*//')"
+    gsettings set "${gnome_schema}" icon-theme "$(grep 'gtk-icon-theme-name' "${1}" | sed 's/.*\s*=\s*//')"
+    gsettings set "${gnome_schema}" cursor-theme "$(grep 'gtk-cursor-theme-name' "${1}" | sed 's/.*\s*=\s*//')"
+    gsettings set "${gnome_schema}" font-name "$(grep 'gtk-font-name' "${1}" | sed 's/.*\s*=\s*//')"
+
+    gsettings set "${gnome_schema}" cursor-size "$(grep 'gtk-cursor-theme-size' "${1}" | sed 's/.*\s*=\s*//')"
+    gsettings set "${gnome_schema}" toolbar-style "$(grep 'gtk-toolbar-style' "${1}" | sed 's/.*\s*=\s*//')"
+    gsettings set "${gnome_schema}" toolbar-icons-size "$(grep 'gtk-toolbar-icon-size' "${1}" | sed 's/.*\s*=\s*//')"
+    # gsettings set "${gnome_schema}" icon-sizes "$(grep 'gtk-icon-sizes ' "${1}" | sed 's/.*\s*=\s*//')"
+    # gsettings set "${gnome_schema}" menu-images "$(grep 'gtk-menu-images' "${1}" | sed 's/.*\s*=\s*//')"
+    # gsettings set "${gnome_schema}" menu-popup-delay "$(grep 'gtk-menu-popup-delay ' "${1}" | sed 's/.*\s*=\s*//')"
+    # gsettings set "${gnome_schema}" button-images "$(grep 'gtk-button-images' "${1}" | sed 's/.*\s*=\s*//')"
+    # gsettings set "${gnome_schema}" enable-event-sounds "$(grep 'gtk-enable-event-sounds' "${1}" | sed 's/.*\s*=\s*//')"
+    # gsettings set "${gnome_schema}" enable-input-feedback-sounds "$(grep 'gtk-enable-input-feedback-sounds' "${1}" | sed 's/.*\s*=\s*//')"
+    gsettings set "${gnome_schema}" font-antialiasing "$(grep 'gtk-xft-antialias' "${1}" | sed 's/.*\s*=\s*//')"
+    gsettings set "${gnome_schema}" font-hinting "$(grep 'gtk-xft-hinting' "${1}" | sed 's/.*\s*=\s*//')"
+    gsettings set "${gnome_schema}" font-rgba-order "$(grep 'gtk-xft-rgba' "${1}" | sed 's/.*\s*=\s*//')"
+    # gsettings set "${gnome_schema}" application-prefer-dark-theme "$(grep 'gtk-application-prefer-dark-theme' "${1}" | sed 's/.*\s*=\s*//')"
+    # gsettings set "${gnome_schema}" decoration-layout "$(grep 'gtk-decoration-layout' "${1}" | sed 's/.*\s*=\s*//')"
+}
+
 # SESSION
 de="Hyprland"  # Desktop Environment
 if [[ "$(tty)" = "/dev/tty1" ]] && ! pgrep "${de}" > /dev/null; then
@@ -38,15 +62,7 @@ if [[ "$(tty)" = "/dev/tty1" ]] && ! pgrep "${de}" > /dev/null; then
                 # Fix gtk settings.ini not appling when using Hyprland
                 config="${XDG_CONFIG_HOME}/gtk-3.0/settings.ini"
                 if [[ -f "${config}" ]]; then
-                    gnome_schema="org.gnome.desktop.interface"
-                    gtk_theme="$(grep 'gtk-theme-name' "${config}" | sed 's/.*\s*=\s*//')"
-                    icon_theme="$(grep 'gtk-icon-theme-name' "${config}" | sed 's/.*\s*=\s*//')"
-                    cursor_theme="$(grep 'gtk-cursor-theme-name' "${config}" | sed 's/.*\s*=\s*//')"
-                    font_name="$(grep 'gtk-font-name' "${config}" | sed 's/.*\s*=\s*//')"
-                    gsettings set "${gnome_schema}" gtk-theme "${gtk_theme}"
-                    gsettings set "${gnome_schema}" icon-theme "${icon_theme}"
-                    gsettings set "${gnome_schema}" cursor-theme "${cursor_theme}"
-                    gsettings set "${gnome_schema}" font-name "${font_name}"
+                    setGSettings "${config}"
                 fi
 
                 Hyprland
@@ -57,4 +73,5 @@ if [[ "$(tty)" = "/dev/tty1" ]] && ! pgrep "${de}" > /dev/null; then
     esac
 fi
 
-unset -v de
+unset -f setGSettings
+unset -v de gnome_schema gtk_theme icon_theme cursor_theme font_name

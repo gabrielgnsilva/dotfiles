@@ -244,36 +244,36 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # Move Floating Window
 
     ([mod, "mod1"], "l", moveFloatingWindow(x=50)),
-    ([mod, "mod1"], "j", moveFloatingWindow(x=-50)),
-    ([mod, "mod1"], "k", moveFloatingWindow(y=50)),
-    ([mod, "mod1"], "i", moveFloatingWindow(y=-50)),
+    ([mod, "mod1"], "h", moveFloatingWindow(x=-50)),
+    ([mod, "mod1"], "j", moveFloatingWindow(y=50)),
+    ([mod, "mod1"], "k", moveFloatingWindow(y=-50)),
 
     # Resize Floating Window
 
     ([mod, "shift", "mod1"], "l", resizeFloatingWindow(width=50)),
-    ([mod, "shift", "mod1"], "j", resizeFloatingWindow(width=-50)),
-    ([mod, "shift", "mod1"], "k", resizeFloatingWindow(height=50)),
-    ([mod, "shift", "mod1"], "i", resizeFloatingWindow(height=-50)),
+    ([mod, "shift", "mod1"], "h", resizeFloatingWindow(width=-50)),
+    ([mod, "shift", "mod1"], "j", resizeFloatingWindow(height=50)),
+    ([mod, "shift", "mod1"], "k", resizeFloatingWindow(height=-50)),
 
     # Move Focus
 
-    ([mod], "i", lazy.layout.up()),
-    ([mod], "j", lazy.layout.left()),
-    ([mod], "k", lazy.layout.down()),
+    ([mod], "k", lazy.layout.up()),
+    ([mod], "h", lazy.layout.left()),
+    ([mod], "j", lazy.layout.down()),
     ([mod], "l", lazy.layout.right()),
 
     # Move Window
 
-    ([mod, "control"], "i", lazy.layout.shuffle_up()),
-    ([mod, "control"], "j", lazy.layout.swap_left()),
-    ([mod, "control"], "k", lazy.layout.shuffle_down()),
+    ([mod, "control"], "k", lazy.layout.shuffle_up()),
+    ([mod, "control"], "h", lazy.layout.swap_left()),
+    ([mod, "control"], "j", lazy.layout.shuffle_down()),
     ([mod, "control"], "l", lazy.layout.swap_right()),
     ([mod], "space", lazy.layout.flip()),
 
     # Resize Window
 
-    ([mod, "shift"], "i", lazy.layout.grow()),
-    ([mod, "shift"], "j", lazy.layout.shrink_main()),
+    ([mod, "shift"], "j", lazy.layout.grow()),
+    ([mod, "shift"], "h", lazy.layout.shrink_main()),
     ([mod, "shift"], "k", lazy.layout.shrink()),
     ([mod, "shift"], "l", lazy.layout.grow_main()),
     ([mod], "f", lazy.layout.maximize()),
@@ -294,11 +294,11 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
 
     # Session Commands
 
-    ([mod], "BackSpace", lazy.reload_config()),
-    ([mod, "control"], "BackSpace", lazy.restart()),
-    ([mod], "Delete", lazy.spawn("slock")),
-    ([mod, "control"], "Delete", lazy.shutdown()),
-    ([mod, "shift"], "Delete", lazy.spawn("systemctl suspend")),
+    ([mod, "shift"], "r", lazy.reload_config()),
+    ([mod, "control"], "r", lazy.restart()),
+    ([mod], "Backspace", lazy.spawn("slock")),
+    ([mod, "control"], "Backspace", lazy.shutdown()),
+    ([mod, "shift"], "Backspace", lazy.spawn("systemctl suspend")),
 
     # Applications
 
@@ -308,7 +308,7 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "period", lazy.spawn("rofi -modi emoji -show emoji")),
     ([mod], "b", lazy.spawn("changebg")),
     ([mod], "q", lazy.spawn("firefox")),
-    ([mod], "w", lazy.spawn(terminal + " -e vim")),
+    # ([mod], "w", lazy.spawn(terminal + " -e sleep 1; nvim")),
     ([mod], "e", lazy.spawn("thunar")),
     ([mod], "g", lazy.spawn(terminal + " -e htop")),
 
@@ -324,17 +324,17 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
 
     # Groups manipulation
 
-    ([mod], "tab", lazy.screen.next_group()),
-    ([mod, "shift"], "tab", lazy.screen.prev_group()),
+    ([mod, "control"], "tab", lazy.screen.next_group()),
+    ([mod, "control", "shift"], "tab", lazy.screen.prev_group()),
 
-    ([mod], "period", lazy.screen.next_group()),
-    ([mod], "comma", lazy.screen.prev_group()),
+    ([mod, "control"], "period", lazy.screen.next_group()),
+    ([mod, "control"], "comma", lazy.screen.prev_group()),
 
-    ([mod, "control"], "period", moveFloatingWindowOnGroupChangeNext()),
-    ([mod, "control"], "comma", moveFloatingWindowOnGroupChangePrev()),
+    ([mod], "period", moveFloatingWindowOnGroupChangeNext()),
+    ([mod], "comma", moveFloatingWindowOnGroupChangePrev()),
 
-    ([mod, "control"], "tab", moveFloatingWindowOnGroupChangeNext()),
-    ([mod, "control", "shift"], "tab", moveFloatingWindowOnGroupChangePrev()),
+    ([mod], "tab", moveFloatingWindowOnGroupChangeNext()),
+    ([mod, "shift"], "tab", moveFloatingWindowOnGroupChangePrev()),
 
     # Scratchpads
 

@@ -3,7 +3,6 @@
 # PATH
 export PATH="${PATH}":"${HOME}"/.local/bin
 export PATH="${PATH}":/usr/local/lib/java/jdk1.8.0_202/bin/
-
 # ENVIRONMENT VARIABLES
 export GNUPGHOME="${XDG_DATA_HOME}"/gnupg
 export GTK2_RC_FILES="${XDG_CONFIG_HOME}"/gtk-2.0/gtkrc-2.0
@@ -54,6 +53,7 @@ if [[ "$(tty)" = "/dev/tty1" ]] && ! pgrep "${de}" > /dev/null; then
                 ;;
         'hyprland' )
 
+                export XCOMPOSEFILE="${XDG_CONFIG_HOME}"/X11/xcompose
                 export XDG_CURRENT_DESKTOP=Hyprland
                 export XDG_SESSION_DESKTOP=Hyprland
                 export XDG_SESSION_TYPE=wayland

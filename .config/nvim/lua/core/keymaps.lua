@@ -4,6 +4,7 @@ local keymap = vim.keymap
 keymap.set("n", "<leader>wq", "<cmd>wq<CR>", {desc = "Save and quit"})
 keymap.set("n", "<leader>qq", "<cmd>q!<CR>", {desc = "Quit without saving"})
 keymap.set("n", "<C-s>", "<cmd>w<CR>", {desc = "Save"})
+keymap.set("i", "jj", "<Esc>", {desc = "Escape"})
 
 -- Move lines with visual while preserving selection and autoindenting
 keymap.set('v', 'K', ":move '<-2<CR>gv=gv", {desc = "Move line up"})

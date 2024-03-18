@@ -3,6 +3,7 @@
 # PATH
 export PATH="${PATH}":"${HOME}"/.local/bin
 export PATH="${PATH}":/usr/local/lib/java/jdk1.8.0_202/bin/
+
 # ENVIRONMENT VARIABLES
 export GNUPGHOME="${XDG_DATA_HOME}"/gnupg
 export GTK2_RC_FILES="${XDG_CONFIG_HOME}"/gtk-2.0/gtkrc-2.0
@@ -44,28 +45,28 @@ de="Hyprland"  # Desktop Environment
 if [[ "$(tty)" = "/dev/tty1" ]] && ! pgrep "${de}" > /dev/null; then
     case "${de,,}" in
         'qtile' )
-        echo "qtile"
-                export XAUTHORITY="${XDG_RUNTIME_DIR}"/Xauthority
-                export XCOMPOSEFILE="${XDG_CONFIG_HOME}"/X11/xcompose
-                export XINITRC="${XDG_CONFIG_HOME}"/X11/xinitrc
+            export XAUTHORITY="${XDG_RUNTIME_DIR}"/Xauthority
+            export XCOMPOSEFILE="${XDG_CONFIG_HOME}"/X11/xcompose
+            export XINITRC="${XDG_CONFIG_HOME}"/X11/xinitrc
+            export XDG_CURRENT_DESKTOP=Qtile
+            export XDG_SESSION_DESKTOP=Qtile
 
-                startx "${XINITRC}" "${de}" &> /dev/null
-                ;;
+            startx "${XINITRC}" "${de}" &> /dev/null
+            ;;
         'hyprland' )
+            export XCOMPOSEFILE="${XDG_CONFIG_HOME}"/X11/xcompose
+            export XDG_CURRENT_DESKTOP=Hyprland
+            export XDG_SESSION_DESKTOP=Hyprland
+            export XDG_SESSION_TYPE=wayland
+            export QT_QPA_PLATFORM=wayland
 
-                export XCOMPOSEFILE="${XDG_CONFIG_HOME}"/X11/xcompose
-                export XDG_CURRENT_DESKTOP=Hyprland
-                export XDG_SESSION_DESKTOP=Hyprland
-                export XDG_SESSION_TYPE=wayland
-                export QT_QPA_PLATFORM=wayland
+            # Fix gtk settings.ini not appling when using Hyprland
+            config="${XDG_CONFIG_HOME}/gtk-3.0/settings.ini"
+            if [[ -f "${config}" ]]; then
+                setGSettings "${config}"
+            fi
 
-                # Fix gtk settings.ini not appling when using Hyprland
-                config="${XDG_CONFIG_HOME}/gtk-3.0/settings.ini"
-                if [[ -f "${config}" ]]; then
-                    setGSettings "${config}"
-                fi
-
-                Hyprland
+            Hyprland
             ;;
         * )
             printf "\nSession '%s' not found!" "${de}"

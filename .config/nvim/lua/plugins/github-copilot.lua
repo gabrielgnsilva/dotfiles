@@ -12,6 +12,8 @@ return {
             css = true,
             markdown = true,
             lua = true,
+            sh = true,
+            bash = true,
         }
     end
 }

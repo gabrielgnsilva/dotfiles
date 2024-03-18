@@ -1,24 +1,61 @@
 #!/bin/bash
 
-options=(
-    "󰐦 Power Off"
-    "󰜉 Restart"
-    "󰍁 Lock"
-    "󰒲 Suspend"
-    "󰗽 Log out"
-    "󱂬 Restart Window Manager"
-)
+function exitWM() {
+    if [[ "${XDG_CURRENT_DESKTOP}" == "Hyprland" ]]; then
+        hyprctl dispatch exit
+    elif [[ "${XDG_CURRENT_DESKTOP}" == "Qtile" ]]; then
+        qtile cmd-obj -o cmd -f shutdown
+    else
+        loginctl terminate-user "${USER}"
+    fi
+}
 
-chosen=$(printf "%s\n" "${options[@]}" | rofi -dmenu -i -theme-str '@import "config.rasi"')
+function restartWM() {
+    if [[ "${XDG_CURRENT_DESKTOP}" == "Hyprland" ]]; then
+        hypr-launch_waybar
+    elif [[ "${XDG_CURRENT_DESKTOP}" == "Qtile" ]]; then
+        qtile cmd-obj -o cmd -f restart
+    fi
+}
 
-case "${chosen}" in
-    "󰐦 Power Off"              ) poweroff                         ;;
-    "󰜉 Restart"                ) reboot                           ;;
-    "󰍁 Lock"                   ) slock                            ;;
-    "󰒲 Suspend"                ) systemctl suspend                ;;
-    "󰗽 Log out"                ) qtile cmd-obj -o cmd -f shutdown ;;
-    "󱂬 Restart Window Manager" ) qtile cmd-obj -o cmd -f restart  ;;
-    *                          ) exit 1                           ;;
-esac
+function main(){
+    local config=""
+    config+="mainbox {"
+    config+="   children: [message, listview];"
+    config+="}"
+    config+=""
+    config+="window {"
+    config+="    location: north east;"
+    config+="    x-offset: -4px;"
+    config+="}"
+    config+=""
+    config+="listview {"
+    config+="    lines: 3;"
+    config+="    columns: 2;"
+    config+="}"
 
-unset -v options chosen
+    local options=(
+        "󰐦 Power Off"
+        "󰜉 Reboot"
+        "󰍁 Lock"
+        "󰒲 Suspend"
+        "󰗽 Exit WM"
+        "󱂬 Restart WM"
+    )
+
+    local chosen=$(printf "%s\n" "${options[@]}" | rofi -dmenu -i -mesg "[ WARNING ]" -theme-str "${config}")
+
+    case "${chosen}" in
+        "󰐦 Power Off"  ) poweroff          ;;
+        "󰜉 Reboot"    ) reboot            ;;
+        "󰍁 Lock"       ) slock             ;;
+        "󰒲 Suspend"    ) systemctl suspend ;;
+        "󰗽 Exit WM"    ) exitWM            ;;
+        "󱂬 Restart WM" ) restartWM         ;;
+        *              ) exit 1            ;;
+    esac
+}
+
+main
+
+unset -f main exitWM restartWM

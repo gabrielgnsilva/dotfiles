@@ -1,0 +1,63 @@
+# {
+#   "name": "CyberPunk2077",
+#   "black": "#272932",
+#   "red": "#710000",
+#   "green": "#1AC5B0",
+#   "yellow": "#FDF500",
+#   "blue": "#9381FF",
+#   "purple": "#742D8B",
+#   "cyan": "#00D0DB",
+#   "white": "#D1C5C0",
+#   "brightBlack": "#7b8097",
+#   "brightRed": "#C71515",
+#   "brightGreen": "#40FFE9",
+#   "brightYellow": "#fff955",
+#   "brightBlue": "#37EBF3",
+#   "brightPurple": "#CB1DCD",
+#   "brightCyan": "#37EBF3",
+#   "brightWhite": "#C1DEFF",
+#   "background": "#272932",
+#   "foreground": "#E455AE",
+#   "selectionBackground": "#742D8B",
+#   "cursorColor": "#FDF500"
+# }
+
+
+# Uncomment the following block if you want to specify cursor colors
+# [colors.cursor]
+# text = '0x2e2e2d'
+# cursor = '0xffffff'
+
+[colors.primary]
+background = '#000b1e'
+foreground = '#37EBF3'
+
+[colors.normal]
+black = '#101010'
+red = '#FF5151'
+green = '#59FFA3'
+yellow = '#FFD14F'
+blue = '#00FFFF'
+magenta = '#D351FF'
+cyan = '#65FDFF'
+white = '#D6D6D6'
+
+[colors.bright]
+black = '#272932'
+red = '#FF0000'
+green = '#5AFF5A'
+yellow = '#FFD700'
+blue = '#00FFFF'
+magenta = '#CB1DCD'
+cyan = '#37EBF3'
+white = '#C1DEFF'
+
+# [colors.dim]
+# black = '0x1c61c2'
+# red = '0xff0000'
+# green = '0xd300c4'
+# yellow = '0xf57800'
+# blue = '0x123e7c'
+# magenta = '0x711c91'
+# cyan = '0x0abdc6'
+# white = '0xd7d7d5'

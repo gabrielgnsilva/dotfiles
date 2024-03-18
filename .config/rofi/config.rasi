@@ -145,5 +145,5 @@ configuration {
         sorting-method:    "name";
     }
 }
-//@theme "android_notification"
+
 @theme "~/.config/rofi/theme.rasi"

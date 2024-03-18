@@ -6,10 +6,30 @@
         "tooltip": false
     },
 
-    "custom/logout": {
-        "format": "󰐦",
-        "on-click": "rofi-exit_menu",
-        "tooltip": false
+    "wlr/taskbar": {
+        "icon-size": 12,
+        "format": " {icon} ",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "on-click-right": "fullscreen",
+        "ignore-list": [""],
+        // Change icons
+        "app_ids-mapping": {
+            "firefoxdeveloperedition": "firefox-developer-edition"
+        },
+        // "rewrite": {
+        //     "Firefox Web Browser": "Firefox",
+        //     "Alacritty": "Terminal"
+        // }
+    },
+
+    "hyprland/window": {
+        "rewrite": {
+            ".*@.*:*": "Terminal"
+        },
+        "max-length": 50,
+        "separate-outputs": true
     },
 
     "hyprland/workspaces": {
@@ -27,45 +47,25 @@
         // }
     },
 
-    "wlr/taskbar": {
-        "icon-size": 12,
-        "format": "{icon}",
-        "tooltip-format": "{title}",
-        "on-click": "activate",
-        "on-click-middle": "close",
-        "ignore-list": ["Alacritty"],
-        "app_ids-mapping": {
-            "firefoxdeveloperedition": "firefox-developer-edition"
-        },
-        "rewrite": {
-            "Firefox Web Browser": "Firefox",
-            "Foot Server": "Terminal"
-        }
-    },
-
-    "hyprland/window": {
-        "rewrite": {
-            "(.*) - Visual Studio Code": "$1",
-            "(.*) — Mozilla Firefox": "$1"
-        },
-        "max-length": 50,
-        "separate-outputs": true
-    },
-
     "tray": {
-        "icon-size": 12,
+        "icon-size": 14,
         "spacing": 15
     },
 
     "wireplumber": {
-        "format": "{icon}",
+        "format": " {icon} ",
         "format-muted": "",
         "format-icons": ["", "", ""],
-
         "on-click": "alacritty --command pulsemixer",
         "on-click-right": "pulsemixer --toggle-mute",
-        // "on-scroll-up": "changeVolume +1",
-        // "on-scroll-down": "changeVolume -1",
+        "on-scroll-up": "changeVolume +1",
+        "on-scroll-down": "changeVolume -1",
+        "tooltip": false
+    },
+
+    "custom/logout": {
+        "format": " 󰐦 ",
+        "on-click": "rofi-exit_menu",
         "tooltip": false
     },
 

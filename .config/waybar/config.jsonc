@@ -11,10 +11,10 @@
     // Load modules
     "include": ["~/.config/waybar/modules/minimal.jsonc"],
 
-    "group/hardware": {
-        "orientation": "horizontal",
-        "modules": ["cpu", "memory", "temperature"]
-    },
+    // "group/hardware": {
+    //     "orientation": "horizontal",
+    //     "modules": ["cpu", "memory", "temperature"]
+    // },
 
     "group/systray": {
         "orientation": "horizontal",

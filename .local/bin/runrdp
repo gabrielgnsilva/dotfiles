@@ -103,7 +103,7 @@ function save_to_file () {
 #todo; Parameters && Config File
 function connect_to_server () {
     clear ;
-    xfreerdp /u:"${REMOTEUSER}" /p:"${REMOTEPASS}" /v:"${REMOTESERV}" /network:auto /dynamic-resolution /size:1910x1031 /sound:sys:pulse /microphone:sys:pulse,format:1 +clipboard +window-drag -grab-keyboard &
+    xfreerdp3 /u:"${REMOTEUSER}" /p:"${REMOTEPASS}" /v:"${REMOTESERV}" /network:auto /dynamic-resolution /size:1910x1031 /sound:sys:pulse /microphone:sys:pulse,format:1 +clipboard +window-drag -grab-keyboard &
     sleep 10
 }
 

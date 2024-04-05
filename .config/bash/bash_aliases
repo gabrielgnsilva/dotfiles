@@ -6,6 +6,7 @@ alias vim='nvim'
 alias wget='wget --hsts-file="${XDG_CONFIG_HOME}"/wget/wget-hsts'
 alias sc='shellcheck -x -P SCRIPTDIR -f tty -o all'
 alias ft='xdg-mime query filetype'
+alias :q='exit'
 alias alert='notify-send --urgency=critical                                   \
     -a "Hey, your command has finished !"                                     \
     -i "$(if [[ "${?}" = 0 ]];then echo terminal || echo error; fi)"          \

@@ -1,58 +1,60 @@
-local opt = vim.opt
+local option = vim.opt
 
 -- Cursor
 -- opt.guicursor = { 'a:ver25' }
 
 -- Line numbers
-opt.nu = true
-opt.relativenumber = true
+option.nu = true
+option.relativenumber = true
 
 -- Tabs and Indentation
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.softtabstop = 4
-opt.expandtab = true
-opt.smartindent = true
+option.tabstop = 4
+option.shiftwidth = 4
+option.softtabstop = 4
+option.expandtab = true
+option.smartindent = true
 
 -- Line wrapping
-opt.wrap = false
+option.wrap = false
 
 -- File history
-opt.swapfile = false
-opt.backup = false
-opt.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
-opt.undofile = true
+option.swapfile = false
+option.backup = false
+option.undodir = os.getenv('HOME') .. '/.config/nvim/undodir'
+option.undofile = true
 
 -- Search settings
-opt.hlsearch = false
-opt.incsearch = true
-opt.ignorecase = true
+option.hlsearch = false
+option.incsearch = true
+option.ignorecase = true
 
 -- Appearance
-opt.termguicolors = true
-opt.signcolumn = "yes"
-opt.colorcolumn = "80"
-opt.syntax = "on"
-opt.list = true
-opt.listchars = "tab:+-+,multispace:·,trail:·"
+option.termguicolors = true
+option.signcolumn = 'yes'
+option.colorcolumn = '80'
+option.syntax = 'on'
+option.list = true
+option.listchars = 'tab:+-+,multispace:·,trail:·'
 
 -- Clipboard
-opt.clipboard:append("unnamedplus")
+option.clipboard:append('unnamedplus')
 
 -- Offset while scrolling
-opt.scrolloff = 8
+option.scrolloff = 8
 
 -- Backspace
-opt.backspace = "indent,eol,start"
+option.backspace = 'indent,eol,start'
 
 -- Disable mouse while in nvim
-opt.mouse = ""
+option.mouse = ''
 
 -- Misc
-opt.isfname:append("@-@")
-opt.updatetime = 50
+option.isfname:append('@-@')
+option.updatetime = 50
 
 -- Folding
-opt.foldlevel = 20
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+option.foldenable = true
+option.foldlevel = 99
+option.foldlevelstart = 99
+option.foldmethod = 'expr'
+option.foldexpr = 'nvim_treesitter#foldexpr()'

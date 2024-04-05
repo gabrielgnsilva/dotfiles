@@ -1,10 +1,17 @@
+--[[
+    Parser.
+]]
+
 return {
-    event = "VeryLazy",
-    "nvim-treesitter/nvim-treesitter",
+    event = 'VeryLazy',
+
+    'nvim-treesitter/nvim-treesitter',
     dependencies = {
-        "nvim-treesitter/nvim-treesitter-textobjects",
+        'nvim-treesitter/nvim-treesitter-textobjects',
     },
-    build = ":TSUpdate",
+
+    build = ':TSUpdate',
+
     opts = {
         highlight = {
             enable = true,
@@ -17,18 +24,28 @@ return {
             enable = true,
         },
         ensure_installed = {
-            "javascript",
-            "properties",
-            "c",
-            "lua",
-            "vim",
-            "vimdoc",
-            "query",
+            'bash',
+            'c',
+            'css',
+            'gitignore',
+            'html',
+            'javascript',
+            'json',
+            'jsonc',
+            'lua',
+            'markdown',
+            'markdown_inline',
+            'properties',
+            'python',
+            'query',
+            'toml',
+            'vim',
+            'vimdoc',
+            'yaml',
         },
         auto_install = true,
     },
-    config = function (_, opts)
-        local configs = require("nvim-treesitter.configs")
-        configs.setup(opts)
-    end
+    config = function(_, opts)
+        require('nvim-treesitter.configs').setup(opts)
+    end,
 }

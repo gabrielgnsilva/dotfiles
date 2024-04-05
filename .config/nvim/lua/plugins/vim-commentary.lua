@@ -1,4 +1,9 @@
+--[[
+    Toggle comments in and out of the current line or visual selection.
+]]
+
 return {
-    "tpope/vim-commentary",
-    event = "VeryLazy"
+    event = 'VeryLazy',
+
+    'tpope/vim-commentary',
 }

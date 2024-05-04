@@ -1,0 +1,21 @@
+# shellcheck shell=bash
+
+# Aliases
+alias vim='nvim'
+alias :q='exit'
+alias alert='notify-send --urgency=critical                                   \
+    -a "Hey, your command has finished !"                                     \
+    -i "$(if [[ "${?}" = 0 ]];then echo terminal || echo error; fi)"          \
+    "$(history|tail -n1|sed -e '"'s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'"')"'
+alias config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+
+# enable color support and shorten some commands of ls;
+if [[ -x /usr/bin/dircolors ]]; then
+    alias diff='diff --color=auto'
+    alias ls='ls -alsh --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias ip='ip -color=auto'
+    alias grep='grep --color=auto'
+fi

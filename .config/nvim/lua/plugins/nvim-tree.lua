@@ -1,36 +1,40 @@
+--[[
+    File navigation
+]]
+
 return {
-    "nvim-tree/nvim-tree.lua",
+    'nvim-tree/nvim-tree.lua',
     dependencies = {
-        "nvim-tree/nvim-web-devicons"
+        'nvim-tree/nvim-web-devicons',
     },
+
     opts = {
-        git  = {
-            enable = true
+        git = {
+            enable = true,
         },
         renderer = {
             highlight_git = true,
             icons = {
                 show = {
-                    git = true
-                }
-            }
+                    git = true,
+                },
+            },
         },
         view = {
-            side = "right",
+            side = 'right',
             width = 40,
         },
         actions = {
             open_file = {
                 window_picker = {
-                    enable = false
-                }
-            }
-        }
+                    enable = false,
+                },
+            },
+        },
     },
     config = function(_, opts)
-        -- Disable netrw
         vim.g.loaded_netrw = 1
         vim.g.loaded_netrwPlugin = 1
-        require("nvim-tree").setup(opts)
-    end
+        require('nvim-tree').setup(opts)
+    end,
 }

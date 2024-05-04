@@ -1,5 +1,6 @@
 [core]
-    editor = vim
+    editor = nvim
+	sshCommand = ssh -i ~/.ssh/id_ed25519
 
 [user]
     name = Gabriel Nascimento
@@ -16,3 +17,6 @@
 
 [credential]
     helper = /usr/lib/git-core/git-credential-libsecret
+
+[status]
+    showUntrackedFiles = no

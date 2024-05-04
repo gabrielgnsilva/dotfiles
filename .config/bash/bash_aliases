@@ -6,11 +6,13 @@ alias vim='nvim'
 alias wget='wget --hsts-file="${XDG_CONFIG_HOME}"/wget/wget-hsts'
 alias sc='shellcheck -x -P SCRIPTDIR -f tty -o all'
 alias ft='xdg-mime query filetype'
+alias :q='exit'
 alias alert='notify-send --urgency=critical                                   \
     -a "Hey, your command has finished !"                                     \
     -i "$(if [[ "${?}" = 0 ]];then echo terminal || echo error; fi)"          \
     "$(history|tail -n1|sed -e '"'s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'"')"'
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/.local/dotfiles/ --work-tree=$HOME'
+
 
 # enable color support and shorten some commands of ls;
 if [[ -x /usr/bin/dircolors ]]; then
@@ -26,4 +28,3 @@ if [[ -x /usr/bin/dircolors ]]; then
     alias ip='ip -color=auto'
     alias grep='grep --color=auto'
 fi
-

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [[ ! "${1}" = "--" ]]; then
+    echo "This will create and enable a service, to continue use the param '--' and it run this script as sudo!"
+    exit 1
+fi
+
+{
+    printf "[Unit]\n"
+    printf "Description=Setup X11 Symlink\n"
+    printf "\n"
+    printf "[Service]\n"
+    printf "Type=oneshot\n"
+    printf "ExecStartPre=/bin/rm --force --recursive /tmp/.X11-unix\n"
+    printf "ExecStart=/bin/ln --symbolic /mnt/wslg/.X11-unix /tmp/.X11-unix\n"
+    printf "\n"
+    printf "[Install]\n"
+    printf "WantedBy=multi-user.target\n"
+
+} | tee /etc/systemd/system/x11-symlink.service
+
+systemctl daemon-reload
+systemctl enable x11-symlink.service
+systemctl start x11-symlink.service
+systemctl status x11-symlink.service

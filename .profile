@@ -23,7 +23,6 @@ fi
 
 # PATH
 export PATH="${PATH}":"${HOME}"/.local/bin
-export PATH="${PATH}":/opt/eclipse
 export PATH="${PATH}":"${JAVA_HOME}"/bin
 
 # BASHRC

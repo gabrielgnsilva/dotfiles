@@ -15,6 +15,19 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = ' '
 
+vim.g.clipboard = {
+    name = 'WslClipboard',
+    copy = {
+        ['+'] = 'clip.exe',
+        ['*'] = 'clip.exe',
+    },
+    paste = {
+        ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+        ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    cache_enabled = 0,
+}
+
 local opts = {
     change_detection = {
         enabled = true, -- Automatically update files change

@@ -13,6 +13,7 @@ return {
         'hrsh7th/cmp-nvim-lsp',
         'onsails/lspkind.nvim',
         'L3MON4D3/LuaSnip',
+        'saadparwaiz1/cmp_luasnip',
     },
 
     opts = {},
@@ -21,11 +22,26 @@ return {
         local cmp = require('cmp')
         local cmpSelect = { behavior = cmp.SelectBehavior.Select }
         local lspKind = require('lspkind')
-        local luaSnip = require('luasnip')
+        local ls = require('luasnip')
 
         cmp.setup({
             mapping = cmp.mapping.preset.insert({
-                ['<C-Space>'] = cmp.mapping.complete(),
+                ['<C-Space>'] = cmp.mapping({
+                    i = function()
+                        if cmp.visible() then
+                            cmp.abort()
+                        else
+                            cmp.complete()
+                        end
+                    end,
+                    c = function()
+                        if cmp.visible() then
+                            cmp.close()
+                        else
+                            cmp.complete()
+                        end
+                    end,
+                }),
                 ['<C-h>'] = cmp.mapping.confirm({ select = true }),
                 ['<C-k>'] = cmp.mapping.select_prev_item(cmpSelect),
                 ['<C-j>'] = cmp.mapping.select_next_item(cmpSelect),
@@ -33,7 +49,7 @@ return {
 
             snippet = {
                 expand = function(args)
-                    luaSnip.lsp_expand(args.body)
+                    ls.lsp_expand(args.body)
                 end,
             },
             sources = {
@@ -48,11 +64,11 @@ return {
                 format = lspKind.cmp_format({
                     with_text = true,
                     menu = {
-                        buffer = '[BUFFER]',
-                        luasnip = '[SNIPPET]',
+                        buffer = '[BFR]',
+                        luasnip = '[SNP]',
                         nvim_lsp = '[LSP]',
                         nvim_lua = '[LUA]',
-                        path = '[PATH]',
+                        path = '[PTH]',
                     },
                 }),
             },
@@ -62,5 +78,13 @@ return {
                 ghost_text = true,
             },
         })
+
+        ls.config.set_config({
+            history = true,
+            updateevents = 'TextChanged,TextChangedI',
+            enbable_autosnippets = true,
+        })
+
+        require('luasnip.loaders.from_lua').load({ paths = vim.fn.stdpath('config') .. '/lua/snippets' })
     end,
 }

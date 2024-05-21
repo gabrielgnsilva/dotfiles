@@ -13,18 +13,8 @@ keymap.set('i', 'jj', '<esc>', { desc = 'Escape' })
 keymap.set('n', 'Q', '<nop>', { desc = 'Do nothing (disable ex mode)' })
 
 -- Sort lines ascending or descending while preserving selection
-keymap.set(
-    'x',
-    '<leader>sa',
-    ":'<,'>sort<cr>gv=gv",
-    { desc = 'Sort lines ascending' }
-)
-keymap.set(
-    'x',
-    '<leader>sd',
-    ":'<,'>sort!<cr>gv=gv",
-    { desc = 'Sort lines descending' }
-)
+keymap.set('x', '<leader>sa', ":'<,'>sort<cr>gv=gv", { desc = 'Sort lines ascending' })
+keymap.set('x', '<leader>sd', ":'<,'>sort!<cr>gv=gv", { desc = 'Sort lines descending' })
 
 -- Move lines with visual while preserving selection and autoindenting
 keymap.set('v', 'K', ":move '<-2<cr>gv=gv", { desc = 'Move line up' })
@@ -32,12 +22,7 @@ keymap.set('v', 'J', ":move '>+1<cr>gv=gv", { desc = 'Move line down' })
 
 -- Append line below or above to current line while preserving cursor position
 keymap.set('n', 'J', 'mzJ`z', { desc = 'Append line below to current line' })
-keymap.set(
-    'n',
-    'K',
-    'mz:move -2|j<cr>`z',
-    { desc = 'Append line below to current line' }
-)
+keymap.set('n', 'K', 'mz:move -2|j<cr>`z', { desc = 'Append line below to current line' })
 
 -- Add a new line above or below the current line
 keymap.set('n', '<leader>nj', 'o<Esc>"_D', { desc = 'Add new line below' })
@@ -101,66 +86,26 @@ keymap.set('n', '<M-h>', '<C-w>>5', { desc = 'Increase window width' })
 -- TODO
 
 -- Diagnostics
-keymap.set(
-    'n',
-    'gl',
-    ':lua vim.diagnostic.open_float()<cr>zz',
-    { desc = 'Open diagnostics' }
-)
-keymap.set(
-    'n',
-    '[d',
-    ':lua vim.diagnostic.goto_prev()<cr>zz',
-    { desc = 'Go to previous diagnostic' }
-)
-keymap.set(
-    'n',
-    ']d',
-    ':lua vim.diagnostic.goto_next()<cr>zz',
-    { desc = 'Go to next diagnostic' }
-)
+keymap.set('n', 'gl', ':lua vim.diagnostic.open_float()<cr>zz', { desc = 'Open diagnostics' })
+keymap.set('n', '[d', ':lua vim.diagnostic.goto_prev()<cr>zz', { desc = 'Go to previous diagnostic' })
+keymap.set('n', ']d', ':lua vim.diagnostic.goto_next()<cr>zz', { desc = 'Go to next diagnostic' })
 
 -- Nvim-tree
 keymap.set('n', '<C-d>', ':NvimTreeToggle<cr>', { desc = 'Toggle Nvim-tree' })
 
 -- Telescope
-keymap.set(
-    'n',
-    '<leader>fr',
-    ':Telescope oldfiles<cr>',
-    { desc = 'Fuzzy find recend files' }
-)
-keymap.set(
-    'n',
-    '<leader>ff',
-    ':Telescope find_files<cr>',
-    { desc = 'Fuzzy find files on cwd' }
-)
-keymap.set(
-    'n',
-    '<leader>fu',
-    ':Telescope undo<cr>',
-    { desc = 'Fuzzy find undo history on cwd' }
-)
+keymap.set('n', '<leader>fr', ':Telescope oldfiles<cr>', { desc = 'Fuzzy find recend files' })
+keymap.set('n', '<leader>ff', ':Telescope find_files<cr>', { desc = 'Fuzzy find files on cwd' })
+keymap.set('n', '<leader>fu', ':Telescope undo<cr>', { desc = 'Fuzzy find undo history on cwd' })
 keymap.set('n', '<leader>fs', function()
     require('telescope.builtin').grep_string({
         search = vim.fn.input('Grep > '),
     })
 end, { desc = 'Fuzzy find string in files on cwd' })
-keymap.set(
-    'n',
-    '<C-g>',
-    ':Telescope git_files<cr>',
-    { desc = 'Fuzzy find git files on cwd' }
-)
+keymap.set('n', '<C-g>', ':Telescope git_files<cr>', { desc = 'Fuzzy find git files on cwd' })
 
 -- Git-blame
-keymap.set(
-    'n',
-    '<leader>gb',
-    ':GitBlameToggle<cr>',
-    { desc = 'Toggle git-blame' }
-)
+keymap.set('n', '<leader>gb', ':GitBlameToggle<cr>', { desc = 'Toggle git-blame' })
 
 -- Vim commentary
 keymap.set('n', '<C-c>', ':Commentary<cr>', { desc = 'Comment line' })
@@ -175,12 +120,30 @@ keymap.set({ 'n', 'v', 'x' }, '<leader>mp', function()
 end, { desc = 'Format current buffer' })
 
 -- Linting
-keymap.set(
-    'n',
-    '<leader>l',
-    '<cmd>lua require("lint").try_lint()<CR>',
-    { desc = 'Trigger linting on current buffer' }
-)
+keymap.set('n', '<leader>l', '<cmd>lua require("lint").try_lint()<CR>', { desc = 'Trigger linting on current buffer' })
+
+-- LuaSnip
+keymap.set({ 'i', 's' }, '<C-l>', function()
+    if require('luasnip').choice_active() then
+        require('luasnip').change_choice(1)
+    end
+end)
+
+keymap.set({ 'i', 's' }, '<C-j>', function()
+    if require('luasnip').jumpable(1) then
+        require('luasnip').jump(1)
+    end
+end, { silent = true })
+
+keymap.set({ 'i', 's' }, '<C-k>', function()
+    if require('luasnip').jumpable(-1) then
+        require('luasnip').jump(-1)
+    end
+end, { silent = true })
+
+keymap.set('n', '<leader><leader>s', function()
+    require('luasnip.loaders.from_lua').load({ paths = vim.fn.stdpath('config') .. '/lua/snippets' })
+end, { desc = 'Source snippets from luaSnip' })
 
 -- Formatter (Used only when configurations cannot be set in nvim-conform.lua)
 -- This allows to add a formatter configuration on the fly
@@ -222,10 +185,7 @@ keymap.set('n', '<leader>gf', function()
         local formatterDestFile = io.open(formatterDestFilePath, 'w')
 
         if formatterDestFile == nil then
-            print(
-                'Failed to open formatter configuration -> '
-                    .. formatterDestFilePath
-            )
+            print('Failed to open formatter configuration -> ' .. formatterDestFilePath)
             return
         end
 

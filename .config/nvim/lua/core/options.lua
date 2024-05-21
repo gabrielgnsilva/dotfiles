@@ -58,3 +58,12 @@ option.foldlevel = 99
 option.foldlevelstart = 99
 option.foldmethod = 'expr'
 option.foldexpr = 'nvim_treesitter#foldexpr()'
+
+-- Filetype mapping
+vim.filetype.add({
+    extension = {
+        ftl = 'html',
+        info = 'properties'
+    },
+})
+

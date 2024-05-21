@@ -8,6 +8,7 @@ return {
     'stevearc/conform.nvim',
 
     opts = {
+
         formatters_by_ft = {
             bash = { 'shfmt' },
             css = { 'prettier' },
@@ -17,6 +18,7 @@ return {
             markdown = { 'prettier' },
             python = { 'isort', 'black' },
             sh = { 'shfmt' },
+            ftl = { 'prettier' }
         },
 
         formatters = {
@@ -28,6 +30,14 @@ return {
                     '--single-quote', 'true',
                     '--tab-width', '4',
                 },
+                options = {
+                    lang_to_ext = {
+                        ftl = "ftl",
+                    },
+                    ext_parsers = {
+                        ftl = "html"
+                    },
+                }
             },
             shfmt = {
                 prepend_args = {

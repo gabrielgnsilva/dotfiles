@@ -22,7 +22,7 @@ if [[ -x /usr/bin/dircolors ]]; then
     fi
 
     alias diff='diff --color=auto'
-    alias ls='ls -alsh --color=auto'
+    alias ls='ls -alshv --group-directories-first --color=auto'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
     alias ip='ip -color=auto'

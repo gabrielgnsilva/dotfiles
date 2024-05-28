@@ -18,7 +18,8 @@ return {
             markdown = { 'prettier' },
             python = { 'isort', 'black' },
             sh = { 'shfmt' },
-            ftl = { 'prettier' }
+            ftl = { 'prettier' },
+            typescript = { 'prettier' }
         },
 
         formatters = {

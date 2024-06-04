@@ -1,9 +1,13 @@
 --[[
     Move between files.
+
 ]]
 
 return {
-    event = 'VeryLazy',
+    event = {
+        'BufReadPost', -- Starting to edit an existing file
+        'BufNewFile', -- Starting to edit a non-existent file
+    },
 
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
@@ -16,9 +20,10 @@ return {
 
     config = function(_, opts)
         local harpoon = require('harpoon')
-        local conf = require('telescope.config').values
 
         local function toggle_telescope(harpoon_files)
+            local conf = require('telescope.config').values
+
             local file_paths = {}
             for _, item in ipairs(harpoon_files.items) do
                 table.insert(file_paths, item.value)
@@ -38,12 +43,24 @@ return {
 
         harpoon:setup()
 
-        vim.keymap.set('n', '<leader>ah', function()
-            harpoon:list():append()
-        end, { desc = 'Add file to harpoon' })
-
-        vim.keymap.set('n', '<leader>oh', function()
+        vim.keymap.set('n', '<C-e>', function()
             toggle_telescope(harpoon:list())
-        end, { desc = 'Toggle harpoon menu' })
+        end, { desc = 'Harpoon toggle harpoon menu' })
+
+        vim.keymap.set('n', '<leader>ah', function()
+            harpoon:list():add()
+        end, { desc = 'Harpoon add file to harpoon' })
+
+        vim.keymap.set('n', '<leader>rh', function()
+            harpoon:list():remove()
+        end, { desc = 'Harpoon remove file to harpoon' })
+
+        vim.keymap.set('n', '<leader>nh', function()
+            harpoon:list():next()
+        end, { desc = 'Harpoon select next harpoon file' })
+
+        vim.keymap.set('n', '<leader>ph', function()
+            harpoon:list():prev()
+        end, { desc = 'Harpoon select prev harpoon file' })
     end,
 }

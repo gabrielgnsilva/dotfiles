@@ -3,6 +3,8 @@
 ]]
 
 return {
+    lazy = false,
+
     'goolord/alpha-nvim',
 
     config = function()
@@ -11,36 +13,22 @@ return {
 
         -- Header
         dashboard.section.header.val = {
-            '                                                     ',
-            '  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ',
-            '  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ',
-            '  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ',
-            '  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ',
-            '  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ',
-            '  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ',
-            '                                                     ',
+            '  ██████╗ ███╗   ██╗███████╗ ',
+            ' ██╔════╝ ████╗  ██║██╔════╝ ',
+            ' ██║  ███╗██╔██╗ ██║███████╗ ',
+            ' ██║   ██║██║╚██╗██║╚════██║ ',
+            ' ╚██████╔╝██║ ╚████║███████║ ',
+            '  ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ',
         }
 
         -- Menu
         dashboard.section.buttons.val = {
-            dashboard.button(
-                'e',
-                'ICON > New file',
-                ':ene <BAR> startinsert <CR>'
-            ),
-            dashboard.button(
-                'f',
-                'ICON > Find file',
-                ':cd $HOME | Telescope find_files<CR>'
-            ),
-            dashboard.button('r', 'ICON > Recent', ':Telescope oldfiles<CR>'),
-            dashboard.button(
-                's',
-                'ICON > Settings',
-                ':e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>'
-            ),
-            dashboard.button('p', 'ICON > Plugins', ':Lazy<CR>'),
-            dashboard.button('q', 'ICON > Quit', ':qa<CR>'),
+            dashboard.button('e', '  > New file', ':ene <BAR> startinsert <CR>'),
+            dashboard.button('f', '󰈞  > Find file', ':cd $HOME | Telescope find_files<CR>'),
+            dashboard.button('r', '󰦛  > Recent', ':Telescope oldfiles<CR>'),
+            dashboard.button('s', '  > Settings', ':e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>'),
+            dashboard.button('p', '  > Plugins', ':Lazy<CR>'),
+            dashboard.button('q', '󰈆  > Quit', ':qa<CR>'),
         }
 
         -- Footer

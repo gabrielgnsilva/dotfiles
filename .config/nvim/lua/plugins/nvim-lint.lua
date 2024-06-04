@@ -3,7 +3,10 @@
 ]]
 
 return {
-    event = 'VeryLazy',
+    event = {
+        'BufReadPost', -- Starting to edit an existing file
+        'BufNewFile', -- Starting to edit a non-existent file
+    },
 
     'mfussenegger/nvim-lint',
 
@@ -18,21 +21,29 @@ return {
         linters = {
             shellcheck = {
                 args = {
-                    '-e', 'SC2312',
-                    '-e', 'SC2154',
-                    '-e', 'SC1090',
-                    '-e', 'SC2016',
-                    '--source-path', 'SCRIPTDIR',
-                    '--enable', 'all',
-                    '--format', 'tty',
+                    '-e',
+                    'SC2312',
+                    '-e',
+                    'SC2154',
+                    '-e',
+                    'SC1090',
+                    '-e',
+                    'SC2016',
+                    '--source-path',
+                    'SCRIPTDIR',
+                    '--enable',
+                    'all',
+                    '--format',
+                    'tty',
                     '--external-sources',
                     '-',
-                }
-            }
+                },
+            },
         },
     },
 
     config = function(_, opts)
+        local map = vim.keymap.set
         local lint = require('lint')
         lint.linters_by_ft = opts.files
 
@@ -41,16 +52,9 @@ return {
             options.args = opts.linters[linter].args
         end
 
-        local auGroup = vim.api.nvim_create_augroup('lint', { clear = true })
-        vim.api.nvim_create_autocmd(
-            { 'bufEnter', 'bufWritePost', 'insertLeave' },
-            {
-                group = auGroup,
-                callback = function()
-                    lint.try_lint()
-                    -- print(vim.inspect(lint.get_running()))
-                end,
-            }
-        )
+        -- Keymaps
+        map('n', '<leader>l', function()
+            lint.try_lint()
+        end, { desc = 'Trigger linting on current buffer' })
     end,
 }

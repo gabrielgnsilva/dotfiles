@@ -3,7 +3,10 @@
 ]]
 
 return {
-    event = 'VeryLazy',
+    event = {
+        'BufReadPost', -- Starting to edit an existing file
+        'BufNewFile', -- Starting to edit a non-existent file
+    },
 
     'Wansmer/treesj',
     dependencies = {
@@ -18,6 +21,10 @@ return {
     },
 
     config = function(_, opts)
-        require('treesj').setup(opts)
+        local map = vim.keymap.set
+        local treesj = require('treesj')
+        treesj.setup(opts)
+
+        map('n', '<Tab>', '<cmd>TSJToggle<cr>', { desc = 'TreeSJ toggle block splitting' })
     end,
 }

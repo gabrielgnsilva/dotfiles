@@ -3,7 +3,19 @@
 ]]
 
 return {
-    event = 'VeryLazy',
+    event = {
+        'BufReadPost', -- Starting to edit an existing file
+        'BufNewFile', -- Starting to edit a non-existent file
+    },
 
     'tpope/vim-commentary',
+
+    opts = {},
+
+    config = function(_, opts)
+        local map = vim.keymap.set
+
+        map('n', '<C-c>', ':Commentary<cr>', { desc = 'vim-commentary comment line' })
+        map('v', '<C-c>', ':Commentary<cr>', { desc = 'vim-commentary comment selection' })
+    end,
 }

@@ -173,7 +173,7 @@ return {
                     let numbers = cnpj.substring(0, size);
                     let digits = cnpj.substring(size);
 
-                    let sum = new Number();
+                    let sum = 0;
                     let pos = size - 7;
 
                     for (let i = size; i >= 1; i--) {{
@@ -217,8 +217,8 @@ return {
                     if (cpf.length != 11) return false;
                     if (cpf.split(cpf[0]).join('').length == 0) return false;
 
-                    let sum = new Number();
-                    let spill = new Number();
+                    let sum = 0;
+                    let spill = 0;
 
                     // First digit
                     for (let i = 1; i <= 9; i++) sum += (11 - i) * parseInt(cpf.substring(i - 1, i));
@@ -227,8 +227,8 @@ return {
                     if (spill === 10 || spill === 11) spill = 0;
                     if (spill !== parseInt(cpf.substring(9, 10))) return false;
 
-                    sum = new Number();
-                    spill = new Number();
+                    sum = 0;
+                    spill = 0;
 
                     // Second digit
                     for (let i = 1; i <= 10; i++) sum += (12 - i) * parseInt(cpf.substring(i - 1, i));
@@ -422,18 +422,6 @@ return {
     ),
 
     s(
-        'Array',
-        fmt(
-            [[
-                new Array('{}');
-            ]],
-            {
-                i(1, 'value'),
-            }
-        )
-    ),
-
-    s(
         'ternary',
         fmt(
             [[
@@ -443,30 +431,6 @@ return {
                 i(3, 'condition'),
                 i(4, 'true'),
                 i(5, 'false'),
-            }
-        )
-    ),
-
-    s(
-        'Object',
-        fmt(
-            [[
-                new Object{}{});
-            ]],
-            {
-                c(1, { t('('), t('({') }),
-                d(2, function(a)
-                    if a[1][1] == '({' then
-                        return sn(
-                            nil,
-                            fmt('\n\n\t{}:{}\n}}', {
-                                i(1, 'key'),
-                                i(2, "'value'"),
-                            })
-                        )
-                    end
-                    return sn(nil, fmt('', {}))
-                end, { 1 }),
             }
         )
     ),
@@ -992,10 +956,10 @@ return {
         'getDataset',
         fmt(
             [[
-                var constraints = new Array();
+                var constraints = [];
                 constraints.push(DatasetFactory.createConstraint('{}', '{}', '{}', ConstraintType.MUST));
 
-                var fields = new Array();
+                var fields = [];
                 {}
 
                 var dataset = DatasetFactory.getDataset('{}', fields, constraints, [{};{}']);
@@ -1021,10 +985,10 @@ return {
         'getSubDataset',
         fmt(
             [[
-                var constraints = new Array();
+                var constraints = [];
                 constraints.push(DatasetFactory.createConstraint('{}', {}, {}, ConstraintType.MUST));
 
-                var fields = new Array();
+                var fields = [];
                 fields.push('metadata#id');
                 fields.push('medatada#version');
 
@@ -1034,12 +998,12 @@ return {
                     var docId = dataset.getValue(i, 'metadata#id');
                     var docVersion = dataset.getValue(i, 'metadata#version');
 
-                    var subDatasetConstraints = new Array();
+                    var subDatasetConstraints = [];
                     subDatasetConstraints.push(DatasetFactory.createConstraint('tablename', '{}', '{}', ConstraintType.MUST));
                     subDatasetConstraints.push(DatasetFactory.createConstraint('metadata#id', docId, docId, ConstraintType.MUST));
                     subDatasetConstraints.push(DatasetFactory.createConstraint('metadata#version', docVersion, docVersion, ConstraintType.MUST));
 
-                    var fields = new Array();
+                    var fields = [];
                     {}
 
                     var subDataset = DatasetFactory.getDataset('{}', fields, subDatasetConstraints, [{};{}']);

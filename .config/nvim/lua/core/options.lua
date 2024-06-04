@@ -1,69 +1,87 @@
-local option = vim.opt
+local opt = vim.opt
+local o = vim.o
+local g = vim.g
 
 -- Cursor
 -- opt.guicursor = { 'a:ver25' }
+o.cursorline = true
+o.cursorlineopt = 'number'
 
 -- Line numbers
-option.nu = true
-option.relativenumber = true
+o.nu = true
+o.relativenumber = true
+o.numberwidth = 2
+o.ruler = false
 
 -- Tabs and Indentation
-option.tabstop = 4
-option.shiftwidth = 4
-option.softtabstop = 4
-option.expandtab = true
-option.smartindent = true
+o.tabstop = 4
+o.shiftwidth = 4
+o.softtabstop = 4
+o.expandtab = true
+o.smartindent = true
 
 -- Line wrapping
-option.wrap = false
+o.wrap = false
 
 -- File history
-option.swapfile = false
-option.backup = false
-option.undodir = os.getenv('HOME') .. '/.config/nvim/undodir'
-option.undofile = true
+o.swapfile = false
+o.backup = false
+o.undofile = true
+o.undodir = vim.fn.stdpath('data') .. '/undodir'
 
 -- Search settings
-option.hlsearch = false
-option.incsearch = true
-option.ignorecase = true
+o.hlsearch = false
+o.incsearch = true
+o.ignorecase = true
 
 -- Appearance
-option.termguicolors = true
-option.signcolumn = 'yes'
-option.colorcolumn = '80'
-option.syntax = 'on'
-option.list = true
-option.listchars = 'tab:+-+,multispace:·,trail:·'
+o.termguicolors = true
+o.signcolumn = 'yes'
+o.colorcolumn = '80'
+o.syntax = 'on'
+o.list = true
+o.listchars = 'tab:+-+,multispace:·,trail:·'
 
 -- Clipboard
-option.clipboard:append('unnamedplus')
+o.clipboard = 'unnamedplus'
 
 -- Offset while scrolling
-option.scrolloff = 8
+o.scrolloff = 8
 
 -- Backspace
-option.backspace = 'indent,eol,start'
+o.backspace = 'indent,eol,start'
 
 -- Disable mouse while in nvim
-option.mouse = ''
+o.mouse = ''
 
 -- Misc
-option.isfname:append('@-@')
-option.updatetime = 50
+opt.isfname:append('@-@')
+o.updatetime = 250
+o.laststatus = 3
+o.showmode = false
+opt.fillchars = { eob = ' ' }
+o.smartcase = true
+opt.shortmess:append('sI')
+o.splitbelow = true
+o.splitright = true
+o.timeoutlen = 400
 
 -- Folding
-option.foldenable = true
-option.foldlevel = 99
-option.foldlevelstart = 99
-option.foldmethod = 'expr'
-option.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldenable = true
+o.foldlevel = 99
+o.foldlevelstart = 99
+o.foldmethod = 'expr'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
+
+g['loaded_node_provider'] = 0
+g['loaded_python3_provider'] = 0
+g['loaded_perl_provider'] = 0
+g['loaded_ruby_provider'] = 0
 
 -- Filetype mapping
 vim.filetype.add({
     extension = {
         ftl = 'html',
-        info = 'properties'
+        info = 'properties',
     },
 })
-

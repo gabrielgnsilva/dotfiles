@@ -1,4 +1,6 @@
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+local lazy_opts = require('core.lazy_opts')
+vim.g.mapleader = ' '
 
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -10,18 +12,14 @@ if not vim.loop.fs_stat(lazypath) then
         lazypath,
     })
 end
-
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = ' '
-
-local opts = {
-    change_detection = {
-        enabled = true, -- Automatically update files change
-        notify = false, -- Display a notification when a config file is changed
-    },
-}
-
-require('lazy').setup('plugins', opts)
 require('core.options')
-require('core.keymaps')
+require('lazy').setup({
+    { import = 'plugins' },
+}, lazy_opts)
+require('core.autocmds')
+
+vim.schedule(function()
+    require('core.keymaps')
+end)

@@ -3,7 +3,10 @@
 ]]
 
 return {
-    event = 'VeryLazy',
+    event = {
+        'BufReadPost', -- Starting to edit an existing file
+        'BufNewFile', -- Starting to edit a non-existent file
+    },
 
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -13,16 +16,22 @@ return {
     build = ':TSUpdate',
 
     opts = {
+        auto_install = true,
+
         highlight = {
             enable = true,
             disable = {}, -- List of languages that will be disabled
+            use_languagetree = true,
         },
+
         indent = {
             enable = true,
         },
+
         autotag = {
             enable = true,
         },
+
         ensure_installed = {
             'bash',
             'c',
@@ -43,8 +52,8 @@ return {
             'vimdoc',
             'yaml',
         },
-        auto_install = true,
     },
+
     config = function(_, opts)
         require('nvim-treesitter.configs').setup(opts)
     end,

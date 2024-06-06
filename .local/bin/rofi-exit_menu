@@ -11,22 +11,15 @@ function exitWM() {
 }
 
 function restartWM() {
-    if [[ "${XDG_CURRENT_DESKTOP}" == "Hyprland" ]]; then
-        hypr-launch_waybar
-    elif [[ "${XDG_CURRENT_DESKTOP}" == "Qtile" ]]; then
+    if [[ "${XDG_CURRENT_DESKTOP}" == "Qtile" ]]; then
         qtile cmd-obj -o cmd -f restart
     fi
 }
 
-function main(){
+function main() {
     local config=""
     config+="mainbox {"
     config+="   children: [message, listview];"
-    config+="}"
-    config+=""
-    config+="window {"
-    config+="    location: north east;"
-    config+="    x-offset: -4px;"
     config+="}"
     config+=""
     config+="listview {"
@@ -43,16 +36,17 @@ function main(){
         "󱂬 Restart WM"
     )
 
-    local chosen=$(printf "%s\n" "${options[@]}" | rofi -dmenu -i -mesg "[ WARNING ]" -theme-str "${config}")
+    local chosen
+    chosen=$(printf "%s\n" "${options[@]}" | rofi -dmenu -i -theme-str "${config}")
 
     case "${chosen}" in
-        "󰐦 Power Off"  ) poweroff          ;;
-        "󰜉 Reboot"    ) reboot            ;;
-        "󰍁 Lock"       ) slock             ;;
-        "󰒲 Suspend"    ) systemctl suspend ;;
-        "󰗽 Exit WM"    ) exitWM            ;;
-        "󱂬 Restart WM" ) restartWM         ;;
-        *              ) exit 1            ;;
+        "󰐦 Power Off") poweroff ;;
+        "󰜉 Reboot") reboot ;;
+        "󰍁 Lock") slock ;;
+        "󰒲 Suspend") systemctl suspend ;;
+        "󰗽 Exit WM") exitWM ;;
+        "󱂬 Restart WM") restartWM ;;
+        *) exit 1 ;;
     esac
 }
 

@@ -41,20 +41,20 @@ function setGSettings() {
 }
 
 # SESSION
-de="Hyprland"  # Desktop Environment
+de="Hyprland" # Desktop Environment
 if [[ "$(tty)" = "/dev/tty1" ]] && ! pgrep "${de}" > /dev/null; then
     case "${de,,}" in
-        'qtile' )
+        'qtile')
             export XAUTHORITY="${XDG_RUNTIME_DIR}"/Xauthority
-            export XCOMPOSEFILE="${XDG_CONFIG_HOME}"/X11/xcompose
+            export XCOMPOSEFILE="${HOME}"/.XCompose
             export XINITRC="${XDG_CONFIG_HOME}"/X11/xinitrc
             export XDG_CURRENT_DESKTOP=Qtile
             export XDG_SESSION_DESKTOP=Qtile
 
             startx "${XINITRC}" "${de}" &> /dev/null
             ;;
-        'hyprland' )
-            export XCOMPOSEFILE="${XDG_CONFIG_HOME}"/X11/xcompose
+        'hyprland')
+            export XCOMPOSEFILE="${HOME}"/.XCompose
             export XDG_CURRENT_DESKTOP=Hyprland
             export XDG_SESSION_DESKTOP=Hyprland
             export XDG_SESSION_TYPE=wayland
@@ -68,9 +68,9 @@ if [[ "$(tty)" = "/dev/tty1" ]] && ! pgrep "${de}" > /dev/null; then
 
             Hyprland
             ;;
-        * )
+        *)
             printf "\nSession '%s' not found!" "${de}"
-        ;;
+            ;;
     esac
 fi
 

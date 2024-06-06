@@ -1,5 +1,5 @@
 configuration {
-    modi: "window,ssh,run,emoji,calc";
+    modi: "window,ssh,run,emoji";
     font: "FiraCode Nerd Font 12";
 /*    location: 0;*/
 /*    yoffset: 0;*/

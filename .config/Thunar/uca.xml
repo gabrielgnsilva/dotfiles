@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 <action>
-    <icon>visual-studio-code</icon>
-    <name>Open Folder(s) in VSCode</name>
+    <icon>nvim</icon>
+    <name>Open Folder(s) in Neovim</name>
     <unique-id>1669161331083459-1</unique-id>
-    <command>code --new-window %F</command>
-    <description>Open Folder(s) with Visual Studio Code</description>
+    <command>alacritty -e nvim %F</command>
+    <description>Open Folder(s) with Neovim</description>
     <patterns>*</patterns>
     <startup-notify/>
     <directories/>
 </action>
 <action>
-    <icon>visual-studio-code</icon>
-    <name>Open File(s) in VSCode</name>
+    <icon>nvim</icon>
+    <name>Open File(s) in Neovim</name>
     <unique-id>1669161875168021-1</unique-id>
-    <command>code --new-window %F</command>
-    <description>Open File(s) with Visual Studio Code</description>
+    <command>alacritty -e nvim %F</command>
+    <description>Open File(s) with Neovim</description>
     <patterns>*</patterns>
     <startup-notify/>
     <other-files/>
@@ -25,7 +25,7 @@
     <icon>utilities-terminal</icon>
     <name>Open Terminal Here</name>
     <unique-id>1657413314940369-1</unique-id>
-    <command>alacritty --working-directory %f</command>
+    <command>alacritty --working-directory %F</command>
     <description>Open Alacritty</description>
     <patterns>*</patterns>
     <startup-notify/>

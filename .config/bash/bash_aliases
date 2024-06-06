@@ -2,7 +2,11 @@
 
 # Aliases
 alias sudo='sudo -v; sudo '
+alias timeis='date +%c'
+alias vi='nvim'
+alias vidiff='nvim -d '
 alias vim='nvim'
+alias vimdiff='nvim -d '
 alias wget='wget --hsts-file="${XDG_CONFIG_HOME}"/wget/wget-hsts'
 alias sc='shellcheck -x -P SCRIPTDIR -f tty -o all'
 alias ft='xdg-mime query filetype'

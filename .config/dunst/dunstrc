@@ -311,25 +311,25 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#3d4659"
+    background = "#272932"
     foreground = "#cbe1e7"
-    frame_color = "#3d4659"
+    frame_color = "#272932"
     timeout = 5
     # Icon for notifications with low urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_normal]
-    background = "#3d4659"
+    background = "#272932"
     foreground = "#cbe1e7"
-    frame_color = "#3d4659"
+    frame_color = "#272932"
     timeout = 5
     # Icon for notifications with normal urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_critical]
-    background = "#3d4659"
+    background = "#272932"
     foreground = "#cbe1e7"
-    frame_color = "#3d4659"
+    frame_color = "#272932"
     timeout = 0
     # Icon for notifications with critical urgency, uncomment to enable
     #default_icon = /path/to/icon
@@ -371,8 +371,8 @@
 
 [Volume Icon]
     appname = Volume Icon
-    background = "#3d4659"
-    frame_color = "#3d4659"
+    background = "#272932"
+    frame_color = "#272932"
     #   %a  appname
     #   %s  summary
     #   %b  body
@@ -386,8 +386,8 @@
 
 [Volume Icon MUTED]
     appname = Volume Icon MUTED
-    background = "#3d4659"
-    frame_color = "#3d4659"
+    background = "#272932"
+    frame_color = "#272932"
     #   %a  appname
     #   %s  summary
     #   %b  body
@@ -401,8 +401,8 @@
 
 [Calendar]
     appname = Calendar
-    background = "#3d4659"
-    frame_color = "#3d4659"
+    background = "#272932"
+    frame_color = "#272932"
     #   %a  appname
     #   %s  summary
     #   %b  body

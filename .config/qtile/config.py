@@ -306,7 +306,6 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "r", lazy.spawn("rofi -modi drun,run -show drun")),
     ([mod], "Return", lazy.spawn(terminal)),
     ([mod], "period", lazy.spawn("rofi -modi emoji -show emoji")),
-    ([mod], "b", lazy.spawn("changebg")),
     ([mod], "q", lazy.spawn("firefox")),
     # ([mod], "w", lazy.spawn(terminal + " -e sleep 1; nvim")),
     ([mod], "e", lazy.spawn("thunar")),

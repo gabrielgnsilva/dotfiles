@@ -146,4 +146,4 @@ configuration {
     }
 }
 
-@theme "~/.config/rofi/theme.rasi"
+@theme "android_notification"

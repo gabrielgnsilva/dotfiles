@@ -33,13 +33,13 @@ userAction() {
 scriptTempFile="/tmp/${UID}_calendar_notification.month"
 touch "${scriptTempFile}"
 
-diff=$(<"${scriptTempFile}")
+diff=$(< "${scriptTempFile}")
 
 case "${1}" in
-    "curr") diff=0;;
-    "next") diff=$((diff+1));;
-    "prev") diff=$((diff-1));;
-    * ) diff=0 ;;
+    "curr") diff=0 ;;
+    "next") diff=$((diff + 1)) ;;
+    "prev") diff=$((diff - 1)) ;;
+    *) diff=0 ;;
 esac
 
 userAction

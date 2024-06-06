@@ -6,18 +6,18 @@ if [[ "${-}" != *i* ]]; then
 fi
 
 # CUSTOMIZATION
-shopt -s checkwinsize  # Line wrap on window resize.
-shopt -s autocd  # Auto cd if command is a directory.
-set -o noclobber  # Prevent overwrite of files.
+shopt -s checkwinsize # Line wrap on window resize.
+shopt -s autocd       # Auto cd if command is a directory.
+set -o noclobber      # Prevent overwrite of files.
 
 # HISTORY CUSTOMIZATION
-shopt -s histappend  # Append
-HISTCONTROL=ignoredups  # Ignore duplicates
-HISTSIZE=10000  # Maximum number os lines stored on memory
-HISTFILESIZE=10000  # Maximum number os lines on file
-HISTFILE="${XDG_CONFIG_HOME}"/bash/bash_history  # file location
+shopt -s histappend                             # Append
+HISTCONTROL=ignoredups                          # Ignore duplicates
+HISTSIZE=10000                                  # Maximum number os lines stored on memory
+HISTFILESIZE=10000                              # Maximum number os lines on file
+HISTFILE="${XDG_CONFIG_HOME}"/bash/bash_history # file location
 PROMPT_COMMAND="${PROMPT_COMMAND:+${PROMPT_COMMAND}$'\n'} \
-    history -a; history -c; history -r"  # Append every command
+    history -a; history -c; history -r" # Append every command
 
 # SET A FANCY PROMPT (NON-COLOR, UNLESS WE KNOW WE "WANT" COLOR)
 case "${TERM}" in
@@ -65,13 +65,13 @@ fi
 
 # IDENTIFY GROUPS THAT "${USER}" IS NOT A MEMBER
 function userGroups() {
-    local groups=( "i2c" "libvirt" )
+    local groups=("i2c" "libvirt")
     local noGroups=()
     local IFS=','
 
     for group in "${groups[@]}"; do
         if ! groups "${USER}" | grep -q "${group}"; then
-            noGroups+=( "${group}" )
+            noGroups+=("${group}")
         fi
     done
 

@@ -5,7 +5,9 @@ return {
 
     dependencies = { 'nvim-lua/plenary.nvim' },
 
-    opts = {},
+    opts = {
+        signs = false,
+    },
 
     config = function(_, opts)
         local map = vim.keymap.set

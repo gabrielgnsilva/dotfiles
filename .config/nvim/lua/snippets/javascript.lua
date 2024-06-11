@@ -935,6 +935,27 @@ return {
         )
     ),
 
+    s(
+        'sanitize',
+        fmt(
+            [[
+            function (str){{
+                const map = {{
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#x27;',
+                    "/": '&#x2F;',
+                }};
+
+                return str.replace(/[&<>"'/]/ig, (match)=>(map[match]));
+            }}
+        ]],
+            {}
+        )
+    ),
+
     -- Fluig
     s(
         'setDueDate',

@@ -46,9 +46,11 @@ return {
 
     config = function(_, opts)
         local lspconfig = require('lspconfig')
+        local builtin = require('telescope.builtin')
         local mason = require('mason')
         local mason_lspconfig = require('mason-lspconfig')
-        local capabilities = require('cmp_nvim_lsp').default_capabilities()
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
         local on_attach = function(client)
             local map = vim.keymap.set
@@ -58,19 +60,19 @@ return {
             end
 
             -- Keymaps
-            map('n', 'gd', vim.lsp.buf.definition, desc('Go to definition'))
-            map('n', 'gD', vim.lsp.buf.declaration, desc('Go to declaration'))
-            map('n', 'gi', vim.lsp.buf.implementation, desc('Go to implementation'))
-            map('n', 'go', vim.lsp.buf.type_definition, desc('Go to type definition'))
-            map('n', 'gr', vim.lsp.buf.references, desc('Show references'))
-            map('n', 'H', vim.lsp.buf.hover, desc('Show hover information'))
-            map('n', '<leader>ra', vim.lsp.buf.rename, desc('Rename symbol'))
-            map('n', '<leader>ca', vim.lsp.buf.code_action, desc('Show code actions'))
-            map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, desc('Add workspace folder'))
-            map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, desc('Remove workspace folder'))
+            map('n', 'gd', vim.lsp.buf.definition, desc('LSP Go to definition'))
+            map('n', 'gD', vim.lsp.buf.declaration, desc('LSP Go to declaration'))
+            map('n', 'gi', vim.lsp.buf.implementation, desc('LSP Go to implementation'))
+            map('n', 'go', vim.lsp.buf.type_definition, desc('LSP Go to type definition'))
+            map('n', 'gr', vim.lsp.buf.references, desc('LSP Show references'))
+            map('n', 'H', vim.lsp.buf.hover, desc('LSP Show hover information'))
+            map('n', 'gs', builtin.lsp_document_symbols, desc('LSP find symbols on current buffer'))
+            map('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, desc('LSP Find symbols on workspace'))
+            map('n', '<leader>rn', vim.lsp.buf.rename, desc('LSP Rename symbol'))
+            map('n', '<leader>ca', vim.lsp.buf.code_action, desc('LPS Show code actions'))
 
             if client.server_capabilities.signatureHelpProvider then
-                map('n', 'gh', vim.lsp.buf.signature_help, desc('Show signature help'))
+                map('n', 'gh', vim.lsp.buf.signature_help, desc('LSP Show signature help'))
             end
         end
 
@@ -109,6 +111,9 @@ return {
                     capabilities = capabilities,
                     settings = {
                         Lua = {
+                            completion = {
+                                callSnippet = 'Replace',
+                            },
                             diagnostics = {
                                 globals = { 'vim' },
                             },

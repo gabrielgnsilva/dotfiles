@@ -3,75 +3,78 @@ local o = vim.o
 local g = vim.g
 
 -- Cursor
--- opt.guicursor = { 'a:ver25' }
-o.cursorline = true
-o.cursorlineopt = 'number'
+opt.cursorline = true
+opt.cursorlineopt = 'number'
 
 -- Line numbers
-o.nu = true
-o.relativenumber = true
-o.numberwidth = 2
-o.ruler = false
+opt.number = true
+opt.relativenumber = true
+opt.numberwidth = 2
+opt.ruler = false
 
 -- Tabs and Indentation
-o.tabstop = 4
-o.shiftwidth = 4
-o.softtabstop = 4
-o.expandtab = true
-o.smartindent = true
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.softtabstop = 4
+opt.expandtab = true
+opt.smartindent = true
+opt.breakindent = true
 
 -- Line wrapping
-o.wrap = false
+opt.wrap = false
 
 -- File history
-o.swapfile = false
-o.backup = false
-o.undofile = true
-o.undodir = vim.fn.stdpath('data') .. '/undodir'
+opt.swapfile = false
+opt.backup = false
+opt.undofile = true
+opt.undodir = vim.fn.stdpath('data') .. '/undodir'
 
 -- Search settings
-o.hlsearch = false
-o.incsearch = true
-o.ignorecase = true
+opt.hlsearch = false
+opt.incsearch = true
+opt.inccommand = 'split'
+opt.ignorecase = true
+opt.smartcase = true
+
+-- Splits
+opt.splitbelow = true
+opt.splitright = true
 
 -- Appearance
-o.termguicolors = true
-o.signcolumn = 'yes'
-o.colorcolumn = '80'
-o.syntax = 'on'
-o.list = true
-o.listchars = 'tab:+-+,multispace:·,trail:·'
+opt.termguicolors = true
+opt.signcolumn = 'yes'
+opt.colorcolumn = '80'
+opt.syntax = 'on'
+opt.list = true
+opt.listchars = 'tab:+-+,multispace:·,trail:·'
 
 -- Clipboard
 o.clipboard = 'unnamedplus'
 
 -- Offset while scrolling
-o.scrolloff = 8
+opt.scrolloff = 10
 
 -- Backspace
-o.backspace = 'indent,eol,start'
+opt.backspace = 'indent,eol,start'
 
 -- Disable mouse while in nvim
-o.mouse = ''
+opt.mouse = ''
 
 -- Misc
 opt.isfname:append('@-@')
-o.updatetime = 250
-o.laststatus = 3
-o.showmode = false
+opt.updatetime = 250
+opt.timeoutlen = 300
+opt.laststatus = 3
+opt.showmode = false -- Don't show the mode, since it's already in the status line
 opt.fillchars = { eob = ' ' }
-o.smartcase = true
 opt.shortmess:append('sI')
-o.splitbelow = true
-o.splitright = true
-o.timeoutlen = 400
 
 -- Folding
-o.foldenable = true
-o.foldlevel = 99
-o.foldlevelstart = 99
-o.foldmethod = 'expr'
-o.foldexpr = 'nvim_treesitter#foldexpr()'
+opt.foldenable = true
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldmethod = 'expr'
+opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 g['loaded_node_provider'] = 0
 g['loaded_python3_provider'] = 0

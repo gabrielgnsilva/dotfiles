@@ -15,3 +15,11 @@ autocmd({ 'bufEnter', 'bufWritePost', 'insertLeave' }, {
         require('lint').try_lint()
     end,
 })
+
+autocmd('TextYankPost', {
+    desc = 'Highlight when yanking text',
+    group = augroup('kickstart-highlight-yank', { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})

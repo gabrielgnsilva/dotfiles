@@ -10,6 +10,7 @@ return {
         'nvim-lua/plenary.nvim',
         'debugloop/telescope-undo.nvim',
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+        { 'nvim-tree/nvim-web-devicons' },
     },
 
     opts = {
@@ -43,11 +44,6 @@ return {
                 i = {},
             },
         },
-        -- pickers = {
-        --     -- find_files = {
-        --     --     theme = 'dropdown',
-        --     -- },
-        -- },
         extensions_list = { 'fzf', 'undo' },
     },
 
@@ -64,6 +60,7 @@ return {
             ['<C-k>'] = actions.move_selection_previous,
             ['<C-h>'] = actions.select_default,
         }
+
         telescope.setup(opts)
         for _, extension in ipairs(opts.extensions_list) do
             telescope.load_extension(extension)
@@ -77,12 +74,22 @@ return {
             end,
         }
 
+        map('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope fuzzy find help tag' })
         map('n', '<leader>fd', builtin.diagnostics, { desc = 'Telescope fuzzy find files on cwd' })
+        map('n', '<leader>fb', builtin.buffers, { desc = 'Telescope fuzzy find curenltly open buffers' })
         map('n', '<leader>ff', builtin.find_files, { desc = 'Telescope fuzzy find files on cwd' })
         map('n', '<leader>fg', builtin.git_files, { desc = 'Telescope fuzzy find git files on cwd' })
         map('n', '<leader>fr', builtin.oldfiles, { desc = 'Telescope fuzzy find recend files' })
-        map('n', '<leader>fs', builtin.live_grep, { desc = 'Telescope fuzzy find string on worktree' })
         map('n', '<leader>fs', custom.grep_string, { desc = 'Telescope fuzzy find string on worktree' })
         map('n', '<leader>fu', extensions.undo.undo, { desc = 'Telescope fuzzy find undo history on cwd' })
+        map('n', '<leader>f/', function()
+            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
+                winblend = 10,
+                previewer = false,
+            }))
+        end, { desc = 'Telescope fuzzy find undo history on cwd' })
+        map('n', '<leader>fn', function()
+            builtin.find_files({ cwd = vim.fn.stdpath('config') })
+        end, { desc = 'Telescope fuzzy find neovim config files' })
     end,
 }

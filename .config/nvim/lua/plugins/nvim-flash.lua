@@ -1,19 +1,22 @@
 return {
-    -- event = {
-    --     'BufReadPost', -- Starting to edit an existing file
-    --     'BufNewFile', -- Starting to edit a non-existent file
-    -- },
+    event = {
+        'BufReadPost', -- Starting to edit an existing file
+        'BufNewFile', -- Starting to edit a non-existent file
+    },
 
-    -- 'folke/flash.nvim',
+    'folke/flash.nvim',
 
-    -- opts = {},
+    opts = {},
 
-    -- -- stylua: ignore
-    -- keys = {
-    --     { "s", mode = { "n", "x", "o" }, function() require( "flash").jump() end, desc = "Flash" },
-    --     { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    --     { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-    --     { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-    --     { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    -- },
+    keys = function()
+        local flash = require('flash')
+
+        return {
+            { '<leader>/', mode = { 'n', 'x', 'o' }, flash.jump, desc = 'Flash' },
+            -- { 'S', mode = { 'n', 'x', 'o' }, flash.treesitter, desc = 'Flash Treesitter' },
+            -- { 'r', mode = 'o', flash.remote, desc = 'Remote Flash' },
+            -- { 'R', mode = { 'o', 'x' }, flash.treesitter_search, desc = 'Treesitter Search' },
+            -- { '<c-s>', mode = { 'c' }, flash.toggle, desc = 'Toggle Flash Search' },
+        }
+    end,
 }

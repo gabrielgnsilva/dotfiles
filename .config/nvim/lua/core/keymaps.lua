@@ -12,6 +12,7 @@ local k = vim.keymap.set
 k('i', 'jj', '<esc>', { desc = 'Escape' })
 k('n', '<leader><leader>', ':so<cr>', { desc = 'Source current file' })
 k('n', 'Q', '<nop>', { desc = 'Do nothing (disable ex mode)' })
+k('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Sort lines ascending or descending while preserving selection
 k('x', '<leader>sa', ":'<,'>sort<cr>gv=gv", { desc = 'Sort lines ascending' })
@@ -78,7 +79,8 @@ k('n', '<M-l>', '<C-w><5', { desc = 'Decrease window buffer width' })
 -- Diagnostics
 k('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>zz', { desc = 'Previous diagnostic' })
 k('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>zz', { desc = 'Next diagnostic' })
-k('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>zz', { desc = 'Open diagnostics' })
+k('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>zz', { desc = 'Expand diagnostics' })
+k('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<cr>zz', { desc = 'Open diagnostics quickfix list' })
 
 -- Formatter (Used only when configurations cannot be set in nvim-conform.lua)
 -- This allows to add a formatter configuration on the fly
@@ -128,3 +130,11 @@ k('n', '<leader>gf', function()
         formatterDestFile:close()
     end)
 end, { desc = 'Format current buffer with formatter' })
+
+vim.keymap.set('n', '@', function()
+    local count = vim.v.count1
+    local register = vim.fn.getcharstr()
+    vim.opt.lazyredraw = true
+    vim.cmd(string.format('noautocmd norm! %d@%s', count, register))
+    vim.opt.lazyredraw = false
+end, { noremap = true })

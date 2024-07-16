@@ -248,4 +248,4 @@ decorations_theme_variant = "Dark"
 
 [window.padding]
 x = 5
-y = 5
+y = 0

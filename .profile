@@ -12,6 +12,8 @@ export LESSHISTFILE="${XDG_CONFIG_HOME}"/less/lesshst
 export QT_STYLE_OVERRIDE=kvantum
 export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
+export GOPATH="${HOME}/.local/share/go"
+export GOBIN="${GOPATH}/bin"
 
 # BASHRC
 source "${XDG_CONFIG_HOME}"/bash/bashrc

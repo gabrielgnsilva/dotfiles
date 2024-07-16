@@ -115,11 +115,11 @@ return {
             },
 
             sources = {
-                { name = 'nvim_lsp' },
-                { name = 'luasnip' },
-                { name = 'buffer', keyword_length = 3 },
-                { name = 'nvim_lua' },
-                { name = 'path' },
+                { name = 'luasnip', priority = 100 },
+                { name = 'nvim_lua', priority = 90 },
+                { name = 'nvim_lsp', priority = 80 },
+                { name = 'buffer', keyword_length = 3, priority = 70 },
+                { name = 'path', priority = 60 },
             },
 
             formatting = {
@@ -158,13 +158,13 @@ return {
         })
 
         -- Keymaps
-        map('n', '<C-i>', function()
+        map('i', '<C-i>', function()
             if luasnip.choice_active() then
                 luasnip.change_choice(1)
             end
         end, { desc = 'LuaSnip next choice' })
 
-        map('n', '<C-l>', function()
+        map('i', '<C-l>', function()
             if luasnip.choice_active() then
                 luasnip.change_choice(-1)
             end

@@ -140,6 +140,7 @@ image/svg+xml=gimp.desktop;
 image/webp=gimp.desktop;
 image/tiff=gimp.desktop;
 application/x-zerosize=pluma.desktop;
+text/x-java=nvim.desktop;
 
 [Removed Associations]
 image/apng=firefox.desktop;chromium.desktop;

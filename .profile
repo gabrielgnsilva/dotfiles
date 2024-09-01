@@ -14,6 +14,7 @@ export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
 export GOPATH="${HOME}/.local/share/go"
 export GOBIN="${GOPATH}/bin"
+export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
 
 # BASHRC
 source "${XDG_CONFIG_HOME}"/bash/bashrc

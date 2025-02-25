@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
-# Aliases
+# region: Aliases
+alias tmux='tmux -u '
 alias sudo='sudo -v; sudo '
 alias timeis='date +%c'
 alias vi='nvim'
@@ -12,13 +13,14 @@ alias sc='shellcheck -x -P SCRIPTDIR -f tty -o all'
 alias ft='xdg-mime query filetype'
 alias :q='exit'
 alias config='/usr/bin/git --git-dir="${HOME}"/.local/dotfiles/ --work-tree="${HOME}"'
+alias trash='gio trash '
 alias alert='notify-send --urgency=critical                                   \
     -a "Hey, your command has finished !"                                     \
     -i "$(if [[ "${?}" = 0 ]];then echo terminal || echo error; fi)"          \
     "$(history|tail -n1|sed -e '"'s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'"')"'
+# regionend
 
-
-# Enable color support and shorten some commands of ls;
+# region: Enable color support and shorten some commands of ls;
 if [[ -x /usr/bin/dircolors ]]; then
     alias diff='diff --color=auto '
     alias ls='ls -alshv --group-directories-first --color=auto '
@@ -27,3 +29,4 @@ if [[ -x /usr/bin/dircolors ]]; then
     alias ip='ip -color=auto '
     alias grep='grep --color=auto '
 fi
+# regionend

@@ -1,90 +1,122 @@
 --[[
     Modes:
-    [n] Normal
-    [i] Insert
-    [v] Visual
-    [x] Visual Line
+        [n]ormal
+        [i]nsert
+        [v]isual
+        [x](v)isual Line
 ]]
 
-local k = vim.keymap.set
+local map = vim.keymap.set
+local utils = require('core.utils')
 
--- General keymaps
-k('i', 'jj', '<esc>', { desc = 'Escape' })
-k('n', '<leader><leader>', ':so<cr>', { desc = 'Source current file' })
-k('n', 'Q', '<nop>', { desc = 'Do nothing (disable ex mode)' })
-k('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+-- #region: General Keymaps
+map('i', 'jj', '<esc>', { desc = 'Escape' })
+map('n', '<leader><leader>', ':so<cr>', { desc = 'Source current file' })
+map('n', 'Q', '<nop>', { desc = 'Do nothing (disable ex mode)' })
+map('n', '@', function()
+    vim.opt.lazyredraw = true
+    vim.cmd(string.format('noautocmd norm! %d@%s', vim.v.count1, vim.fn.getcharstr()))
+    vim.opt.lazyredraw = false
+end, { noremap = true })
+-- #endregion
 
--- Sort lines ascending or descending while preserving selection
-k('x', '<leader>sa', ":'<,'>sort<cr>gv=gv", { desc = 'Sort lines ascending' })
-k('x', '<leader>sd', ":'<,'>sort!<cr>gv=gv", { desc = 'Sort lines descending' })
+-- #region: Terminal Management
+local job_id = 0
+map('n', '<leader>st', function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd('J')
+    vim.api.nvim_win_set_height(0, 4)
+    job_id = vim.bo.channel
+end, { desc = 'Open small terminal node' })
+map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+map('n', '<leader>tb', function()
+    if utils.is_angular_project() then
+        vim.fn.chansend(job_id, { 'ng build\r\n' })
+    end
+end, { desc = 'Run build command.' })
+map('n', '<leader>tc', function()
+    if utils.is_angular_project() then
+        vim.fn.chansend(job_id, { 'clear\r\n' })
+    end
+end, { desc = 'Run clear command.' })
+-- #endregion
 
--- Move lines with visual while preserving selection and autoindenting
-k('v', 'J', ":move '>+1<cr>gv=gv", { desc = 'Move line down' })
-k('v', 'K', ":move '<-2<cr>gv=gv", { desc = 'Move line up' })
+-- #region: Sorting and Moving Lines
+map('x', '<leader>sa', ":'<,'>sort<cr>gv=gv", { desc = 'Sort lines ascending' })
+map('x', '<leader>sd', ":'<,'>sort!<cr>gv=gv", { desc = 'Sort lines descending' })
+map('v', 'J', ":move '>+1<cr>gv=gv", { desc = 'Move line down' })
+map('v', 'K', ":move '<-2<cr>gv=gv", { desc = 'Move line up' })
+-- #endregion
 
--- Append line below or above to current line while preserving cursor position
-k('n', 'J', 'mzJ`z', { desc = 'Append line below to current line' })
-k('n', 'K', 'mz:move -2|j<cr>`z', { desc = 'Append line below to current line' })
+-- #region: Line Manipulation
+map('n', 'J', 'mzJ`z', { desc = 'Append line below to current line' })
+map('n', 'K', 'mz:move -2|j<cr>`z', { desc = 'Append line below to current line' })
+map('n', '<leader>nj', 'o<Esc>"_D', { desc = 'Add new line below' })
+map('n', '<leader>nk', 'O<Esc>"_D', { desc = 'Add new line above' })
+-- #endregion
 
--- Add a new line above or below the current line
-k('n', '<leader>nj', 'o<Esc>"_D', { desc = 'Add new line below' })
-k('n', '<leader>nk', 'O<Esc>"_D', { desc = 'Add new line above' })
+-- #region: Scrolling and Search
+map('n', '<C-n>', '<C-d>zz', { desc = 'Move page down' })
+map('n', '<C-u>', '<C-u>zz', { desc = 'Move page up' })
+map('n', 'N', 'Nzzzv', { desc = 'Move to previous match' })
+map('n', 'n', 'nzzzv', { desc = 'Move to next match' })
+-- #endregion
 
--- Move page up or down while positioning the cursor on the center of the screen
-k('n', '<C-n>', '<C-d>zz', { desc = 'Move page down' })
-k('n', '<C-u>', '<C-u>zz', { desc = 'Move page up' })
+-- #region: Delete and Paste Without Register
+map('n', '<leader>d', '"_d', { desc = 'Delete without copying' })
+map('x', '<leader>d', '"_d', { desc = 'Delete without copying' })
+map('x', '<leader>p', '"_dP', { desc = 'Paste without copying' })
+-- #endregion
 
--- When searching, center the screen on the current match
-k('n', 'N', 'Nzzzv', { desc = 'Move to previous match' })
-k('n', 'n', 'nzzzv', { desc = 'Move to next match' })
-
--- When deleting or pasting, don't copy the deleted text to the default register
-k('n', '<leader>d', '"_d', { desc = 'Delete without copying' })
-k('x', '<leader>d', '"_d', { desc = 'Delete without copying' })
-k('x', '<leader>p', '"_dP', { desc = 'Paste without copying' })
-
--- Replace word under cursor
-k('n', '<leader>rw', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Replace word under cursor' })
-
--- Make current file executable
-k('n', '<leader>x', function()
+-- #region: Word Replacement and File Permissions
+map('n', '<leader>rw', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Replace word under cursor' })
+map('n', '<leader>mx', function()
     vim.ui.input({ prompt = 'chmod +x <file>? [y/N] ' }, function(input)
         if input ~= nil and input:lower() == 'y' then
             vim.cmd('!chmod +x %')
         end
     end)
 end, { silent = true, desc = 'Make current file executable' })
+-- #endregion
 
--- Split window buffer navigation
-k('n', '<leader>sh', '<C-w>h', { desc = 'Move to left window buffer' })
-k('n', '<leader>sj', '<C-w>j', { desc = 'Move to bottom window buffer' })
-k('n', '<leader>sk', '<C-w>k', { desc = 'Move to top window buffer' })
-k('n', '<leader>sl', '<C-w>l', { desc = 'Move to right window buffer' })
+-- #region: Window and Buffer Management
+map('n', '<leader>sh', '<C-w>h', { desc = 'Move to left window buffer' })
+map('n', '<leader>sj', '<C-w>j', { desc = 'Move to bottom window buffer' })
+map('n', '<leader>sk', '<C-w>k', { desc = 'Move to top window buffer' })
+map('n', '<leader>sl', '<C-w>l', { desc = 'Move to right window buffer' })
+map('n', '<leader>cw', ':close<cr>', { desc = 'Close window buffer' })
+map('n', '<leader>se', '<C-w>=', { desc = 'Equalize window buffer sizes' })
+map('n', '<leader>sm', '<C-W>_<cr><C-W>|', { desc = 'Maximize current window buffer' })
+map('n', '<leader>ss', '<C-w>s', { desc = 'Split window buffer horizontally' })
+map('n', '<leader>sv', '<C-w>v', { desc = 'Split window buffer vertically' })
+map('n', '<M-h>', '<C-w>>5', { desc = 'Increase window buffer width' })
+map('n', '<M-j>', '<C-w>-', { desc = 'Decrease window buffer height' })
+map('n', '<M-k>', '<C-w>+', { desc = 'Increase window buffer height' })
+map('n', '<M-l>', '<C-w><5', { desc = 'Decrease window buffer width' })
+-- #endregion
 
--- Split window buffer management
-k('n', '<leader>cw', ':close<cr>', { desc = 'Close window buffer' })
-k('n', '<leader>se', '<C-w>=', { desc = 'Equalize window buffer sizes' })
-k('n', '<leader>ss', '<C-w>s', { desc = 'Split window buffer horizontally' })
-k('n', '<leader>sv', '<C-w>v', { desc = 'Split window buffer vertically' })
+-- #region: Buffer Navigation and Management
+map('n', '<leader>cb', '<cmd>bdelete<cr>', { desc = 'Delete current buffer' })
+map('n', '<leader>sn', '<cmd>bNext<cr>', { desc = 'Switch to next buffer' })
+map('n', '<leader>sp', '<cmd>bprevious<cr>', { desc = 'Switch to previous buffer' })
+-- #endregion
 
--- Split window buffer resizing
-k('n', '<M-h>', '<C-w>>5', { desc = 'Increase window buffer width' })
-k('n', '<M-j>', '<C-w>-', { desc = 'Decrease window buffer height' })
-k('n', '<M-k>', '<C-w>+', { desc = 'Increase window buffer height' })
-k('n', '<M-l>', '<C-w><5', { desc = 'Decrease window buffer width' })
+-- #region: Diagnostics and Quickfix
+map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>zz', { desc = 'Previous diagnostic' })
+map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>zz', { desc = 'Next diagnostic' })
+map('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>zz', { desc = 'Expand diagnostics' })
+map('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<cr>zz', { desc = 'Open diagnostics quickfix list' })
+map('n', '<M-n>', '<cmd>cnext<cr>', { desc = 'Next quickfix list item' })
+map('n', '<M-p>', '<cmd>cprev<cr>', { desc = 'Previous quickfix list item' })
+map('n', '<M-c>', '<cmd>cclose<cr>', { desc = 'Close quickfix list' })
+-- #endregion
 
--- TODO: Buffer Management
--- TODO: Buffer Navigation
+-- #region: Formatter Configuration
 
--- Diagnostics
-k('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>zz', { desc = 'Previous diagnostic' })
-k('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>zz', { desc = 'Next diagnostic' })
-k('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>zz', { desc = 'Expand diagnostics' })
-k('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<cr>zz', { desc = 'Open diagnostics quickfix list' })
-
--- Formatter (Used only when configurations cannot be set in nvim-conform.lua)
+-- Used only when configurations cannot be set in `nvim-conform.lua`.
 -- This allows to add a formatter configuration on the fly
-k('n', '<leader>gf', function()
+map('n', '<leader>gf', function()
     local formatters = {
         ['[Formatter] Stylua'] = 'stylua.toml',
         ['[Linter] ESLINT'] = 'eslintrc.json',
@@ -129,12 +161,5 @@ k('n', '<leader>gf', function()
         formatterDestFile:write(formatterContent)
         formatterDestFile:close()
     end)
-end, { desc = 'Format current buffer with formatter' })
-
-vim.keymap.set('n', '@', function()
-    local count = vim.v.count1
-    local register = vim.fn.getcharstr()
-    vim.opt.lazyredraw = true
-    vim.cmd(string.format('noautocmd norm! %d@%s', count, register))
-    vim.opt.lazyredraw = false
-end, { noremap = true })
+end, { desc = "Fetch a formatter config from the formatter's directory" })
+-- #endregion

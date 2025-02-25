@@ -1,11 +1,11 @@
 local opt = vim.opt
+local map = vim.keymap.set
 
 opt.wrap = true
 opt.breakindent = true
 opt.linebreak = true
-
-vim.keymap.set('n', 'j', 'gj')
-vim.keymap.set('n', 'k', 'gk')
-
-opt.spelllang = 'en_us'
+opt.spelllang = 'pt_br,en_us'
 opt.spell = true
+
+map('n', 'j', 'gj')
+map('n', 'k', 'gk')

@@ -28,11 +28,6 @@ export CARGO_HOME="${XDG_DATA_HOME}"/cargo
 # GO
 export GOBIN="${GOPATH}/bin"
 export GOPATH="${HOME}/.local/share/go"
-
-# JS/TS
-if command -v ng &> /dev/null; then
-  source <(ng completion script)
-fi
 # regionend
 
 # region: Editors
@@ -42,7 +37,6 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
 # #region: NVM
 export NVM_DIR="$HOME/.config/nvm"
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}"/npm/npmrc
-[ -s "${NVM_DIR}"/nvm.sh ] && \. "${NVM_DIR}"/nvm.sh
 # #regionend
 
 # region: BASHRC

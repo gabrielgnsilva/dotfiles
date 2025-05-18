@@ -94,14 +94,13 @@ userGroups
 # regionend
 
 # region: NVM
-export NVM_DIR="${HOME}/.config/nvm"
-[[ -s "${NVM_DIR}/nvm.sh" ]] && \. "${NVM_DIR}/nvm.sh" # This loads nvm
-[[ -s "${NVM_DIR}/bash_completion" ]] \
-    && \. "${NVM_DIR}/bash_completion" # This loads nvm bash_completion
+[[ -s "${NVM_DIR}"/nvm.sh ]] && source "${NVM_DIR}"/nvm.sh                   # This loads nvm
+[[ -s "${NVM_DIR}/bash_completion" ]] && source "${NVM_DIR}/bash_completion" # This loads nvm bash_completion
 # regionend
 
-if [[ -x ~/.local/bin/notimewaste ]]; then
-    notimewaste
+# region: JS/TS
+if command -v ng &> /dev/null; then
+    source <(ng completion script)
 fi
 
 unset -f userGroups

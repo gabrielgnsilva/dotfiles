@@ -241,14 +241,12 @@ program = "/bin/bash"
 
 [window]
 decorations_theme_variant = "Dark"
-
-[window.padding]
-x = 5
-y = 0
+padding = { x = 5, y = 0 }
+dynamic_padding = true
 
 [general]
 live_config_reload = false
 working_directory = "None"
-import = ["/home/gnascsilva/.config/alacritty/themes/cyberpunk.toml"]
+import = ["/home/gnascsilva/.config/alacritty/themes/rose-pine.toml"]
 
 [terminal]

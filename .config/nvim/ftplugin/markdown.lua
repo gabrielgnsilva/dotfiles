@@ -1,11 +1,13 @@
 local opt = vim.opt
-local map = vim.keymap.set
+local g = vim.g
 
 opt.wrap = true
 opt.breakindent = true
 opt.linebreak = true
+opt.encoding = 'utf-8'
 opt.spelllang = 'pt_br,en_us'
 opt.spell = true
 
-map('n', 'j', 'gj')
-map('n', 'k', 'gk')
+g.markdown_recommended_style = 0 -- Fix markdown indentation settings
+
+require('core.utils').load_keymaps('markdown')

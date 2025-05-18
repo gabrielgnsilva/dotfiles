@@ -1,0 +1,30 @@
+{
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "experimentalTernaries": false,
+  "insertPragma": true,
+  "objectWrap": "preserve",
+  "printWidth": 79,
+  "proseWrap": "never",
+  "quoteProps": "as-needed",
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": ["*.ftl"],
+      "options": {
+        "parser": "html",
+        "printWidth": 9999
+      }
+    },
+    {
+      "files": ["*.html"],
+      "options": {
+        "printWidth": 9999
+      }
+    }
+  ]
+}

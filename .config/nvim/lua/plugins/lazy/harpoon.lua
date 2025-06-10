@@ -26,20 +26,28 @@ return {
         :find()
     end
 
+    local function get_current_file_name()
+      return vim.fn.expand('%:t')
+    end
+
     local function toggle_list()
       toggle_telescope(harpoon:list())
     end
     local function add_to_list()
       harpoon:list():add()
+      vim.notify('Harpooned ' .. get_current_file_name())
     end
     local function remove_from_list()
       harpoon:list():remove()
+      vim.notify('Unharpooned ' .. get_current_file_name())
     end
     local function next_in_list()
       harpoon:list():next()
+      vim.notify('Harpooned to ' .. get_current_file_name())
     end
     local function prev_in_list()
       harpoon:list():prev()
+      vim.notify('Harpooned to ' .. get_current_file_name())
     end
 
     require('core.utils').load_keymaps({
@@ -47,27 +55,27 @@ return {
         mode = { 'n' },
         bindings = {
           {
-            key = '<leader>ht',
+            key = '<leader><leader>h',
             cmd = toggle_list,
             desc = 'Harpoon toggle harpoon menu',
           },
           {
-            key = '<leader>ha',
+            key = '<leader>ah',
             cmd = add_to_list,
             desc = 'Harpoon add file to harpoon',
           },
           {
-            key = '<leader>hr',
+            key = '<leader>rh',
             cmd = remove_from_list,
             desc = 'Harpoon remove file to harpoon',
           },
           {
-            key = '<leader>hn',
+            key = '<leader>nh',
             cmd = next_in_list,
             desc = 'Harpoon select next harpoon file',
           },
           {
-            key = '<leader>hp',
+            key = '<leader>ph',
             cmd = prev_in_list,
             desc = 'Harpoon select prev harpoon file',
           },

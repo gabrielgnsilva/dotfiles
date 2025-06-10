@@ -10,7 +10,8 @@ return {
   cmd = { 'LspInstallAll' },
   config = function()
     vim.diagnostic.config({
-      virtual_text = { prefix = '', source = 'if_many' },
+      -- virtual_text = { prefix = '', source = 'if_many' },
+      virtual_text = false,
       underline = true,
       float = { border = 'rounded', source = 'if_many' },
       update_in_insert = true,
@@ -80,6 +81,19 @@ return {
     end
 
     require('mason-lspconfig').setup(opts)
+
+    require('core.utils').load_keymaps({
+      {
+        mode = { 'n' },
+        bindings = {
+          {
+            key = '<leader>rl',
+            cmd = '<cmd>:LspRestart<cr>',
+            desc = 'Restart LSP',
+          },
+        },
+      },
+    })
 
     vim.api.nvim_create_user_command('LspInstallAll', function()
       if #opts.ensure_installed > 0 then

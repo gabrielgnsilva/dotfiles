@@ -9,6 +9,7 @@ return {
     'stylua.toml',
     'selene.toml',
     'selene.yml',
+    'lazy-lock.json',
     '.git',
   },
   settings = {

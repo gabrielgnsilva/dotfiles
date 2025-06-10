@@ -1,1 +1,5 @@
-return { 'mzlogin/vim-markdown-toc', ft = { 'md' } }
+return {
+  enabled = false,
+  'mzlogin/vim-markdown-toc',
+  ft = { 'md' },
+}

@@ -1,24 +1,27 @@
 [core]
-   editor = nvim
+editor = nvim
 
 [user]
-   name = Gabriel Nascimento
-   email = 135087316+gabrielgnsilva@users.noreply.github.com
+name = Gabriel Nascimento
+email = 135087316+gabrielgnsilva@users.noreply.github.com
 
 [init]
-   defaultBranch = main
+defaultBranch = main
+
+[difftool]
+prompt = true
 
 [diff]
-   tool = nvimdiff
-   prompt = false
+tool = nvimdiff
 
 [difftool "nvimdiff"]
-   cmd = nvim -d $REMOTE $LOCAL
+cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 
 [credential]
-   helper = /usr/lib/git-core/git-credential-libsecret
+helper = /usr/lib/git-core/git-credential-libsecret
 
 [status]
-   showUntrackedFiles = no
+showUntrackedFiles = no
+
 [advice]
-   addIgnoredFile = false
+addIgnoredFile = false

@@ -65,33 +65,33 @@ return {
       },
     }
 
-    local ret = { mode = { 'o', 'x' } }
-    local mappings = vim.tbl_extend('force', {}, {
-      around = 'a',
-      inside = 'i',
-      around_next = 'an',
-      inside_next = 'in',
-      around_last = 'al',
-      inside_last = 'il',
-    }, opts.mappings or {})
-    mappings.goto_left = nil
-    mappings.goto_right = nil
-
-    for name, prefix in pairs(mappings) do
-      name = name:gsub('^around_', ''):gsub('^inside_', '')
-      ret[#ret + 1] = { prefix, group = name }
-      for _, obj in ipairs(objects) do
-        local desc = obj.desc
-        if prefix:sub(1, 1) == 'i' then
-          desc = desc:gsub(' with ws', '')
-        end
-        ret[#ret + 1] = { prefix .. obj[1], desc = obj.desc }
-      end
-    end
+    -- local ret = { mode = { 'o', 'x' } }
+    -- local mappings = vim.tbl_extend('force', {}, {
+    --   around = 'a',
+    --   inside = 'i',
+    --   around_next = 'an',
+    --   inside_next = 'in',
+    --   around_last = 'al',
+    --   inside_last = 'il',
+    -- }, opts.mappings or {})
+    -- mappings.goto_left = nil
+    -- mappings.goto_right = nil
+    --
+    -- for name, prefix in pairs(mappings) do
+    --   name = name:gsub('^around_', ''):gsub('^inside_', '')
+    --   ret[#ret + 1] = { prefix, group = name }
+    --   for _, obj in ipairs(objects) do
+    --     local desc = obj.desc
+    --     if prefix:sub(1, 1) == 'i' then
+    --       desc = desc:gsub(' with ws', '')
+    --     end
+    --     ret[#ret + 1] = { prefix .. obj[1], desc = obj.desc }
+    --   end
+    -- end
 
     require('mini.ai').setup(opts)
-    vim.schedule(function()
-      require('which-key').add(ret, { notify = false })
-    end)
+    -- vim.schedule(function()
+    --   require('which-key').add(ret, { notify = false })
+    -- end)
   end,
 }

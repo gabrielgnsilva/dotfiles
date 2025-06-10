@@ -1,7 +1,17 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   event = { 'BufReadPost', 'BufNewFile' },
-  dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    {
+      'nvim-treesitter/nvim-treesitter-context',
+      opts = {
+        enable = true,
+        multiline_threshold = 20,
+        trim_scope = 'outer',
+      },
+    },
+  },
   build = ':TSUpdate',
   config = function()
     local notify = vim.notify

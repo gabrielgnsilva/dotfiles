@@ -17,6 +17,7 @@ return {
       quickfile = { enabled = true },
       indent = { enabled = true },
       terminal = { win = { style = 'terminal' } },
+      image = { enabled = false },
       animate = {
         duration = 20,
         easing = 'linear',

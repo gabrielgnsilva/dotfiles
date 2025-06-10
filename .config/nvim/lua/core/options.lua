@@ -79,7 +79,20 @@ opt.grepprg = 'rg --vimgrep'
 
 -- #region: Clipboard Settings
 if vim.fn.has('wsl') == 1 then
-  o.clipboard = '' -- Disables clipboard integration on WSL
+  vim.cmd([[
+    let g:clipboard = {
+      \   'name': 'win32yank',
+      \   'copy': {
+      \      '+': 'win32yank.exe -i --crlf',
+      \      '*': 'win32yank.exe -i --crlf',
+      \    },
+      \   'paste': {
+      \      '+': 'win32yank.exe -o --lf',
+      \      '*': 'win32yank.exe -o --lf',
+      \   },
+      \   'cache_enabled': 0,
+      \ }
+  ]])
 else
   o.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus'
 end
@@ -100,22 +113,23 @@ opt.isfname:append('@-@') -- Includes hyphen in file names
 
 -- #region: Performance Settings
 opt.timeoutlen = 300 -- Sets the timeout for key mappings (in milliseconds)
-opt.ttyfast = true -- Improves performance when interacting with the terminal
+opt.ttyfast = nil -- Improves performance when interacting with the terminal
 opt.updatetime = 200 -- Sets the time in milliseconds before triggering an update event
 -- #endregion
 
 -- #region: UI Settings
 opt.shortmess:append({ W = true, I = true, c = true, C = true }) -- Suppresses certain messages in the command line
 opt.showmode = false -- Hides the mode display (since it's already in the status line)
-opt.laststatus = 3 -- global statusline
--- opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+opt.laststatus = 3 -- views can only be fully collapsed with the global statusline
+-- global statusline
+opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
 opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.virtualedit = 'block' -- Allow cursor to move where there is no text in visual block mode
 -- #endregion
 
 -- #region: Completion and Mouse Settings
-opt.completeopt = 'menu,menuone,noselect' -- Sets completion options
+opt.completeopt = 'menu,menuone,noselect,preview' -- Sets completion options
 opt.mouse = '' -- Disables mouse support in Neovim
 opt.wildmode = 'longest:full,full' -- Command-line completion mode
 -- #endregion

@@ -1,3 +1,4 @@
+-- #region: Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -20,25 +21,23 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end
 vim.opt.rtp:prepend(lazypath)
+-- #regionend
 
+-- #region: Lazy config
 require('lazy').setup({
   -- Plugins SPEC - SEE: https://lazy.folke.io/spec
   spec = {
     --[[ Events
       BufNewFile              Starting to edit a non-existent file
       BufReadPre BufReadPost  Before and after editing an existing file
-
       SEE: https://neovim.io/doc/user/autocmd.html#autocmd-events
-
       VeryLazy  You can use this event for things that can load later
                 and are not important for the initial UI
     ]]
     { import = 'plugins.startup', lazy = false },
     { import = 'plugins.lazy', lazy = true },
   },
-  defaults = {
-    version = false, -- Always use the latest git commit
-  },
+  defaults = { version = false }, -- Always use the latest git commit
   checker = {
     enabled = true, -- check for plugin updates periodically
     notify = false, -- notify on update
@@ -52,7 +51,12 @@ require('lazy').setup({
     colorscheme = { 'rose-pine' }, -- try to load one of these colorschemes when starting an installation during startup
   },
   ui = {
-    icons = { ft = '', lazy = '󰂠 ', loaded = '', not_loaded = '' },
+    icons = {
+      ft = '',
+      lazy = '󰂠 ',
+      loaded = '',
+      not_loaded = '',
+    },
   },
   performance = {
     rtp = {
@@ -89,3 +93,4 @@ require('lazy').setup({
     },
   },
 })
+-- #regionend

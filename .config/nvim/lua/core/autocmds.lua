@@ -3,6 +3,15 @@ local function create_augroup(name)
   return vim.api.nvim_create_augroup('custom_gp_' .. name, { clear = true })
 end
 
+create_autocmd('termOpen', {
+  desc = 'Disable line numbers on terminal',
+  group = create_augroup('custom-term-open'),
+  callback = function()
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+  end,
+})
+
 create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   desc = 'Check if we need to reload the file when it changed',
   group = create_augroup('checktime'),
@@ -42,35 +51,17 @@ create_autocmd('BufReadPost', {
   end,
 })
 
-create_autocmd('FileType', {
-  desc = 'Dont list quickfix buffers',
-  pattern = 'qf',
-  callback = function()
-    vim.opt_local.buflisted = false
+create_autocmd('BufWritePre', {
+  desc = 'Auto create dir when saving a file, in case some intermediate directory does not exist',
+  group = create_augroup('auto_create_dir'),
+  callback = function(event)
+    if event.match:match('^%w%w+:[\\/][\\/]') then
+      return
+    end
+    local file = vim.uv.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
   end,
 })
-
-create_autocmd('termOpen', {
-  desc = 'Disable line numbers on terminal',
-  group = create_augroup('custom-term-open'),
-  callback = function()
-    vim.opt.number = false
-    vim.opt.relativenumber = false
-  end,
-})
-
-if vim.fn.has('wsl') == 1 then
-  create_autocmd('FocusGained', {
-    desc = 'Sync with system clipboard on focus gained',
-    pattern = { '*' },
-    command = [[call setreg("@", getreg("+"))]],
-  })
-  create_autocmd('FocusLost', {
-    desc = 'Sync with system clipboard on focus lost',
-    pattern = { '*' },
-    command = [[call setreg("+", getreg("@"))]],
-  })
-end
 
 create_autocmd('FileType', {
   desc = 'Close some filetypes with <q>',
@@ -107,14 +98,15 @@ create_autocmd('FileType', {
   end,
 })
 
-create_autocmd('BufWritePre', {
-  desc = 'Auto create dir when saving a file, in case some intermediate directory does not exist',
-  group = create_augroup('auto_create_dir'),
-  callback = function(event)
-    if event.match:match('^%w%w+:[\\/][\\/]') then
-      return
-    end
-    local file = vim.uv.fs_realpath(event.match) or event.match
-    vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
-  end,
-})
+if vim.fn.has('wsl') == 1 then
+  create_autocmd('FocusGained', {
+    desc = 'Sync with system clipboard on focus gained',
+    pattern = { '*' },
+    command = [[call setreg("@", getreg("+"))]],
+  })
+  create_autocmd('FocusLost', {
+    desc = 'Sync with system clipboard on focus lost',
+    pattern = { '*' },
+    command = [[call setreg("+", getreg("@"))]],
+  })
+end

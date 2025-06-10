@@ -245,6 +245,21 @@ M.markdown = function()
       bindings = {
         { key = 'j', cmd = 'gj', desc = 'Go to next visible line' },
         { key = 'k', cmd = 'gk', desc = 'Go to previous visible line' },
+        {
+          key = '[s',
+          cmd = '[s',
+          { desc = 'Prev spelling error', noremap = true, silent = true },
+        },
+        {
+          key = ']s',
+          cmd = ']s',
+          { desc = 'Next spelling error', noremap = true, silent = true },
+        },
+        {
+          key = 'z=',
+          cmd = 'z=',
+          { desc = 'Fix spelling error', noremap = true, silent = true },
+        },
       },
     },
   }

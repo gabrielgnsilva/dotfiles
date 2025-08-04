@@ -10,6 +10,7 @@ return {
       'codelldb', -- Rust, Clang.. Debugger
       'cpplint', --C/C++ Linter
       'delve', -- Go Debugger
+      'gofumpt', -- Go Formatter
       'goimports-reviser', -- Go Formatter
       'golangci-lint', -- Go Formatter
       'golines', -- Go Formatter
@@ -26,12 +27,18 @@ return {
       'jsonlint', -- JSON Linter
       'rustfmt', -- RUST Linter
       'shellcheck', -- Shell script linter
+      'beautysh', -- Shell script formatter
       'shfmt', -- Shell script formatter
       'js-debug-adapter', -- JS Debugger adapter
       'eslint_d', -- Various languages linter
       'prettier', -- Various languages Formatter
       'yamlfmt', -- YAML Formatter
       'yamllint', -- YAML Linter
+      'vale', -- Latex Linter
+      'bibtex-tidy', -- Latex (.bib) formatter
+      'tectonic', -- Latex Compiler
+      'tex-fmt', -- Latex Formatter
+      'ltex-ls-plus', -- Latex LSP
     }
 
     require('mason').setup({

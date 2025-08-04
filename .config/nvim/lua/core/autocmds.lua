@@ -63,6 +63,20 @@ create_autocmd('BufWritePre', {
   end,
 })
 
+create_autocmd('BufWritePost', {
+  desc = 'Automatically call xrdb when saving a Xresources file',
+  group = create_augroup('xrdb_merge_Xresources'),
+  callback = function(event)
+    if event.match:match('^%w%w+:[\\/][\\/]') then
+      return
+    end
+    local file = vim.uv.fs_realpath(event.match) or event.match
+    if file:match('/%.?Xresources$') then
+      require('core.utils').cmd.xrdb(file)
+    end
+  end,
+})
+
 create_autocmd('FileType', {
   desc = 'Close some filetypes with <q>',
   group = create_augroup('close_with_q'),

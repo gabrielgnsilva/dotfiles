@@ -784,4 +784,238 @@ return {
       i(0),
     })
   ),
+
+  s(
+    '2410client',
+    fmt(
+      [[
+        var wsPrefix = DatasetFactory.getDataset(
+          'getClientWSPrefix',
+          null,
+          null,
+          null
+        );
+
+        var cKey = wsPrefix.getValue(0, 'CKEY');
+        var cUser = wsPrefix.getValue(0, 'CUSER');
+        var cPassw = wsPrefix.getValue(0, 'CPASSW');
+        var prefix = wsPrefix.getValue(0, 'PREFIX');
+        var view = wsPrefix.getValue(0, 'AMBIENT');
+
+        var properties = {{
+          'basic.authorization': 'true',
+          'basic.authorization.username': cUser,
+          'basic.authorization.password': cPassw,
+          'receive.timeout': '180000',
+          'disable.chunking': 'true',
+          'log.soap.messages': 'true',
+        }}
+      ]],
+      {}
+    )
+  ),
+  s(
+    '2410clientEnv',
+    fmt(
+      [[
+        var cUser = wsAmbient.getValue(0, 'CUSER');
+        var cPassw = wsAmbient.getValue(0, 'CPASSW');
+
+        var properties = {{
+          'basic.authorization': 'true',
+          'basic.authorization.username': cUser,
+          'basic.authorization.password': cPassw,
+          'receive.timeout': '180000',
+          'disable.chunking': 'true',
+          'log.soap.messages': 'true',
+        }};
+      ]],
+      {}
+    )
+  ),
+  s(
+    '2410corp',
+    fmt(
+      [[
+        var dsConnector = DatasetFactory.getDataset(
+          'dts_Connector_MFX',
+          null,
+          null,
+          null
+        );
+        var cKey = dsConnector.getValue(0, 'CKEY');
+        var cUser = dsConnector.getValue(0, 'CUSER');
+        var cPassw = dsConnector.getValue(0, 'CPASSW');
+        var prefix = dsConnector.getValue(0, 'PREFIX');
+
+        var properties = {{
+          'basic.authorization': 'true',
+          'basic.authorization.username': cUser,
+          'basic.authorization.password': cPassw,
+          'receive.timeout': '180000',
+          'disable.chunking': 'true',
+          'log.soap.messages': 'true',
+        }};
+
+        var service = ServiceManager.getService('InterfaceMFX');
+        var svcHelper = service.getBean();
+        var BBLProtheus = svcHelper.instantiate(prefix + 'INTERFACEMFX');
+        var wsProtheus = BBLProtheus.getINTERFACEMFXSOAP();
+        var component = prefix + 'INTERFACEMFXSOAP';
+        var usuario = svcHelper.instantiate(prefix + 'USUARIO');
+        usuario.setCKEY(cKey);
+        usuario.setCUSER(cUser);
+        usuario.setCPASSW(cPassw);
+        var customClient = svcHelper.getCustomClient(
+          wsProtheus,
+          component,
+          properties
+        );
+
+        // ......
+
+        // Executa a consulta via webservice
+        var Retorno = customClient.execqry(
+          usuario,
+          'SED_01',
+          cQryCpo,
+          cQryWhr,
+          cQryOrd
+        );
+      ]],
+      {}
+    )
+  ),
+  s(
+    '2410clientConnector',
+    fmt(
+      [[
+        var dsConnector = DatasetFactory.getDataset(
+          'getClientWSPrefix',
+          null,
+          null,
+          null
+        );
+        var cKey = dsConnector.getValue(0, 'CKEY');
+        var cUser = dsConnector.getValue(0, 'CUSER');
+        var cPassw = dsConnector.getValue(0, 'CPASSW');
+        var prefix = dsConnector.getValue(0, 'PREFIX');
+
+        var properties = {{
+          'basic.authorization': 'true',
+          'basic.authorization.username': cUser,
+          'basic.authorization.password': cPassw,
+          'receive.timeout': '180000',
+          'disable.chunking': 'true',
+          'log.soap.messages': 'true',
+        }};
+      ]],
+      {}
+    )
+  ),
+  s(
+    '2410clientcomplete',
+    fmt(
+      [[
+        var wsAmbient = DatasetFactory.getDataset(
+          'getClientENV',
+          null,
+          [
+            DatasetFactory.createConstraint(
+              'CNPJ',
+              cnpj,
+              cnpj,
+              ConstraintType.MUST
+            ),
+          ],
+          null
+        );
+
+        if (wsAmbient.getValue(0, 'ERRO') != null) {{
+          throw java.lang.Exception(wsAmbient.getValue(0, 'ERRO'));
+        }}
+
+        var ambient = wsAmbient.getValue(0, 'AMBIENT');
+        var prefix = wsAmbient.getValue(0, 'PREFIX');
+        var cUser = wsAmbient.getValue(0, 'CUSER');
+        var cPassw = wsAmbient.getValue(0, 'CPASSW');
+
+        var properties = {{
+          'basic.authorization': 'true',
+          'basic.authorization.username': cUser,
+          'basic.authorization.password': cPassw,
+          'receive.timeout': '180000',
+          'disable.chunking': 'true',
+          'log.soap.messages': 'true',
+        }};
+
+        var serviceClient = ServiceManager.getService(ambient);
+        var serviceHelper = serviceClient.getBean();
+        var serviceLocator = serviceHelper.instantiate(prefix + 'GTFLG001');
+        var service = serviceLocator.getGTFLG001SOAP();
+        var component = prefix + 'GTFLG001SOAP';
+        var customClient = serviceHelper.getCustomClient(
+          service,
+          component,
+          properties
+        );
+      ]],
+      {}
+    )
+  ),
+  s(
+    '2410adapted',
+    fmt(
+      [[
+        var wsAmbient = DatasetFactory.getDataset(
+          'getClientENV',
+          null,
+          [
+            DatasetFactory.createConstraint(
+              'CNPJ',
+              params.cnpj,
+              params.cnpj,
+              ConstraintType.MUST
+            )
+          ],
+          null
+        );
+
+        if (wsAmbient.getValue(0, 'ERRO') != null){{
+          throw java.lang.Exception(wsAmbient.getValue(0, 'ERRO'));
+        }}
+
+        var ambient = wsAmbient.getValue(0, 'AMBIENT');
+        var prefix = wsAmbient.getValue(0, 'PREFIX');
+        var cUser = wsAmbient.getValue(0, 'CUSER');
+        var cPassw = wsAmbient.getValue(0, 'CPASSW');
+
+        var properties = {{
+          'basic.authorization': 'true',
+          'basic.authorization.username': cUser,
+          'basic.authorization.password': cPassw,
+          'receive.timeout': '180000',
+          'disable.chunking': 'true',
+          'log.soap.messages': 'true',
+        }};
+
+        var serviceCliente = ServiceManager.getService(ambient);
+        var serviceHelper = serviceCliente.getBean();
+
+        // ...
+
+        var serviceLocator = serviceHelper.instantiate(prefix + 'GTFLG001');
+        var service = serviceLocator.getGTFLG001SOAP();
+        var componente = prefix + 'GTFLG001SOAP';
+        var customClient = serviceHelper.getCustomClient(
+          service,
+          componente,
+          properties
+        );
+
+        ..customClient.getcpgtos(params.cnpj, STDADOSGET)
+      ]],
+      {}
+    )
+  ),
 }

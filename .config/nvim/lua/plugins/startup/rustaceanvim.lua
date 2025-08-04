@@ -1,1 +1,9 @@
-return { 'mrcjkb/rustaceanvim', version = '^5' }
+return {
+  'mrcjkb/rustaceanvim',
+  version = '^5',
+  ['rust-analyzer'] = {
+    cargo = {
+      allFeatures = true,
+    },
+  },
+}

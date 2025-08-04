@@ -233,6 +233,53 @@ M.global = function()
           desc = 'Run macro silently',
           opts = { noremap = true },
         },
+        {
+          key = 'g/',
+          cmd = require('core.utils').cmd.open_file_under_cursor,
+          desc = 'Open file under cursor',
+        },
+        {
+          key = '<leader>mtv',
+          desc = 'List open groups',
+          cmd = function()
+            local bufnr = vim.api.nvim_get_current_buf()
+
+            local all_autocmds = vim.api.nvim_get_autocmds({
+              buffer = bufnr,
+            })
+
+            local group_map = {}
+
+            for _, ac in ipairs(all_autocmds) do
+              local group = ac.group_name or 'NO_GROUP'
+              if not group_map[group] then
+                group_map[group] = {}
+              end
+              table.insert(group_map[group], ac)
+            end
+
+            local lines = { '' }
+            table.insert(lines, '==== Autocmd Groups Summary ====')
+            for group, cmds in pairs(group_map) do
+              table.insert(
+                lines,
+                ('Group: %s (Total: %d)'):format(group, #cmds)
+              )
+              for _, ac in ipairs(cmds) do
+                table.insert(
+                  lines,
+                  ('  Event: %-15s Pattern: %-10s Command: %s'):format(
+                    ac.event,
+                    ac.pattern or 'nil',
+                    ac.command or 'lua-callback'
+                  )
+                )
+              end
+            end
+            table.insert(lines, '==== End ====')
+            vim.notify(table.concat(lines, '\n'), vim.log.levels.INFO)
+          end,
+        },
       },
     },
   }

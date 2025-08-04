@@ -70,12 +70,12 @@ return {
       },
 
       sources = {
-        { name = 'crates', priority = 100 },
-        { name = 'luasnip', priority = 100 },
+        { name = 'path', priority = 100 },
         { name = 'nvim_lua', priority = 90 },
         { name = 'nvim_lsp', priority = 80 },
-        { name = 'buffer', keyword_length = 3, priority = 70 },
-        { name = 'path', priority = 60 },
+        { name = 'crates', priority = 70 },
+        { name = 'buffer', keyword_length = 3, priority = 60 },
+        { name = 'luasnip', priority = 50 },
       },
 
       formatting = {

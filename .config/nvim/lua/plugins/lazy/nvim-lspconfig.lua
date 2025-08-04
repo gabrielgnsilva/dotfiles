@@ -77,7 +77,8 @@ return {
     )
     for _, file in ipairs(files) do
       local name = vim.fn.fnamemodify(file, ':t:r')
-      vim.lsp.config(name, require('plugins.lazy.configs.lsp.' .. name))
+      local config = require('plugins.lazy.configs.lsp.' .. name)
+      vim.lsp.config(name, config)
     end
 
     require('mason-lspconfig').setup(opts)

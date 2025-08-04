@@ -5,11 +5,18 @@ return {
     'MunifTanjim/nui.nvim',
     {
       'rcarriga/nvim-notify',
-      opts = { max_width = 50, render = 'wrapped-compact' },
+      opts = {
+        max_width = 50,
+        render = 'wrapped-compact',
+        background_colour = 'none',
+        stages = 'slide',
+      },
     },
     'hrsh7th/nvim-cmp',
   },
   config = function()
+    vim.notify = require('notify')
+
     local filters = {
       {
         filter = { event = 'msg_showmode' },

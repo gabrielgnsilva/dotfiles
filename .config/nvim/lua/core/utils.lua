@@ -50,6 +50,7 @@ U.load_keymaps = function(map, opts)
   end
 end
 
+local lspFormattingGroup = vim.api.nvim_create_augroup('LspFormatting', {})
 U.lsp = {
   on_attach = function(client, bufnr)
     local builtin = require('telescope.builtin')
@@ -136,8 +137,16 @@ U.lsp = {
       })
     end
 
-    if client:supports_method('textDocument/formatting') then
+    if
+      not client:supports_method('textDocument/willSaveWaitUntil')
+      and client:supports_method('textDocument/formatting')
+    then
+      vim.api.nvim_clear_autocmds({
+        group = lspFormattingGroup,
+        buffer = bufnr,
+      })
       vim.api.nvim_create_autocmd('BufWritePre', {
+        group = lspFormattingGroup,
         buffer = bufnr,
         callback = function()
           require('conform').format()
@@ -150,6 +159,40 @@ U.lsp = {
     vim.lsp.protocol.make_client_capabilities(),
     require('cmp_nvim_lsp').default_capabilities()
   ),
+}
+
+U.cmd = {
+  xrdb = function(file)
+    local filePath = vim.fn.shellescape(file)
+    vim.cmd(string.format('silent !xrdb -merge %s', filePath))
+    vim.notify(string.format('%s merged', filePath))
+  end,
+  open_file_under_cursor = function()
+    local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local line = vim.api.nvim_get_current_line()
+    local raw_path
+    local eq_index = line:find('=')
+    if eq_index then
+      raw_path = line:sub(eq_index + 1):match('^%s*([^%s]+)')
+    else
+      local start_col = col
+      local end_col = col + 1
+      while start_col > 0 and not line:sub(start_col, start_col):match('%s') do
+        start_col = start_col - 1
+      end
+      while end_col <= #line and not line:sub(end_col, end_col):match('%s') do
+        end_col = end_col + 1
+      end
+      raw_path = line:sub(start_col + 1, end_col - 1)
+    end
+    raw_path = raw_path:gsub('[\'"{}%[%]<>]', '')
+    local path = vim.fn.expand(raw_path)
+    if vim.fn.filereadable(path) == 0 then
+      vim.notify('File not found: ' .. path, vim.log.levels.WARN)
+      return
+    end
+    vim.cmd('edit ' .. vim.fn.fnameescape(path))
+  end,
 }
 
 return U

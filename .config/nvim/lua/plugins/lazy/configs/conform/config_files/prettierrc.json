@@ -23,7 +23,8 @@
     {
       "files": ["*.html"],
       "options": {
-        "printWidth": 9999
+        "singleQuote": false,
+        "bracketSameLine": true
       }
     }
   ]

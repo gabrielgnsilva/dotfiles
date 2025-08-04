@@ -1,5 +1,3 @@
-local lspconfig = require('lspconfig')
-
 local on_attach = function(client, buf)
   require('core.utils').lsp.on_attach(client, buf)
   vim.api.nvim_buf_create_user_command(
@@ -22,14 +20,15 @@ end
 
 return {
   on_attach = on_attach,
+  capabilities = require('core.utils').lsp.capabilities,
   cmd = { 'typescript-language-server', '--stdio' },
   filetypes = {
     'javascript',
-    'javascriptreact',
     'javascript.jsx',
+    'javascriptreact',
     'typescript',
-    'typescriptreact',
     'typescript.tsx',
+    'typescriptreact',
   },
   init_options = {
     hostInfo = 'neovim',

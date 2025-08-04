@@ -1,4 +1,6 @@
 return {
+  on_attach = require('core.utils').lsp.on_attach,
+  capabilities = require('core.utils').lsp.capabilities,
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },
   root_markers = {
@@ -13,7 +15,7 @@ return {
     '.git',
   },
   settings = {
-    ['lua_ls'] = {
+    Lua = {
       completion = { callSnippet = 'Replace' },
       diagnostics = { globals = { 'vim' } },
       workspace = {

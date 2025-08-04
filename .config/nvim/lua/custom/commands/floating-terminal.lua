@@ -40,8 +40,8 @@ vim.api.nvim_create_user_command('FloatingTerminal', function()
     state.floating = create_floating_window({ buf = state.floating.buf })
     if vim.bo[state.floating.buf].buftype ~= 'terminal' then
       vim.cmd.terminal()
-      vim.api.nvim_feedkeys('A', 'n', false)
     end
+    vim.api.nvim_feedkeys('A', 'n', false)
   else
     vim.api.nvim_win_hide(state.floating.win)
   end
@@ -52,7 +52,7 @@ require('core.utils').load_keymaps({
     mode = { 'n' },
     bindings = {
       {
-        key = '<leader><leader>t',
+        key = '<leader>t',
         cmd = '<cmd>:FloatingTerminal<cr>',
         desc = 'Open floating terminal',
       },

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+while read -r file; do
+  fullpath="$(pwd)/${file}"
+  case "${1}" in
+    "r")
+      convert -rotate 90 "${file}" "${file}"
+      ;;
+    'R')
+      convert -rotate -90 "${file}" "${file}"
+      ;;
+    'f')
+      convert -flop "${file}" "${file}"
+      ;;
+    'y')
+      echo -n "${file}" | xclip -selection clipboard \
+        && notify-send "${file} copied to clipboard" &
+      ;;
+    'Y')
+      echo -n "${fullpath}" | xclip -selection clipboard \
+        && notify-send "${fullpath} copied to clipboard" &
+      ;;
+    'd')
+      config=''
+      config+="mainbox {"
+      config+="   children: [message, listview];"
+      config+="}"
+      config+=""
+      config+="window {"
+      config+="    location: north east;"
+      config+="    x-offset: -4px;"
+      config+="}"
+      config+=""
+      config+="listview {"
+      config+="    lines: 3;"
+      config+="    columns: 2;"
+      config+="}"
+      options=("Yes" "No")
+      chosen=$(printf "%s\n" "${options[@]}" | rofi -dmenu -i -mesg "Really, delete ${file}?" -theme-str "${config}")
+      case "${chosen}" in
+        'Yes')
+          if command -v gio &> /dev/null; then
+            gio trash "${file}" && notify-send "${file} trashed"
+          else
+            rm -f "${file}" && notify-send "${file} deleted"
+          fi
+          ;;
+      esac
+      ;;
+  esac
+done

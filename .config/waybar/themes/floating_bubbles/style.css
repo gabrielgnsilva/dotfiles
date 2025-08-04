@@ -1,0 +1,217 @@
+/** @format */
+
+* {
+  border-radius: 0px;
+  border: none;
+  font-family: FiraCode Nerd Font;
+}
+
+.modules-left {
+  margin: 0;
+  padding: 2px 2px;
+}
+.modules-center {
+  margin: 0;
+  padding: 2px 2px;
+}
+.modules-right {
+  margin: 0;
+  padding: 2px 2px;
+}
+
+window#waybar {
+  font-size: 11px;
+  font-style: normal;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  background-color: alpha(@bgt_white, 0.2);
+  color: @foreground;
+}
+window#waybar label {
+  /* fix text not vertically centered */
+  padding-top: 3px;
+}
+window#waybar .module {
+  border-radius: 5px;
+}
+/* window#waybar.hidden {
+} */
+/* window#waybar box {
+} */
+
+window#waybar #custom-apps {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: @background;
+}
+
+window#waybar #workspaces {
+  padding: 0 2px;
+  background-color: @background;
+}
+window#waybar #workspaces button {
+  border-radius: 3px;
+  margin: 3px 2px;
+  padding: 0px 6px;
+  transition: all 0.1s linear;
+  background-color: @nm_white;
+  color: @background;
+}
+window#waybar #workspaces button:hover {
+  border-radius: 5px;
+  background: @nm_yellow;
+}
+window#waybar #workspaces button.active {
+  border-radius: 3px;
+  min-width: 30px;
+  padding-left: 7px;
+  padding-right: 10px;
+  transition: all 0.1s linear;
+  background-color: @nm_yellow;
+}
+window#waybar #workspaces button.urgent {
+  background-color: @urgent;
+}
+
+window#waybar #g_taskbar {
+  border-radius: 5px;
+}
+window#waybar #g_taskbar:hover {
+  background-color: shade(alpha(@nm_white, 0.5), 1.25);
+  color: @background;
+}
+window#waybar #g_taskbar label.module {
+  padding: 0 10px;
+  background-color: @transparent;
+}
+window#waybar #g_taskbar #taskbar {
+  background-color: @transparent;
+}
+window#waybar #g_taskbar #taskbar button {
+  border-radius: 0;
+  border: none;
+  margin: 0;
+  padding: 0 5px;
+}
+window#waybar #g_taskbar #taskbar button:hover {
+  background: shade(alpha(@nm_white, 0.5), 1.25);
+}
+window#waybar #g_taskbar #taskbar.empty {
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+window#waybar #window {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.6;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  background-color: shade(alpha(@nm_white, 0.5), 1.25);
+  color: @background;
+}
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+window#waybar #privacy {
+  border-radius: 5px;
+  opacity: 0.6;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  background-color: shade(alpha(@nm_white, 0.5), 1.25);
+  color: @background;
+}
+
+window#waybar #hardware {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+  background-color: @background;
+}
+window#waybar #hardware label.module {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: @background;
+}
+window#waybar #hardware #cpu {
+  padding-right: 10px;
+}
+
+window#waybar #tray {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: @background;
+}
+window#waybar #tray menu {
+  padding: 3px;
+  background-color: @background;
+  border: 1px solid @bgt_black;
+}
+/* window#waybar #tray > .passive {
+} */
+window#waybar #tray > .active {
+  -gtk-icon-effect: dim;
+}
+window#waybar #tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @urgent;
+}
+
+window#waybar #volume {
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: @background;
+}
+window#waybar #volume label.module {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: @background;
+}
+
+window#waybar #systray {
+  background-color: transparent;
+  border-radius: 5px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+window#waybar #systray label.module {
+  background-color: transparent;
+  padding-left: 10px;
+  padding-right: 13px;
+}
+window#waybar #systray #actions_drawer #custom-actions_drawer_icon {
+  padding-right: 6px;
+}
+window#waybar #systray #power-menu #user {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: transparent;
+}
+
+window#waybar #clock {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: @background;
+}
+
+tooltip {
+  border-radius: 5px;
+  margin: 0;
+  opacity: 0.9;
+  padding: 0px;
+  border: 1px solid @bgt_black;
+  background-color: @background;
+}
+tooltip label {
+  font-size: 12px;
+  font-weight: 600;
+  font-style: normal;
+  text-shadow: none;
+  color: @foreground;
+}

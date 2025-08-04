@@ -1,0 +1,13 @@
+mainbox {
+  children: [message, inputbar, listview];
+}
+
+window {
+  location: north east;
+  x-offset: -18px;
+}
+
+listview {
+  lines  : 3;
+  columns: 2;
+}

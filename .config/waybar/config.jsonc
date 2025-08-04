@@ -1,0 +1,26 @@
+{
+  // Settings
+  "layer": "top",
+  "position": "top",
+  "spacing": 8, // Gaps between modules
+  // Modules
+  "include": [
+    "${XDG_CONFIG_HOME}/waybar/modules.jsonc"
+  ],
+  "modules-left": [
+    "custom/apps",
+    "hyprland/workspaces",
+    "group/g_taskbar"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "privacy",
+    "group/hardware",
+    "tray",
+    "group/volume",
+    "group/systray",
+    "clock"
+  ]
+}

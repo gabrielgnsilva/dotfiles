@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Timers
 _timer1="0.1"
@@ -26,21 +26,21 @@ systemctl --user stop xdg-desktop-portal-gnome
 systemctl --user stop xdg-desktop-portal-kde
 systemctl --user stop xdg-desktop-portal-wlr
 systemctl --user stop xdg-desktop-portal-hyprland
-sleep $_timer1
+sleep "${_timer1}"
 
 # Start xdg-desktop-portal-hyprland
 /usr/lib/xdg-desktop-portal-hyprland &
-sleep $_timer1
+sleep "${_timer1}"
 
 # Start xdg-desktop-portal-gtk
 if [ -f /usr/lib/xdg-desktop-portal-gtk ]; then
   /usr/lib/xdg-desktop-portal-gtk &
-  sleep $_timer1
+  sleep "${_timer1}"
 fi
 
 # Start xdg-desktop-portal
 /usr/lib/xdg-desktop-portal &
-sleep $_timer2
+sleep "${_timer2}"
 
 # Start required services
 systemctl --user start pipewire

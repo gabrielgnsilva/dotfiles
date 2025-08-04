@@ -1,0 +1,254 @@
+// Modules configuration
+{
+  // Custom
+  "custom/apps": {
+    "format": "Apps",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/applauncher.sh",
+    "tooltip": false
+  },
+  "custom/power-menu": {
+    "format": "<span size='10000'></span>",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/logoutmenu.sh",
+    "tooltip": false
+  },
+  "custom/cliphist": {
+    "format": "<span size='10000'></span>",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/cliphist.sh",
+    "on-click-right": "${XDG_CONFIG_HOME}/BLAST/apps/cliphist.sh delete",
+    "on-click-middle": "${XDG_CONFIG_HOME}/BLAST/apps/cliphist.sh wipe",
+    "tooltip-format": "Left: Open clipboard Manager\nRight: Delete an entry\nMiddle: Clear list"
+  },
+  "custom/notification": {
+    "return-type": "json",
+    "exec": "${XDG_CONFIG_HOME}/BLAST/scripts/notification.sh",
+    "format": "{icon}{text}",
+    "format-icons": {
+      "disabled": "<span size='10000'></span>",
+      "enabled": "<span size='10000'></span>"
+    },
+    "on-click": "dunstctl set-paused toggle",
+    "restart-interval": 1
+  },
+  "custom/snap": {
+    "format": "<span size='12500'>󰻿</span>",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/screenshot.sh",
+    "tooltip": false
+  },
+  "custom/taskbar": {
+    "format": "<span size='10000'>󰀻</span>",
+    "tooltip": false
+  },
+  "custom/actions_drawer_icon": {
+    "format": "<span size='10000'> </span>",
+    "tooltip": false
+  },
+  // Waybar
+  "wlr/taskbar": {
+    "icon-size": 12,
+    "format": " {icon} ",
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "on-click-right": "fullscreen",
+    "ignore-list": [
+      ""
+    ],
+    "app_ids-mapping": {
+      "firefoxdeveloperedition": "firefox-developer-edition"
+    },
+    "rewrite": {
+      "Firefox Web Browser": "Firefox",
+      "wezterm": "Terminal",
+      "zsh": "Terminal"
+    }
+  },
+  "hyprland/window": {
+    "rewrite": {
+      ".*@.*:*": "Terminal"
+    },
+    "max-length": 50,
+    "separate-outputs": true
+  },
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "active-only": false,
+    "all-outputs": true,
+    "format": "{icon}", //{name} and/or {icon}
+    "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "A",
+      "9": "S",
+      "10": "D",
+      "active": "<span size='10000'></span>",
+      "default": "1"
+    },
+    "persistent-workspaces": {
+      "*": [
+        1,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "network": {
+    "format": "{ifname}",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "format-ethernet": "{ipaddr}/{cidr}",
+    "tooltip-format-ethernet": "{ifname}",
+    "format-wifi": "<span size='10000'></span> ({signalStrength}%)",
+    "tooltip-format-wifi": "{essid}",
+    "format-disconnected": "",
+    "max-length": 50,
+    "min-length": 5
+  },
+  "privacy": {
+    "icon-spacing": 8,
+    "icon-size": 14,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-out",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      }
+    ],
+    "ignore-monitor": true,
+    "ignore": [
+      {
+        "type": "audio-in",
+        "name": "cava"
+      },
+      {
+        "type": "screenshare",
+        "name": "obs"
+      }
+    ]
+  },
+  "memory": {
+    "interval": 1,
+    "format": "{used:0.1f}G <span size='10000'> </span>",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/terminal.sh launch ${XDG_CONFIG_HOME}/BLAST/apps/monitor.sh"
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "{usage}% <span size='10000'></span>",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/terminal.sh launch ${XDG_CONFIG_HOME}/BLAST/apps/monitor.sh"
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 10
+  },
+  "wireplumber#source": {
+    "node-type": "Audio/Source",
+    "format": "{volume}% <span size='12500'>󰍬</span>",
+    "format-muted": "<span size='12500'>󰍭</span>",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "scroll-step": 5
+  },
+  "wireplumber": {
+    "format": "{volume}% {icon}",
+    "format-muted": "<span size='12500'>󰝟</span>",
+    "format-icons": [
+      "<span size='10000'></span>",
+      "<span size='10000'></span>",
+      "<span size='10000'> </span>"
+    ],
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/terminal.sh launch ${XDG_CONFIG_HOME}/BLAST/apps/volumemixer.sh",
+    "on-click-right": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh --toggle-mute",
+    "on-scroll-up": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh +1",
+    "on-scroll-down": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh -1",
+    "tooltip": false
+  },
+  "clock": {
+    "timezone": "America/Sao_Paulo",
+    "format": "{:%H:%M %p}",
+    "tooltip": true,
+    "tooltip-format": "{:%Y/%m/%d}",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/scripts/show-calendar.sh",
+    "on-scroll-up": "${XDG_CONFIG_HOME}/BLAST/scripts/show-calendar.sh next",
+    "on-scroll-down": "${XDG_CONFIG_HOME}/BLAST/scripts/show-calendar.sh prev"
+  },
+  "user": {
+    "format": "(up {work_d} days ↑)",
+    "interval": 60,
+    "icon": false
+  },
+  // Groups
+  "group/g_taskbar": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-power",
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "custom/taskbar",
+      "wlr/taskbar"
+    ]
+  },
+  "group/hardware": {
+    "orientation": "inherit",
+    "modules": [
+      "memory",
+      "cpu"
+    ]
+  },
+  "group/volume": {
+    "orientation": "inherit",
+    "modules": [
+      "wireplumber#source",
+      "wireplumber"
+    ]
+  },
+  "group/power-menu": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-power",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/power-menu",
+      "user"
+    ]
+  },
+  "group/actions_drawer": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-power",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/actions_drawer_icon",
+      "custom/snap",
+      "custom/cliphist"
+    ]
+  },
+  "group/systray": {
+    "orientation": "inherit",
+    "modules": [
+      "group/actions_drawer",
+      "custom/notification",
+      "group/power-menu"
+    ]
+  }
+}

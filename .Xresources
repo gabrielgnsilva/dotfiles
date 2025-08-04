@@ -1,0 +1,8 @@
+*.alpha: .9
+*.font: JetBrains Mono:size=14
+Xcursor.theme: capitaine-cursors-light
+
+Nsxiv.window.background: #000000
+Nsxiv.window.foreground: #FFFFFF
+Nsxiv.mark.foreground  : #444444
+Nsxiv.bar.background   : #222222

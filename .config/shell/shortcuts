@@ -1,0 +1,13 @@
+#!/bin/sh
+
+alias d='"${HOME}"/Downloads' \
+  D='"${HOME}"/Documents' \
+  m='"${HOME}"/Music' \
+  p='"${HOME}"/Pictures' \
+  P='"${HOME}"/Projects' \
+  pub='"${HOME}"/Public' \
+  r='"${HOME}"/Repositories' \
+  t='"${HOME}"/Templates' \
+  v='"${HOME}"/Videos' \
+  vm='"${HOME}"/Virtual\ Machines' \
+  w='"${HOME}"/Work'

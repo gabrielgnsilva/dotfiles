@@ -38,7 +38,6 @@ alias p='pacman' \
   trash='gio trash ' \
   e='${EDITOR}' \
   v='${EDITOR}' \
-  z="zathura" \
   open="xdg-open"
 
 # Refresh sudo when reused

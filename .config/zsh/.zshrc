@@ -90,8 +90,10 @@ bindkey -M visual '^[[P' vi-delete
 # MAKE LESS MORE FRIENDLY FOR NON-TEXT INPUT FILES, SEE LESSPIPE(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# Fetch
+# Zoxide
+eval "$(zoxide init --cmd cd zsh)"
 
 # Load zsh-syntax-highlighting and zsh-autosuggestions; **should be last**.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+

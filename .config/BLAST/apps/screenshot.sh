@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-grim -g "$(slurp -d)" - | ksnip -e -
+grim -g "$(slurp -d)" - | swappy -f -

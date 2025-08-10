@@ -1,23 +1,12 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Use neovim for vim if present.
-[[ -x "$(command -v nvim)" ]] && alias vim="nvim" vimdiff="nvim -d"
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
 # Easily edit local bin
 bin() {
   choice="$(find ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
-  [[ -f "${HOME}/.local/bin/${choice}" ]] && ${EDITOR} "${HOME}/.local/bin/${choice}"
-}
-
-# Yazi Shell Wrapper
-y() {
-  local tmp
-  local cwd
-  tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-  yazi "$@" --cwd-file="${tmp}"
-  IFS= read -r -d '' cwd < "${tmp}"
-  [[ -n "${cwd}" ]] && [[ "${cwd}" != "${PWD}" ]] && builtin cd -- "${cwd}" || exit 1
-  rm -f -- "${tmp}"
+  [ -f "${HOME}/.local/bin/${choice}" ] && ${EDITOR} "${HOME}/.local/bin/${choice}"
 }
 
 # Verbosity and settings that you pretty much just always are going to want.
@@ -61,13 +50,13 @@ alias diff='diff --color=auto ' \
   grep='grep --color=auto '
 
 yt() {
-  if [[ "${#}" -eq 0 ]] || [[ "${#}" -gt 2 ]]; then
+  if [ "${#}" -eq 0 ] || [ "${#}" -gt 2 ]; then
     echo "Usage: yt [-t | --timestamps] youtube-link"
     echo "Use the '-t' flag to get the transcript with timestamps."
     return 1
   fi
   transcript_flag="--transcript"
-  if [[ "${1}" = "-t" ]] || [[ "${1}" = "--timestamps" ]]; then
+  if [ "${1}" = "-t" ] || [ "${1}" = "--timestamps" ]; then
     transcript_flag="--transcript-with-timestamps"
     shift
   fi

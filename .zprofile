@@ -1,1 +1,1 @@
-source "${XDG_CONFIG_HOME}"/shell/profile
+source "${HOME}"/shell/profile

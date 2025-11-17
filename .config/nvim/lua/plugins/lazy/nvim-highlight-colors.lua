@@ -1,8 +1,9 @@
 return {
   'brenoprata10/nvim-highlight-colors',
   event = { 'BufReadPost', 'BufNewFile' },
-  config = function()
-    require('nvim-highlight-colors').setup()
+  opts = { enable_tailwind = false },
+  config = function(_, opts)
+    require('nvim-highlight-colors').setup(opts)
     vim.cmd('HighlightColors On')
   end,
 }

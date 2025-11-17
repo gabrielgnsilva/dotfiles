@@ -1,0 +1,6 @@
+{
+  "htmlWhitespaceSensitivity": "ignore",
+  "insertPragma": true,
+  "jsxSingleQuote": true,
+  "singleQuote": true
+}

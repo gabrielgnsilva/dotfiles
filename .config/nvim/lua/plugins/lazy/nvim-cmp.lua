@@ -2,36 +2,136 @@ return {
   'hrsh7th/nvim-cmp',
   event = { 'InsertEnter' },
   dependencies = {
-    -- 'windwp/nvim-autopairs',
-    'echasnovski/mini.pairs',
-    'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip',
-    'hrsh7th/cmp-nvim-lua',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'onsails/lspkind.nvim',
-  },
-  config = function()
-    local opts = {
-      border = {
-        { '╭', 'None' },
-        { '─', 'None' },
-        { '╮', 'None' },
-        { '│', 'None' },
-        { '╯', 'None' },
-        { '─', 'None' },
-        { '╰', 'None' },
-        { '│', 'None' },
+    -- snippet
+    {
+      'L3MON4D3/LuaSnip',
+      event = { 'InsertEnter' },
+      tag = 'v2.4.1',
+      opts = {
+        history = true,
+        updateevents = 'TextChanged,TextChangedI',
+        enbable_autosnippets = true,
       },
-    }
+      config = function(_, opts)
+        local luasnip = require('luasnip')
+
+        luasnip.config.set_config(opts)
+
+        require('luasnip.loaders.from_lua').load()
+        require('luasnip.loaders.from_lua').load({
+          paths = string.format(
+            '%s/configs/luasnip',
+            vim.fn.stdpath('config')
+          ),
+        })
+
+        require('utils').create_autocmd('luasnip', 'InsertLeave', {
+          callback = function()
+            if
+              luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
+              and not luasnip.session.jump_active
+            then
+              luasnip.unlink_current()
+            end
+          end,
+        })
+
+        require('utils.mappings').load_keymap({
+          {
+            mode = { 'i', 's' },
+            bindings = {
+              {
+                key = '<C-j>',
+                cmd = function()
+                  if require('luasnip').expand_or_jumpable() then
+                    require('luasnip').expand_or_jump()
+                  end
+                end,
+                desc = 'LuaSnip next jump',
+                opts = { silent = true },
+              },
+              {
+                key = '<C-k>',
+                cmd = function()
+                  if require('luasnip').jumpable(-1) then
+                    require('luasnip').jump(-1)
+                  end
+                end,
+                desc = 'LuaSnip prev jump',
+                opts = { silent = true },
+              },
+            },
+          },
+          {
+            mode = { 'n' },
+            bindings = {
+              {
+                key = '<leader>rs',
+                cmd = function()
+                  require('luasnip.loaders.from_lua').load({
+                    paths = vim.fn.stdpath('config') .. '/lua/configs/luasnip',
+                  })
+                end,
+                desc = 'LuaSnip source snippets',
+              },
+            },
+          },
+          {
+            mode = { 'i' },
+            bindings = {
+              {
+                key = '<C-i>',
+                cmd = function()
+                  if require('luasnip').choice_active() then
+                    require('luasnip').change_choice(1)
+                  end
+                end,
+                desc = 'LuaSnip next choice',
+              },
+              {
+                key = '<C-l>',
+                cmd = function()
+                  if require('luasnip').choice_active() then
+                    require('luasnip').change_choice(-1)
+                  end
+                end,
+                desc = 'LuaSnip prev choice',
+              },
+            },
+          },
+        })
+      end,
+    },
+    -- cmp sources
+    {
+      'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+    },
+    -- UI
+    { 'onsails/lspkind.nvim', 'brenoprata10/nvim-highlight-colors' },
+  },
+  opts = function()
     local cmp = require('cmp')
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
     local cmp_replace = { behavior = cmp.SelectBehavior.Replace }
     local lspkind = require('lspkind')
     local luasnip = require('luasnip')
 
-    cmp.setup({
+    local border = {
+      { '╭', 'None' },
+      { '─', 'None' },
+      { '╮', 'None' },
+      { '│', 'None' },
+      { '╯', 'None' },
+      { '─', 'None' },
+      { '╰', 'None' },
+      { '│', 'None' },
+    }
+
+    return {
       mapping = cmp.mapping.preset.insert({
         ['<C-Space>'] = cmp.mapping(function()
           if cmp.visible() then
@@ -70,26 +170,32 @@ return {
       },
 
       sources = {
-        { name = 'path', priority = 100 },
-        { name = 'nvim_lua', priority = 90 },
-        { name = 'nvim_lsp', priority = 80 },
-        { name = 'crates', priority = 70 },
-        { name = 'buffer', keyword_length = 3, priority = 60 },
-        { name = 'luasnip', priority = 50 },
+        { name = 'luasnip', priority = 100 },
+        { name = 'path', priority = 90 },
+        { name = 'nvim_lua', priority = 80 },
+        { name = 'nvim_lsp', priority = 70 },
+        { name = 'crates', priority = 60 },
+        { name = 'buffer', keyword_length = 3, priority = 50 },
       },
 
       formatting = {
         fields = { 'kind', 'abbr', 'menu' },
-        format = function(entry, vim_item)
-          local kind = lspkind.cmp_format({
+        format = function(entry, item)
+          local color_item = require('nvim-highlight-colors').format(entry, {
+            kind = item.kind,
+          })
+          item = lspkind.cmp_format({
             mode = 'symbol_text',
             maxwidth = 50,
-          })(entry, vim_item)
-          local strings = vim.split(kind.kind, '%s', { trimempty = true })
-          kind.kind = ' ' .. (strings[1] or '') .. ' '
-          kind.menu = '    (' .. (strings[2] or '') .. ')'
-
-          return kind
+          })(entry, item)
+          local strings = vim.split(item.kind, '%s', { trimempty = true })
+          item.kind = ' ' .. (strings[1] or '') .. ' '
+          item.menu = '    (' .. (strings[2] or '') .. ')'
+          if color_item.abbr_hl_group then
+            item.kind_hl_group = color_item.abbr_hl_group
+            item.kind = color_item.abbr
+          end
+          return item
         end,
       },
 
@@ -107,89 +213,13 @@ return {
           side_padding = 0,
           winhighlight = 'Normal:None,CursorLine:PmenuSel,Search:None',
           scrollbar = false,
-          border = opts.border,
+          border = border,
         },
         documentation = {
-          border = opts.border,
+          border = border,
           winhighlight = 'Normal:None',
         },
       },
-    })
-
-    local function next_in_list()
-      if luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      end
-    end
-
-    local function prev_in_list()
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      end
-    end
-
-    local function reload_snippets()
-      require('luasnip.loaders.from_lua').load({
-        paths = vim.fn.stdpath('config')
-          .. '/lua/plugins/lazy/configs/luaSnip/snippets/',
-      })
-    end
-
-    local function next_choice_in_list()
-      if luasnip.choice_active() then
-        luasnip.change_choice(1)
-      end
-    end
-
-    local function prev_choice_in_list()
-      if luasnip.choice_active() then
-        luasnip.change_choice(-1)
-      end
-    end
-
-    require('core.utils').load_keymaps({
-      {
-        mode = { 'i', 's' },
-        bindings = {
-          {
-            key = '<C-j>',
-            cmd = next_in_list,
-            desc = 'LuaSnip next jump',
-            opts = { silent = true },
-          },
-          {
-            key = '<C-k>',
-            cmd = prev_in_list,
-            desc = 'LuaSnip prev jump',
-            opts = { silent = true },
-          },
-        },
-      },
-      {
-        mode = { 'n' },
-        bindings = {
-          {
-            key = '<leader>rs',
-            cmd = reload_snippets,
-            desc = 'LuaSnip source snippets',
-          },
-        },
-      },
-      {
-        mode = { 'i' },
-        bindings = {
-          {
-            key = '<C-i>',
-            cmd = next_choice_in_list,
-            desc = 'LuaSnip next choice',
-          },
-          {
-            key = '<C-l>',
-            cmd = prev_choice_in_list,
-            desc = 'LuaSnip prev choice',
-          },
-        },
-      },
-    })
+    }
   end,
 }

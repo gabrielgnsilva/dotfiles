@@ -1,12 +1,15 @@
 return {
   'tpope/vim-fugitive',
-  event = 'VeryLazy',
   config = function()
-    require('core.utils').load_keymaps({
+    require('utils.mappings').load_keymap({
       {
         mode = { 'n' },
         bindings = {
-          { key = '<leader>gs', cmd = vim.cmd.Git, desc = 'Show git status' },
+          {
+            key = '<leader>gs',
+            cmd = vim.cmd.Git,
+            desc = 'Show git status',
+          },
         },
       },
     })

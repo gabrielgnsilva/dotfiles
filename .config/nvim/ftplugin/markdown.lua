@@ -17,4 +17,4 @@ opt.shiftwidth = 2
 opt.tabstop = 2
 opt.expandtab = true
 
-require('core.utils').load_keymaps('markdown')
+require('utils.mappings').load_keymap('markdown')

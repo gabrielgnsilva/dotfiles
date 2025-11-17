@@ -3,12 +3,18 @@ return {
   keys = { '<Tab>' },
   dependencies = { 'nvim-treesitter/nvim-treesitter' },
   config = function()
+    local tsj_utils = require('treesj.langs.utils')
     require('treesj').setup({
-      use_default_keymaps = false,
-      dot_repeat = true,
+      langs = {
+        -- Merge HTML and TypeScript to support Angular
+        angular = tsj_utils.merge_preset(
+          require('treesj.langs.html'),
+          require('treesj.langs.typescript')
+        ),
+      },
     })
 
-    require('core.utils').load_keymaps({
+    require('utils.mappings').load_keymap({
       {
         mode = { 'n' },
         bindings = {

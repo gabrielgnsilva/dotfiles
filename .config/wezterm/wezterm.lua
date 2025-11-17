@@ -5,22 +5,49 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
-config.window_background_opacity = 0.90
-config.color_scheme = 'rose-pine'
+config.window_background_opacity = 0.93
+config.force_reverse_video_cursor = true
+config.color_scheme = 'kanagawa'
 config.color_schemes = {
-  ['rose-pine'] = {
-    background = '#1f1d2e',
-    cursor_bg = '#524f67',
-    cursor_fg = '#e0def4',
-    cursor_border = '#524f67',
+  ['kanagawa'] = {
+    foreground = '#dcd7ba',
+    background = '#1f1f28',
+    cursor_bg = '#c8c093',
+    cursor_fg = '#c8c093',
+    cursor_border = '#c8c093',
+    selection_fg = '#c8c093',
+    selection_bg = '#2d4f67',
+    scrollbar_thumb = '#16161d',
+    split = '#16161d',
+    ansi = {
+      '#090618',
+      '#c34043',
+      '#76946a',
+      '#c0a36e',
+      '#7e9cd8',
+      '#957fb8',
+      '#6a9589',
+      '#c8c093',
+    },
+    brights = {
+      '#727169',
+      '#e82424',
+      '#98bb6c',
+      '#e6c384',
+      '#7fb4ca',
+      '#938aa9',
+      '#7aa89f',
+      '#dcd7ba',
+    },
+    indexed = { [16] = '#ffa066', [17] = '#ff5d62' },
   },
 }
 
 config.window_padding = {
   left = 5,
-  right = 5,
-  top = 0,
-  bottom = 0,
+  right = 1,
+  top = 1,
+  bottom = 1,
 }
 
 config.font = wezterm.font('JetBrains Mono')
@@ -35,7 +62,7 @@ config.warn_about_missing_glyphs = false
 config.enable_scroll_bar = true
 config.enable_tab_bar = false
 config.term = 'xterm-256color'
-config.max_fps = 120
+config.max_fps = 165
 config.animation_fps = 1
 config.front_end = 'OpenGL'
 config.webgpu_power_preference = 'HighPerformance'
@@ -53,38 +80,6 @@ config.keys = {
     mods = 'CTRL|SHIFT',
     action = wezterm.action.PasteFrom('PrimarySelection'),
   },
-  {
-    key = '|',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.SplitPane({
-      direction = 'Right',
-      size = { Percent = 50 },
-    }),
-  },
-  {
-    key = '_',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.SplitPane({
-      direction = 'Down',
-      size = { Percent = 50 },
-    }),
-  },
-  {
-    key = 'Tab',
-    mods = 'CTRL',
-    action = wezterm.action.ActivatePaneDirection('Next'),
-  },
-  {
-    key = 'Tab',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.ActivatePaneDirection('Prev'),
-  },
-  {
-    key = 'Q',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.CloseCurrentPane({ confirm = false }),
-  },
-
   {
     key = '-',
     mods = 'CTRL',

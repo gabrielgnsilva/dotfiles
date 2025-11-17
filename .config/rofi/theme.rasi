@@ -32,8 +32,8 @@ configuration{
 
 window {
   location     : north west;
-  y-offset     : 53px;
-  x-offset     : 19px;
+  y-offset     : 30px;
+  x-offset     : 30px;
   width        : 25%;
   height       : 15%;
   border       : 1px;

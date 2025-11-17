@@ -17,8 +17,7 @@ notification() {
 
   description="\n<i>       ~ calendar</i> 󰸗 "
 
-  dunstify -a "${appName}" -u low -h string:x-canonical-private-synchronous:calendar \
-    "${month}" "${days}${description}"
+  notify-send -a "${appName}" -u low "${month}" "${days}${description}"
 }
 
 userAction() {

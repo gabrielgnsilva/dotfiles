@@ -3,6 +3,7 @@
   "layer": "top",
   "position": "top",
   "spacing": 8, // Gaps between modules
+  "output": ["DP-2"],
   // Modules
   "include": [
     "${XDG_CONFIG_HOME}/waybar/modules.jsonc"
@@ -16,7 +17,7 @@
     "hyprland/window"
   ],
   "modules-right": [
-    "privacy",
+    "group/g_indicators",
     "group/hardware",
     "tray",
     "group/volume",

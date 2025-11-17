@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-firefox
+/opt/zen/zen

@@ -19,7 +19,7 @@ main() {
   case "${chosen}" in
     "󰐦  Power Off") poweroff ;;
     "󰜉  Reboot") reboot ;;
-    "󰍁  Lock") slock ;;
+    "󰍁  Lock") sleep 10 && hyprlock ;;
     "󰒲  Suspend") systemctl suspend ;;
     "󰗽  Exit WM") exitWM ;;
     "󱂬  Restart WM") restartWM ;;

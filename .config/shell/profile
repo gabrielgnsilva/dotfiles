@@ -37,6 +37,8 @@ export GOBIN="${GOPATH}/bin"
 export GOMODCACHE="${XDG_CACHE_HOME}/go/mod"
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
 export NVM_DIR="${HOME}/.config/nvm"
+export PNPM_HOME="${HOME}/.local/share/pnpm"
+export GOPATH="${HOME}/.local/share/go"
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}"/npm/npmrc
 # regionend
 
@@ -45,6 +47,7 @@ SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)passw
 export SUDO_PROMPT
 export SUDO_ASKPASS="${HOME}/.local/bin/rofi-askpass"
 export ROC_ENABLE_PRE_VEGA=1
+export PIPEWIRE_LATENCY="128/48000" application
 # regionend
 
 # region: Paths
@@ -55,6 +58,8 @@ PATH="${PATH}":"$(find ~/.local/bin -type d | paste -sd ':' -)"
 PATH="${PATH}":"${GOBIN}":
 # Add path to Java 8
 PATH="${PATH}":/usr/local/lib/java/jdk1.8.0_202/bin/
+# Add path to pnpm
+PATH="${PATH}":"${HOME}"/.local/share/pnpm
 
 export PATH
 # regionend

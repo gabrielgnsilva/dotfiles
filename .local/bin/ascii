@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# ------------------------------------------------
+# Script to create ascii font based header on user input
+# and copy the result to the clipboard
+# -----------------------------------------------------
+
+printf "Enter the text for ascii encoding: " >&2
+read -r mytext
+
+lines="$(figlet -f standard "${mytext}")"
+wl-copy "${lines}"
+
+notify-send "Figlet Text Copied to Clipboard" -t 2000

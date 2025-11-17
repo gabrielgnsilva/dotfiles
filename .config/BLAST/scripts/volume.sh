@@ -26,21 +26,20 @@ main() {
   fi
   currentvol="$(printf "%s" "$(pamixer --get-volume)")"
   mute="$(printf "%s" "$(pamixer --get-mute)")"
-  msgTag="myvolume"
   if [ "${mute}" = "true" ]; then
     # Show the sound muted notification
-    dunstify -a "Volume Icon MUTED" -u low -i audio-volume-muted -h string:x-dunst-stack-tag:"${msgTag}" \
+    notify-send -a "Volume-App" -u low -t 1000 -i audio-volume-muted \
       -h int:value:"${currentvol}" "Volume Muted !"
   else
     # Show the volume notification
-    dunstify -a "Volume Icon" -u low -i audio-volume-high -h string:x-dunst-stack-tag:"${msgTag}" \
+    notify-send -a "Volume-App" -u low -t 1000 -i audio-volume-high \
       -h int:value:"${currentvol}" "Volume: ${currentvol}%"
   fi
 }
 
 isAlreadyRunning() {
   binName=$(basename "${0}")
-  lockFile="${XDG_CACHE_HOME:-$HOME/.cache}/${binName}.lock"
+  lockFile="${XDG_CACHE_HOME:-${HOME}/.cache}/${binName}.lock"
   exec 9> "${lockFile}"
   if flock -n 9; then
     return 1

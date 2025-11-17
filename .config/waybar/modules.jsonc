@@ -20,13 +20,15 @@
   },
   "custom/notification": {
     "return-type": "json",
-    "exec": "${XDG_CONFIG_HOME}/BLAST/scripts/notification.sh",
-    "format": "{icon}{text}",
+    "exec": "${XDG_CONFIG_HOME}/BLAST/scripts/notifications.sh",
+    "format": "{icon}",
     "format-icons": {
-      "disabled": "<span size='10000'></span>",
-      "enabled": "<span size='10000'></span>"
+      "disabled": "<span size='10000'>󱗡</span>",
+      "enabled": "<span size='10000'>󰅺</span>"
     },
-    "on-click": "dunstctl set-paused toggle",
+    "on-click": "makoctl mode -t do-not-disturb",
+    "on-click-right": "makoctl dismiss -a",
+    "on-click-middle": "notify-send -t 1000 -u low -a 'TEST' 'Notification' 'Message'",
     "restart-interval": 1
   },
   "custom/snap": {
@@ -108,23 +110,23 @@
   },
   "privacy": {
     "icon-spacing": 8,
-    "icon-size": 14,
+    "icon-size": 16,
     "transition-duration": 250,
     "modules": [
       {
         "type": "screenshare",
         "tooltip": true,
-        "tooltip-icon-size": 24
+        "tooltip-icon-size": 16
       },
       {
         "type": "audio-out",
         "tooltip": true,
-        "tooltip-icon-size": 24
+        "tooltip-icon-size": 16
       },
       {
         "type": "audio-in",
         "tooltip": true,
-        "tooltip-icon-size": 24
+        "tooltip-icon-size": 16
       }
     ],
     "ignore-monitor": true,
@@ -137,6 +139,31 @@
         "type": "screenshare",
         "name": "obs"
       }
+    ]
+  },
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "scrolllock": false,
+    "format": {
+      "numlock": "{icon}N",
+      "capslock": "{icon}C"
+    },
+    "format-icons": {
+      "locked": "+",
+      "unlocked": "-"
+    }
+  },
+  "group/g_indicators": {
+    "orientation": "inherit",
+    // "drawer": {
+    //   "transition-duration": 500,
+    //   "children-class": "not-power",
+    //   "transition-left-to-right": true
+    // },
+    "modules": [
+      "privacy",
+      "keyboard-state"
     ]
   },
   "memory": {
@@ -227,6 +254,16 @@
       "user"
     ]
   },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "<span size='12500'>󰒳</span>",
+      "deactivated": "<span size='12500'>󰒲</span>"
+    },
+    "tooltip": "true",
+    "tooltip-format-activated": "Currently blocking idle",
+    "tooltip-format-deactivated": "Currently allowing idle"
+  },
   "group/actions_drawer": {
     "orientation": "inherit",
     "drawer": {
@@ -244,6 +281,7 @@
     "orientation": "inherit",
     "modules": [
       "group/actions_drawer",
+      "idle_inhibitor",
       "custom/notification",
       "group/power-menu"
     ]

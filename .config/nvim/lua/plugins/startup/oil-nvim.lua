@@ -2,8 +2,9 @@ return {
   'stevearc/oil.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   opts = {
-    delete_to_trash = true,
     columns = { 'icon', 'permissions', 'size' },
+    delete_to_trash = true,
+    view_options = { show_hidden = true },
     -- float = { border = 'rounded' },
     -- confirmation = { border = 'rounded' },
     -- progress = { border = 'rounded' },

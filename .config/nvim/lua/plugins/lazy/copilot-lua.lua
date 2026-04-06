@@ -1,5 +1,6 @@
 return {
   'zbirenbaum/copilot.lua',
+  enabled = true,
   build = ':Copilot auth',
   event = 'InsertEnter',
   cmd = 'Copilot',
@@ -8,11 +9,7 @@ return {
       enabled = true,
       auto_trigger = true,
       hide_during_completion = false,
-      keymap = {
-        accept = false,
-        next = false,
-        prev = false,
-      },
+      keymap = { accept = false, next = false, prev = false },
     },
     panel = { enabled = false },
     filetypes = { markdown = true, help = false },

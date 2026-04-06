@@ -142,7 +142,7 @@ export class App{} {{
           standalone: true,
           providers: [],
         }})
-        export ExampleDirective {{
+        export class ExampleDirective {{
           {}
         }}
       ]],

@@ -6,8 +6,10 @@ local M = {}
 M.diagnostics = {
   underline = false,
   update_in_insert = false,
-  float = { border = 'rounded', source = 'if_many' },
-  -- virtual_text = { spacing = 4, prefix = '', source = 'if_many' },
+  float = {
+    border = vim.g.border_style or 'rounded',
+    source = 'if_many',
+  },
   virtual_text = false,
   severity_sort = true,
   signs = {
@@ -32,16 +34,16 @@ M.diagnostics = {
   },
 }
 
+M.ignored_diagnostics = {
+  {
+    message = 'Could not parse linter output due to: Expected value but found invalid token at character 1\noutput: Error: Could not find config file.',
+    source = 'eslint_d',
+    reason = 'Annoying eslint message when no config file is present',
+  },
+}
+
 ---@type vim.lsp.client.on_attach_cb
 M.on_attach = function(client, bufnr)
-  require('utils.diagnostics').exclude({
-    {
-      message = 'Could not parse linter output due to: Expected value but found invalid token at character 1\noutput: Error: Could not find config file.',
-      source = 'eslint_d',
-      reason = 'Annoying eslint message when no config file is present',
-    },
-  })
-
   vim.diagnostic.config(vim.deepcopy(M.diagnostics))
 
   if client:supports_method('textDocument/inlayHint') then
@@ -94,47 +96,56 @@ M.on_attach = function(client, bufnr)
         {
           key = 'gd',
           cmd = vim.lsp.buf.definition,
-          { buffer = bufnr, desc = 'LSP Go to definition' },
+          desc = 'LSP Go to definition',
+          opts = { buffer = bufnr },
         },
         {
           key = 'gD',
           cmd = vim.lsp.buf.declaration,
-          { buffer = bufnr, desc = 'LSP Go to declaration' },
+          desc = 'LSP Go to declaration',
+          opts = { buffer = bufnr },
         },
         {
           key = 'gi',
           cmd = vim.lsp.buf.implementation,
-          { buffer = bufnr, desc = 'LSP Go to implementation' },
+          desc = 'LSP Go to implementation',
+          opts = { buffer = bufnr },
         },
         {
           key = 'go',
           cmd = vim.lsp.buf.type_definition,
-          { buffer = bufnr, desc = 'LSP Go to type definition' },
+          desc = 'LSP Go to type definition',
+          opts = { buffer = bufnr },
         },
         {
           key = 'gr',
           cmd = vim.lsp.buf.references,
-          { buffer = bufnr, desc = 'LSP Show references' },
+          desc = 'LSP Show references',
+          opts = { buffer = bufnr },
         },
         {
           key = 'H',
           cmd = vim.lsp.buf.hover,
-          { buffer = bufnr, desc = 'LSP Show hover information' },
+          desc = 'LSP Show hover information',
+          opts = { buffer = bufnr },
         },
         {
           key = '<leader>rn',
           cmd = vim.lsp.buf.rename,
-          { buffer = bufnr, desc = 'LSP Rename symbol' },
+          desc = 'LSP Rename symbol',
+          opts = { buffer = bufnr },
         },
         {
           key = '<leader>ca',
           cmd = vim.lsp.buf.code_action,
-          { buffer = bufnr, desc = 'LPS Show code actions' },
+          desc = 'LSP Show code actions',
+          opts = { buffer = bufnr },
         },
         {
           key = '<leader>ls',
           cmd = vim.diagnostic.setloclist,
-          { buffer = bufnr, desc = 'LSP diagnostic loclist' },
+          desc = 'LSP diagnostic loclist',
+          opts = { buffer = bufnr },
         },
       },
     },
@@ -147,7 +158,8 @@ M.on_attach = function(client, bufnr)
         {
           key = 'gh',
           cmd = vim.lsp.buf.signature_help,
-          { buffer = bufnr, desc = 'LSP Show signature help' },
+          desc = 'LSP Show signature help',
+          opts = { buffer = bufnr },
         },
       },
     })
@@ -278,6 +290,8 @@ M.servers = {
       Lua = {
         runtime = { version = 'LuaJIT' },
         completion = { callSnippet = 'Replace' },
+        codeLens = false,
+        hint = { enable = false },
         diagnostics = { globals = { 'vim' } },
         workspace = {
           library = {

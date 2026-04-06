@@ -176,23 +176,27 @@ M.global = {
       },
       {
         key = '[d',
-        cmd = '<cmd>lua vim.diagnostic.goto_prev()<cr>zz',
+        cmd = function()
+          vim.diagnostic.jump({ count = -1, float = true, wrap = false })
+        end,
         desc = 'Previous diagnostic',
       },
       {
         key = ']d',
-        cmd = '<cmd>lua vim.diagnostic.goto_next()<cr>zz',
+        cmd = function()
+          vim.diagnostic.jump({ count = 1, float = true, wrap = false })
+        end,
         desc = 'Next diagnostic',
       },
       {
         key = '<leader>e',
-        cmd = '<cmd>lua vim.diagnostic.open_float()<cr>zz',
-        desc = 'Expand diagnostics',
+        cmd = vim.diagnostic.open_float,
+        desc = 'Show diagnostics under cursor in a floating window',
       },
       {
         key = '<leader>qo',
-        cmd = '<cmd>lua vim.diagnostic.setloclist()<cr>zz',
-        desc = 'Open diagnostics quickfix list',
+        cmd = vim.diagnostic.setloclist,
+        desc = 'Add buffer diagnostics to location list',
       },
       {
         key = ';j',
@@ -247,7 +251,7 @@ M.global = {
       {
         key = '<leader>g/',
         cmd = function()
-          local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+          local _, col = table.unpack(vim.api.nvim_win_get_cursor(0))
           local line = vim.api.nvim_get_current_line()
           local raw_path
           local eq_index = line:find('=')
@@ -330,17 +334,20 @@ M.markdown = {
       {
         key = '[s',
         cmd = '[s',
-        { desc = 'Prev spelling error', noremap = true, silent = true },
+        desc = 'Prev spelling error',
+        opts = { noremap = true, silent = true },
       },
       {
         key = ']s',
         cmd = ']s',
-        { desc = 'Next spelling error', noremap = true, silent = true },
+        desc = 'Next spelling error',
+        opts = { noremap = true, silent = true },
       },
       {
         key = 'z=',
         cmd = 'z=',
-        { desc = 'Fix spelling error', noremap = true, silent = true },
+        desc = 'Fix spelling error',
+        opts = { noremap = true, silent = true },
       },
     },
   },

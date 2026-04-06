@@ -2,13 +2,19 @@ return {
   'folke/snacks.nvim',
   priority = 1000,
   opts = {
+    dashboard = { enabled = false },
     explorer = { enabled = false },
     image = { enabled = false },
     scope = { enabled = false },
     scroll = { enabled = false },
     statuscolumn = { enabled = false },
     words = { enabled = false },
-    bigfile = { enabled = true },
+    bigfile = {
+      enabled = true,
+      notify = true,
+      size = 1 * 1024 * 1024, -- 1 MB
+      line_length = 500,
+    },
     indent = { enabled = true },
     input = { enabled = true },
     notifier = { enabled = true },
@@ -33,40 +39,6 @@ return {
         height = 0,
         width = 0.8,
         col = 0.4,
-      },
-    },
-    dashboard = {
-      enabled = true,
-      preset = {
-        header = [[
- ██████╗ ███╗   ██╗███████╗
-██╔════╝ ████╗  ██║██╔════╝
-██║  ███╗██╔██╗ ██║███████╗
-██║   ██║██║╚██╗██║╚════██║
-╚██████╔╝██║ ╚████║███████║
- ╚═════╝ ╚═╝  ╚═══╝╚══════╝]],
-        keys = {
-          -- stylua: ignore start
-          { icon = ' ', key = 'e', desc = '> New File',  action = ':ene | startinsert' },
-          { icon = '󰈞 ', key = 'f', desc = '> Find File', action = function() require('snacks').picker.files() end },
-          { icon = ' ', key = 's', desc = '> Config',    action = ':e $MYVIMRC | :cd %:p:h | pwd' },
-          { icon = ' ', key = 'p', desc = '> Zoxisde',   action = function() require('snacks').picker.zoxide() end },
-          { icon = '󰒲 ', key = 'L', desc = '> Lazy',      action = ':Lazy', enabled = package.loaded.lazy ~= nil },
-          { icon = '󰈆 ', key = 'q', desc = '> Quit',      action = ':qa' },
-          -- stylua: ignore end
-        },
-      },
-      sections = {
-        { section = 'header' },
-        { section = 'keys', padding = 1, gap = 1 },
-        {
-          section = 'recent_files',
-          icon = ' ',
-          title = '> Recent Files',
-          indent = 3,
-          padding = 2,
-        },
-        { section = 'startup' },
       },
     },
   },
@@ -99,8 +71,8 @@ return {
           -- navigation
           { key = '<c-d>',      cmd = snacks.picker.explorer,           desc = 'Open file explorer' },
           { key = '<leader>f/', cmd = snacks.picker.lines,              desc = 'Fuzzy find string on current buffer' },
-          { key = '<leader>fb', cmd = snacks.picker.buffers,            desc = 'Fuzzy find curenltly open buffers' },
-          { key = '<leader>fd', cmd = snacks.picker.zoxide,             desc = 'Fuzzy find zoxide entries' },
+          { key = '<leader>fb', cmd = snacks.picker.buffers,            desc = 'Fuzzy find currently open buffers' },
+          { key = '<leader>fz', cmd = snacks.picker.zoxide,             desc = 'Fuzzy find zoxide entries' },
           { key = '<leader>ff', cmd = snacks.picker.files,              desc = 'Fuzzy find files on cwd' },
           { key = '<leader>fm', cmd = snacks.picker.marks,              desc = 'Fuzzy find marks' },
           { key = '<leader>fp', cmd = snacks.picker.projects,           desc = 'Fuzzy find projects' },
@@ -139,18 +111,14 @@ return {
               {
                 key = '<leader>fs',
                 cmd = snacks.picker.treesitter,
-                {
-                  desc = 'Fuzzy find symbols on current buffer (using treesitter)',
-                  buffer = args.buf,
-                },
+                desc = 'Fuzzy find symbols on current buffer (using treesitter)',
+                opts = { buffer = args.buf },
               },
               {
                 key = '<leader>fS',
                 cmd = snacks.picker.lsp_workspace_symbols,
-                {
-                  desc = 'LSP fuzzy find symbols on current workspace',
-                  buffer = args.buf,
-                },
+                desc = 'LSP fuzzy find symbols on current workspace',
+                opts = { buffer = args.buf },
               },
             },
           },

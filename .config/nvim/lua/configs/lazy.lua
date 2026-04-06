@@ -22,9 +22,10 @@ return {
   },
   install = {
     missing = true, -- install missing plugins on startup. This doesn't increase startup time.
-    colorscheme = { 'rose-pine' }, -- try to load one of these colorschemes when starting an installation during startup
+    colorscheme = { 'catppuccin-mocha' }, -- try to load one of these colorschemes when starting an installation during startup
   },
   ui = {
+    border = vim.g.border_style or 'rounded',
     icons = {
       ft = '',
       lazy = '󰂠 ',

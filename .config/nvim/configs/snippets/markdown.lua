@@ -215,7 +215,7 @@ return {
     { trig = 'zsh', name = 'Add code block for zsh' },
     fmt('```zsh\n\n{}```', { i(0) })
   ),
-  -- #regionend
+  -- #endregion
   s(
     { trig = 'link', name = 'Add a clickable link' },
     fmt('[{}]({})', {

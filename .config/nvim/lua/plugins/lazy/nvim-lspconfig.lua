@@ -9,6 +9,7 @@ return {
     return require('configs.nvim-lspconfig')
   end,
   config = function(_, opts)
+    require('utils.diagnostics').exclude(opts.ignored_diagnostics)
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(args)

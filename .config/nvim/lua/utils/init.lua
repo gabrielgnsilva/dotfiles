@@ -96,6 +96,61 @@ U.commentEnd = function(autospace)
   end
   return ' ' .. syntax[3]
 end
--- #regionend
 
+U.organize_imports = function()
+  local ft = vim.bo.filetype:gsub('react$', '')
+  if not vim.tbl_contains({ 'javascript', 'typescript' }, ft) then
+    return
+  end
+
+  local ok = vim.lsp.buf_request_sync(0, 'workspace/executeCommand', {
+    command = (ft .. '.organizeImports'),
+    arguments = {
+      vim.api.nvim_buf_get_name(0),
+      {
+        tabSize = 2,
+        indentSize = 2,
+        convertTabsToSpaces = true,
+        insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces = true,
+      },
+    },
+  }, 3000)
+
+  if not ok then
+    vim.notify(
+      'Failed to organize imports',
+      vim.log.levels.WARN,
+      { title = 'vtsls' }
+    )
+  end
+end
+
+--- @param args vim.api.keyset.create_autocmd.callback_args | nil
+U.format = function(args)
+  local ft = args and vim.bo[args.buf].filetype or vim.bo.filetype
+  if
+    vim.tbl_contains({
+      'javascript',
+      'javascript.jsx',
+      'javascriptreact',
+      'typescript',
+      'typescript.tsx',
+      'typescriptreact',
+    }, ft)
+  then
+    require('utils').organize_imports()
+  end
+
+  require('conform').format({ async = true }, function(err)
+    if err ~= nil then
+      vim.notify(
+        (err and err:match('([^\n]*)'):match('.-:%s*.-%.%w+:%s*(.*)'))
+          or (err and err:match('([^\n]*)'))
+          or err,
+        vim.log.levels.ERROR,
+        { title = err:match('^[^:]*') }
+      )
+    end
+  end)
+end
 return U

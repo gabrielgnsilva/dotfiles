@@ -62,6 +62,26 @@ return {
             cmd = ':Gitsigns toggle_current_line_blame<cr>',
             desc = 'Toggle Git Blame',
           },
+          {
+            key = ']h',
+            cmd = ':Gitsigns next_hunk<cr>',
+            desc = 'Next git hunk',
+          },
+          {
+            key = '[h',
+            cmd = ':Gitsigns prev_hunk<cr>',
+            desc = 'Previous git hunk',
+          },
+          {
+            key = '<leader>gp',
+            cmd = ':Gitsigns preview_hunk<cr>',
+            desc = 'Preview hunk',
+          },
+          {
+            key = '<leader>gr',
+            cmd = ':Gitsigns reset_hunk<cr>',
+            desc = 'Reset hunk',
+          },
         },
       },
     })

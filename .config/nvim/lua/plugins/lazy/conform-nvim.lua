@@ -13,76 +13,40 @@ return {
       lsp_format = 'fallback', -- not recommended to change
     },
     formatters_by_ft = {
+      bash = { 'shfmt' },
+      bib = { 'bibtex-tidy' },
       c = { 'clang-format' },
       c_sharp = { 'clang-format' },
       cpp = { 'clang-format' },
       css = { 'prettier' },
+      go = { 'gofumpt', 'golines', 'goimports-reviser' },
+      html = { 'prettier' },
       htmlangular = { 'prettier' },
-      html = function(bufnr)
-        if vim.api.nvim_buf_get_name(bufnr):match('%.ftl$') then
-          return { 'prettier' }
-        else
-          return { 'prettier' }
-        end
-      end,
       javascript = { 'prettier' },
       javascriptreact = { 'prettier' },
       json = { 'jq' },
       jsonc = { 'prettier' },
-      markdown = { 'prettier' },
-      scss = { 'prettier' },
-      typescript = { 'prettier' },
-      typescriptreact = { 'prettier' },
-      yaml = { 'yamlfmt' },
-      go = { 'gofumpt', 'golines', 'goimports-reviser' },
       lua = { 'stylua' },
+      markdown = { 'prettier' },
+      mysql = { 'sqlfmt' },
       python = { 'black', 'isort' },
       rust = { 'rustfmt' },
-      bash = { 'shfmt' },
-      zsh = { 'shfmt' },
+      scss = { 'prettier' },
       sh = { 'shfmt' },
-      mysql = { 'sqlfmt' },
       sql = { 'sqlfmt' },
       tex = { 'tex-fmt' },
-      bib = { 'bibtex-tidy' },
+      typescript = { 'prettier' },
+      typescriptreact = { 'prettier' },
+      xml = { 'tidy' },
+      yaml = { 'yamlfmt' },
+      zsh = { 'shfmt' },
     },
     formatters = {
       injected = { options = { ignore_errors = true } },
       prettier = {
-        prepend_args = function()
-          local cwd = vim.fn.getcwd()
-          local root = vim.fs.find(
-            { '.git', 'package.json', '/' },
-            { path = cwd, upward = true }
-          )[1]
-          local dir = cwd
-          while dir and dir ~= root do
-            for _, fname in ipairs({
-              '.prettierrc',
-              '.prettierrc.json',
-              '.prettierrc.yml',
-              '.prettierrc.yaml',
-              '.prettierrc.js',
-              'prettier.config.js',
-            }) do
-              if
-                vim.fn.filereadable(string.format('%s/%s', dir, fname)) == 1
-              then
-                return { '--config', string.format('%s/%s', dir, fname) }
-              end
-            end
-            dir = vim.fn.fnamemodify(dir, ':h')
-          end
-          return {
-            '--config',
-            string.format('%s/prettierrc.json', rcfiles_path),
-          }
-        end,
-      },
-      stylua = {
         prepend_args = {
-          '--config-path',
-          string.format('%s/stylua.toml', rcfiles_path),
+          '--config',
+          string.format('%s/prettierrc.json', rcfiles_path),
         },
       },
       shfmt = {
@@ -94,8 +58,23 @@ return {
           '--space-redirects',
         },
       },
-      sqlfmt = {
-        prepend_args = { '--line-length', '79' },
+      sqlfmt = { prepend_args = { '--line-length', '79' } },
+      stylua = {
+        prepend_args = {
+          '--config-path',
+          string.format('%s/stylua.toml', rcfiles_path),
+        },
+      },
+      tidy = {
+        prepend_args = {
+          '-xml',
+          '-indent',
+          '-wrap',
+          '79',
+          '-quiet',
+          '-asxml',
+          '-utf8',
+        },
       },
     },
   },
@@ -126,25 +105,9 @@ return {
             bindings = {
               {
                 key = '<leader>mp',
-                cmd = function()
-                  require('conform').format({}, function(err)
-                    if err ~= nil then
-                      vim.notify(
-                        (
-                          err
-                          and err
-                            :match('([^\n]*)')
-                            :match('.-:%s*.-%.%w+:%s*(.*)')
-                        )
-                          or (err and err:match('([^\n]*)'))
-                          or err,
-                        vim.log.levels.ERROR,
-                        { title = err:match('^[^:]*') }
-                      )
-                    end
-                  end)
-                end,
-                { buffer = args.buf, desc = 'Format current buffer' },
+                cmd = require('utils').format,
+                desc = 'Format current buffer',
+                opts = { buffer = args.buf },
               },
             },
           },

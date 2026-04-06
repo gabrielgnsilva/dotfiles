@@ -56,22 +56,22 @@ return {
     move = {
       goto_next_start = {
         [']f'] = '@function.outer',
-        [']c'] = '@class.outer',
+        [']o'] = '@class.outer',
         [']a'] = '@parameter.inner',
       },
       goto_next_end = {
         [']F'] = '@function.outer',
-        [']C'] = '@class.outer',
+        [']O'] = '@class.outer',
         [']A'] = '@parameter.inner',
       },
       goto_previous_start = {
         ['[f'] = '@function.outer',
-        ['[c'] = '@class.outer',
+        ['[o'] = '@class.outer',
         ['[a'] = '@parameter.inner',
       },
       goto_previous_end = {
         ['[F'] = '@function.outer',
-        ['[C'] = '@class.outer',
+        ['[O'] = '@class.outer',
         ['[A'] = '@parameter.inner',
       },
     },
@@ -83,9 +83,14 @@ return {
     use_languagetree = true,
     additional_vim_regex_highlighting = false, -- Run `:h syntax` and tree-sitter at the same time
     disable = function(_, buf)
+      if vim.g.bigfile_detection_disabled == true then
+        return false
+      end
+
       -- Disable for large files
       local maxFileSize = 500 * 1024 -- 500KB
-      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+      local ok, stats =
+        pcall((vim.uv or vim.loop).fs_stat, vim.api.nvim_buf_get_name(buf))
       if ok and stats and stats.size > maxFileSize then
         vim.notify(
           'Treesitter highlighting has been deactivated on this file!'
@@ -94,15 +99,12 @@ return {
       end
 
       -- Disable for files with very long lines
-      local lines = vim.api.nvim_buf_line_count(buf)
-      if lines <= 10 then
-        for i = 1, lines do
-          local line = vim.api.nvim_buf_get_lines(buf, i - 1, i, false)[1]
-            or ''
-          if #line > 150 then
-            return true
-          end
-        end
+      if require('utils.bigfile').has_long_lines(buf) then
+        vim.notify(
+          'Treesitter highlighting disabled: long lines detected',
+          vim.log.levels.WARN
+        )
+        return true
       end
     end,
   },

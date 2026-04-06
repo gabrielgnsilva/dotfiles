@@ -21,11 +21,13 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end
 vim.opt.rtp:prepend(lazypath)
--- #regionend
+-- #endregion
 
 require('options')
 require('lazy').setup(require('configs.lazy'))
 require('autocmds')
+
+require('custom.src.bigfile-detection')
 
 vim.schedule(function()
   require('utils.mappings').load_keymap('global')

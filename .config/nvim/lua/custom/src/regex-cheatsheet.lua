@@ -118,6 +118,7 @@ vim.api.nvim_create_user_command('RegexCheatsheet', function()
     })
   else
     vim.api.nvim_win_hide(state.floating.win)
+    state = { floating = { buf = -1, win = -1 } }
   end
 end, {})
 

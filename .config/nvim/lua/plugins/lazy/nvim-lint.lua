@@ -36,18 +36,18 @@ return {
           },
         },
         shellcheck = {
-        -- stylua: ignore start
-        args = {
-          '-e',            'SC2312',
-          '-e',            'SC2154',
-          '-e',            'SC1090',
-          '-e',            'SC2016',
-          '--source-path', 'SCRIPTDIR',
-          '--enable',      'all',
-          '--format',      'tty',
-          '--external-sources',
-          '-',
-        },
+          -- stylua: ignore start
+          args = {
+            '-e',            'SC2312',
+            '-e',            'SC2154',
+            '-e',            'SC1090',
+            '-e',            'SC2016',
+            '--source-path', 'SCRIPTDIR',
+            '--enable',      'all',
+            '--format',      'tty',
+            '--external-sources',
+            '-',
+          },
           -- stylua: ignore end
         },
       },

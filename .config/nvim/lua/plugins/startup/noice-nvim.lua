@@ -20,7 +20,7 @@ return {
     cmdline = { view = 'cmdline_popup' },
     views = {
       cmdline_popup = {
-        border = { style = vim.g.borde_style },
+        border = { style = vim.g.border_style },
         size = { max_width = 120 },
         win_options = { wrap = true },
       },
@@ -31,12 +31,12 @@ return {
         format = { '{title} ', '{message}' },
       },
       hover = {
-        border = { style = vim.g.borde_style },
+        border = { style = vim.g.border_style },
         size = { max_width = 80 },
         win_options = { scrolloff = 4, wrap = true },
       },
       popup = {
-        border = { style = vim.g.borde_style },
+        border = { style = vim.g.border_style },
         size = { width = 90, height = 25 },
         win_options = { scrolloff = 8, wrap = true, concealcursor = 'nv' },
         close = { keys = { 'q' } },
@@ -175,7 +175,8 @@ return {
               end)
               return ''
             end,
-            { expr = true, desc = 'Redirect cmdline via Noice' },
+            desc = 'Redirect cmdline via Noice',
+            opts = { expr = true },
           },
         },
       },
@@ -189,7 +190,8 @@ return {
                 return '<c-f>'
               end
             end,
-            { desc = 'Scroll forward', silent = true, expr = true },
+            desc = 'Scroll forward',
+            opts = { silent = true, expr = true },
           },
           {
             key = '<c-b>',
@@ -198,7 +200,8 @@ return {
                 return '<c-b>'
               end
             end,
-            { desc = 'Scroll backwards', silent = true, expr = true },
+            desc = 'Scroll backwards',
+            opts = { silent = true, expr = true },
           },
         },
       },

@@ -51,8 +51,15 @@ end
 
 M.start_treesitter = function()
   vim.filetype.add({
-    extension = { info = 'properties', ftl = 'html' },
-    pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' },
+    extension = {
+      info = 'properties',
+      ftl = 'html',
+    },
+    pattern = {
+      ['.*/hypr/.*%.conf'] = 'hyprlang',
+      ['.*/sway/.*%.conf'] = 'swayconfig',
+      ['.env.*'] = 'dosini',
+    },
   })
   vim.treesitter.language.register('html', 'ftl')
   vim.treesitter.language.register('html', 'htmlangular')
@@ -106,7 +113,8 @@ M.start_treesitter = function()
                   'textobjects'
                 )
               end,
-              { buffer = args.buf, desc = desc, silent = true },
+              desc = desc,
+              opts = { buffer = args.buf, silent = true },
             })
           end
         end

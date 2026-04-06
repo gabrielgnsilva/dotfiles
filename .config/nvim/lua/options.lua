@@ -13,7 +13,7 @@ g['loaded_ruby_provider'] = 0 -- Disables the Ruby provider
 
 -- #region: Appearance Settings
 opt.title = true
-opt.colorcolumn = '80' -- Highlights the 80th column to indicate line length
+opt.colorcolumn = '81' -- Highlights the 80th column to indicate line length
 opt.cursorline = false -- Disable current line highlighting
 opt.fillchars = {
   foldopen = '',
@@ -36,15 +36,16 @@ opt.numberwidth = 2 -- Sets the width of the number column to 2
 opt.relativenumber = true -- Displays relative line numbers based on the cursor position
 opt.ruler = false -- Disables the ruler (line/column position display)
 opt.signcolumn = 'yes' -- Always show the sign column (for diagnostics, etc.), prevents text reflow
-opt.synmaxcol = 150 -- Limits syntax highlighting to the first 150 columns
+opt.synmaxcol = 300 -- Limits syntax highlighting to the first 300 columns
 opt.syntax = 'manual' -- Enables syntax highlighting
 opt.termguicolors = true -- Enables 24-bit RGB color support in the terminal
 opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
 opt.splitkeep = 'screen' -- Default splitting will cause your main splits to jump when opening an edgebar.
 opt.path:append({ '*' })
 opt.wildignore:append({ '*/node_modules/*' })
-opt.formatoptions:append({ '*' })
+opt.formatoptions:append('jcroqlnt')
 opt.winborder = 'rounded'
+g.border_style = 'rounded'
 -- #endregion
 
 -- #region: Indentation and Formatting Settings
@@ -55,7 +56,7 @@ opt.shiftwidth = 2 -- Size of an indent
 opt.smartcase = true -- Makes search case-sensitive if any uppercase letters are used
 opt.autoindent = true -- Enables automatic indentation for certain syntax
 opt.smartindent = true -- Enables automatic indentation for certain syntax
-opt.smarttab = true -- Makes search case-sensitive if any uppercase letters are used
+opt.smarttab = true -- Makes tab behavior smarter
 opt.softtabstop = 2 -- Sets the number of spaces to use when pressing tab
 opt.tabstop = 2 -- Sets the width of a tab character to 4 spaces
 opt.wrap = false -- Disables line wrapping (long lines won't wrap)
@@ -120,8 +121,10 @@ opt.isfname:append('@-@') -- Includes hyphen in file names
 
 -- #region: Performance Settings
 opt.timeoutlen = 300 -- Sets the timeout for key mappings (in milliseconds)
-opt.ttyfast = nil -- Improves performance when interacting with the terminal
 opt.updatetime = 200 -- Sets the time in milliseconds before triggering an update event
+opt.redrawtime = 1500 -- Maximum time for redraw (ms) - prevents freezes
+opt.maxmempattern = 1000 -- Limits memory for pattern matching
+
 -- #endregion
 
 -- #region: UI Settings
@@ -142,6 +145,7 @@ opt.wildmode = 'longest:full,full' -- Command-line completion mode
 -- #endregion
 
 -- #region: Session
+opt.modeline = false -- Disables modeline for security reasons
 opt.sessionoptions = {
   'buffers',
   'curdir',
@@ -152,8 +156,10 @@ opt.sessionoptions = {
   'skiprtp',
   'folds',
 }
--- #regionend
+-- #endregion
 
 -- #region: Plugin and Lazy Loading Settings
-vim.loader.enable() -- Enables lazy loading of plugins (if needed)
+if vim.loader then
+  vim.loader.enable() -- Caches Lua bytecode for require() calls
+end
 -- #endregion

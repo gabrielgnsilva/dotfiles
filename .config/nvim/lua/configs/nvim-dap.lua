@@ -26,7 +26,9 @@ return {
       else
         cb({
           type = 'executable',
-          command = os.getenv('VIRTUAL_ENV') .. '/bin/python' or '/bin/python',
+          command = os.getenv('VIRTUAL_ENV')
+              and string.format('%s/bin/python', os.getenv('VIRTUAL_ENV'))
+            or 'python',
           args = { '-m', 'debugpy.adapter' },
           options = {
             source_filetype = 'python',
@@ -57,7 +59,7 @@ return {
   configurations = {
     typescript = {
       {
-        type = 'pwd-node',
+        type = 'pwa-node',
         request = 'launch',
         name = 'Launch file',
         program = '${file}',

@@ -92,7 +92,7 @@ return {
     local O = {
       options = {
         icons_enabled = false,
-        theme = 'kanagawa',
+        theme = 'catppuccin-mocha',
         component_separators = '',
         section_separators = '',
       },

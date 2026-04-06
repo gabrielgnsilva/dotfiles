@@ -1,21 +1,20 @@
 return {
-  'rebelot/kanagawa.nvim',
-  name = 'kanagawa',
+  'catppuccin/nvim',
+  name = 'catppuccin',
   priority = 1000,
   opts = {
-    transparent = true,
-    overrides = function(colors)
-      local theme = colors.theme
+    transparent_background = false,
+    custom_highlights = function(colors)
       return {
         FloatBorder = { bg = 'none' },
         FloatTitle = { bg = 'none' },
         Normal = { bg = 'none' },
         NormalFloat = { bg = 'none' },
-        LineNr = { bg = 'none' },
-        RelativeLineNr = { bg = 'none', fg = '#50A0C0' },
+        LineNr = { bg = 'none', fg = colors.surface2 },
+        RelativeLineNr = { bg = 'none', fg = colors.surface2 },
 
-        LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-        MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
+        LazyNormal = { bg = colors.base, fg = colors.subtext1 },
+        MasonNormal = { bg = colors.base, fg = colors.subtext1 },
 
         NoiceCmdlineIcon = { link = 'FloatBorder' },
         NoiceCmdlineIconCmdLine = { link = 'FloatBorder' },
@@ -41,7 +40,7 @@ return {
   },
 
   config = function(_, opts)
-    require('kanagawa').setup(opts)
-    vim.cmd([[colorscheme kanagawa]])
+    require('catppuccin').setup(opts)
+    vim.cmd([[colorscheme catppuccin-mocha]])
   end,
 }

@@ -1,7 +1,7 @@
 local function run_groff(filePath)
   local result = vim.fn.system(
     string.format(
-      'groff -ms %s -Tpdf >> %s.pdf',
+      'groff -ms %s -Tpdf > %s.pdf',
       filePath,
       filePath:gsub('%.%w+$', '')
     )
@@ -34,8 +34,7 @@ local function Compile()
   local filePath = vim.api.nvim_buf_get_name(0)
 
 
--- stylua: ignore start
-
+  -- stylua: ignore start
   if filePath and vim.bo.filetype == 'nroff' then
     local bufferContent = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), '\n')
     local hasBibliograpy = bufferContent:match("%.%[%s*.-%s*%.%]")
@@ -44,7 +43,7 @@ local function Compile()
     if hasBibliograpy then
       result = run_with_refer(filePath)
     else
-      result = run_groff(filePath)(filePath)
+      result = run_groff(filePath)
     end
     if vim.v.shell_error == 0 then
       vim.notify(string.format('%s compiled successfully with groff!', filePath), vim.log.levels.INFO)

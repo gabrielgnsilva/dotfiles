@@ -20,6 +20,15 @@ return {
         color = 'error',
         alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE', 'ERROR', 'DANGER' },
       },
+      IMPORTANT = {
+        icon = ' ',
+        color = 'warning',
+        alt = {
+          'IMPORTANT',
+          '!!!',
+          '!!',
+        },
+      },
       TODO = { icon = ' ', color = 'info' },
       HACK = { icon = ' ', color = 'warning' },
       WARN = { icon = ' ', color = 'warning', alt = { 'WARNING' } },

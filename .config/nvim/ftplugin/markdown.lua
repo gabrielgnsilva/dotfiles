@@ -1,7 +1,6 @@
 local opt = vim.opt_local
 local g = vim.g
 
-opt.textwidth = 80
 opt.wrap = true
 
 opt.spell = true

@@ -85,7 +85,7 @@ bindkey -M visual '^[[P' vi-delete
 [ -f "${XDG_CONFIG_HOME}/shell/shortcuts" ] && source "${XDG_CONFIG_HOME}/shell/shortcuts"
 
 # NVM
-[ -s "${NVM_DIR}"/nvm.sh ] && source "${NVM_DIR}"/nvm.sh # This loads nvm
+[ -s /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh # This loads nvm
 
 # MAKE LESS MORE FRIENDLY FOR NON-TEXT INPUT FILES, SEE LESSPIPE(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -94,6 +94,24 @@ bindkey -M visual '^[[P' vi-delete
 eval "$(zoxide init --cmd cd zsh)"
 
 # Load zsh-syntax-highlighting and zsh-autosuggestions; **should be last**.
+source "${XDG_CONFIG_HOME}"/zsh/config.d/zsh-syntax-highlighting/catppuccin_mocha-zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# Check if user is a member of the expected groups and warn if not.
+expected_groups=(gamemode i2c libvirt audio video render)
+missing_groups=()
+for group in "${expected_groups[@]}"; do
+  if ! groups "${USER}" | grep -qw "${group}"; then
+    missing_groups+=("${group}")
+  fi
+done
+if [ "${#missing_groups[@]}" -gt 0 ]; then
+  group_list="$(
+    IFS=,
+    echo "${missing_groups[*]}"
+  )"
+  printf "Warning: Your user '%s' is not a member of the following expected groups:\n\t%s\n" "${USER}" "${missing_groups[*]}" >&2
+  printf "Consider adding the user to the groups using:\n" >&2
+  printf "  sudo usermod -aG %s %s\n" "${group_list}" "${USER}" >&2
+fi

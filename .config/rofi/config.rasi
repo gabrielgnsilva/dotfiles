@@ -2,7 +2,7 @@ configuration {
   modi            : "window,ssh,run,emoji";
   icon-theme      : "Papirus-Dark";
   show-icons      : true;
-  terminal        : "wezterm";
+  terminal        : "alacritty";
   sort            : true;
   sorting-method  : "normal";
   case-sensitive  : false;

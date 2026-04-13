@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Eclipse IDE
+Comment=Eclipse Integrated Development Environment
+Exec=env GDK_BACKEND=x11 /opt/eclipse/eclipse -clean %u
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+Icon=/opt/eclipse/icon.xpm

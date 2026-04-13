@@ -1,0 +1,52 @@
+// GENERAL
+window-rule {
+    match app-id=r#"^com\.gabm\.satty$"#
+    match app-id=r#"^confirmreset$"#
+    match app-id=r#"^engrampa$"#
+    match app-id=r#"^makebranch$"#
+    match app-id=r#"^maketag$"#
+    match app-id=r#"^ssh-askpass$"#
+    match app-id=r#"^branchdialog$"#
+    match app-id=r#"^pinentry$"#
+    match app-id=r#"^org\.ksnip\.ksnip$"#
+    match app-id=r#"^(java|Java)$"#
+    match app-id=r#"^thunar$"# title="Confirm to replace files"
+    match app-id=r#"^thunar$"# title="File Operation Progress"
+    open-floating true
+}
+
+// ROFI
+window-rule {
+    match app-id=r#"^Rofi$"#
+    open-focused true
+}
+
+// NSXIV
+window-rule {
+    match app-id=r#"^Nsxiv$"#
+    open-floating false
+}
+
+// STEAM
+window-rule {
+    match app-id=r#"^steam$"#
+    match app-id=r#"^steam_app_.*"#
+    open-floating false
+    open-maximized true
+}
+
+window-rule{
+    match app-id=r#"^steam_app_.*"#
+    open-fullscreen true
+    variable-refresh-rate true
+}
+
+window-rule {
+    match app-id=r#"^steam_proton$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^steam_proton$"# title=r#".*Mod\ Organizer.*"#
+    open-floating false
+}

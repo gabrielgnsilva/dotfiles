@@ -1,0 +1,59 @@
+/** @format */
+[
+  {
+    // Settings
+    "layer": "top",
+    "position": "top",
+    "spacing": 0,
+    "margin": 0,
+    "reload_style_on_change": true,
+    "output": ["DP-1"],
+
+    // Modules
+    "include": ["${XDG_CONFIG_HOME}/waybar/config.d/minimal/modules.jsonc"],
+
+    // Same widgets as `minimal`, but window title on the left.
+    "modules-left": [
+      "custom/apps",
+      "custom/sep",
+      "niri/workspaces",
+      "custom/sep",
+      "niri/window",
+    ],
+    "modules-center": [],
+    "modules-right": [
+      "group/g-indicators",
+      "custom/sep",
+      "tray",
+      "custom/sep",
+      "group/hardware",
+      "custom/sep",
+      "group/volume",
+      "custom/sep",
+      "group/systray",
+    ],
+  },
+  {
+    // Settings
+    "layer": "top",
+    "position": "top",
+    "spacing": 0,
+    "margin": 0,
+    "reload_style_on_change": true,
+    "output": ["DP-2"],
+
+    // Modules
+    "include": ["${XDG_CONFIG_HOME}/waybar/config.d/minimal/modules.jsonc"],
+    "modules-left": ["niri/window"],
+    "modules-center": [],
+    "modules-right": [
+      "group/g-indicators",
+      "custom/sep",
+      "group/hardware",
+      "custom/sep",
+      "group/volume",
+      "custom/sep",
+      "clock",
+    ],
+  },
+]

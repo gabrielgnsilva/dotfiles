@@ -1,0 +1,287 @@
+/** @format */
+
+// Independent copy of the `minimal` modules.
+// (Same widgets/features; safe to change without affecting `minimal`.)
+{
+  // region: custom
+  "custom/space": {
+    "format": " ",
+    "tooltip": false,
+  },
+  "custom/sep": {
+    "format": "|",
+    "tooltip": false,
+  },
+  "custom/apps": {
+    "format": "RUN",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/app_launcher.sh",
+    "tooltip": false,
+  },
+  "custom/power-menu": {
+    "format": "[POWER]",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/logout_menu.sh",
+    "tooltip": false,
+  },
+  "custom/actions-drawer-icon": {
+    "format": "[ACTIONS]",
+    "tooltip": false,
+  },
+  "custom/cliphist": {
+    "format": "ClipHist",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/cliphist.sh",
+    "on-click-right": "${XDG_CONFIG_HOME}/BLAST/apps/cliphist.sh delete",
+    "on-click-middle": "${XDG_CONFIG_HOME}/BLAST/apps/cliphist.sh wipe",
+    "tooltip-format": "Left: Open clipboard Manager\nRight: Delete an entry\nMiddle: Clear list",
+  },
+  "custom/notification": {
+    "return-type": "json",
+    "exec": "${XDG_CONFIG_HOME}/waybar/scripts/notifications.sh",
+    "format": "({text})",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/scripts/notification.sh --toggle",
+    "on-click-right": "${XDG_CONFIG_HOME}/BLAST/scripts/notification.sh --dismiss-all",
+    "on-click-middle": "${XDG_CONFIG_HOME}/BLAST/scripts/notification.sh --test",
+    "restart-interval": 1,
+  },
+  "custom/snap": {
+    "format": "Screenshot",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/screenshot.sh",
+    "tooltip": false,
+  },
+  "custom/drawer-start": {
+    "format": "[",
+    "tooltip": false,
+  },
+  "custom/drawer-end": {
+    "format": "]=",
+    "tooltip": false,
+  },
+  // endregion
+
+  // region: waybar
+
+  "niri/window": {
+    "format": "{title}",
+    "max-length": 50,
+    "separate-outputs": true,
+    "rewrite": {
+      ".*@.*:*": "Terminal",
+    },
+  },
+  "niri/workspaces": {
+    "all-outputs": false,
+    "format": "{icon}",
+    "format-icons": {
+      "A": "A",
+      "S": "S",
+      "D": "D",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "7": "0",
+    },
+  },
+  "network": {
+    "format": "{ifname}",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "format-ethernet": "{ipaddr}/{cidr}",
+    "tooltip-format-ethernet": "{ifname}",
+    "format-wifi": "<span size='10000'></span> ({signalStrength}%)",
+    "tooltip-format-wifi": "{essid}",
+    "format-disconnected": "",
+    "max-length": 50,
+    "min-length": 5,
+  },
+  "gamemode": {
+    "format": "{glyph}",
+    "format-alt": "{glyph} {count}",
+    "glyph": "Gaming",
+    "hide-not-running": true,
+    "use-icon": true,
+    "icon-name": "input-gaming-symbolic",
+    "icon-size": 12,
+    "tooltip": true,
+    "tooltip-format": "Games running: {count}",
+  },
+  "privacy": {
+    "icon-size": 12,
+    "icon-spacing": 5,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 16,
+      },
+      {
+        "type": "audio-out",
+        "tooltip": true,
+        "tooltip-icon-size": 16,
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 16,
+      },
+    ],
+    "ignore-monitor": true,
+    "ignore": [
+      {
+        "type": "audio-in",
+        "name": "cava",
+      },
+      {
+        "type": "screenshare",
+        "name": "obs",
+      },
+    ],
+  },
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "scrolllock": false,
+    "format": {
+      "numlock": "N{icon}",
+      "capslock": "C{icon}",
+    },
+    "format-icons": {
+      "locked": "+",
+      "unlocked": "-",
+    },
+  },
+  "disk": {
+    "interval": 30,
+    "format": "DISK: {percentage_used}%",
+    "path": "/",
+  },
+  "memory": {
+    "interval": 1,
+    "format": "RAM: {percentage}%",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/terminal.sh launch ${XDG_CONFIG_HOME}/BLAST/apps/monitor.sh",
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "CPU: {usage}%",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/terminal.sh launch ${XDG_CONFIG_HOME}/BLAST/apps/monitor.sh",
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 10,
+  },
+  "wireplumber#source": {
+    "node-type": "Audio/Source",
+    "format": "MIC: {volume}%",
+    "format-muted": "<span strikethrough='true'>MIC</span>",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "scroll-step": 5,
+  },
+  "wireplumber": {
+    "format": "VOL: {volume}%",
+    "format-muted": "<span strikethrough='true'>VOL</span>",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh --toggle-mute",
+    "on-click-middle": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh 45",
+    "on-click-right": "${XDG_CONFIG_HOME}/BLAST/apps/terminal.sh launch ${XDG_CONFIG_HOME}/BLAST/apps/volume_mixer.sh",
+    "on-scroll-up": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh +1",
+    "on-scroll-down": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh -1",
+    "tooltip": false,
+  },
+  "clock": {
+    "timezone": "America/Sao_Paulo",
+    "format": "{:%H:%M:%S %p}",
+    "interval": 1,
+    "tooltip": true,
+    "tooltip-format": "{:%Y/%m/%d}",
+    "on-click": "${XDG_CONFIG_HOME}/waybar/scripts/show-calendar.sh",
+    "on-scroll-up": "${XDG_CONFIG_HOME}/waybar/scripts/show-calendar.sh next",
+    "on-scroll-down": "${XDG_CONFIG_HOME}/waybar/scripts/show-calendar.sh prev",
+  },
+  "user": {
+    "format": "{work_d} DAYS AWAKE",
+    "interval": 60,
+    "icon": false,
+  },
+  "idle_inhibitor": {
+    "format": "({icon})",
+    "format-icons": {
+      "activated": "AWAKE",
+      "deactivated": "IDLE",
+    },
+    "tooltip": "true",
+    "tooltip-format-activated": "Currently blocking idle",
+    "tooltip-format-deactivated": "Currently allowing idle",
+  },
+  // endregion
+
+  // region: groups
+  "group/g-indicators": {
+    "orientation": "inherit",
+    "modules": ["gamemode", "privacy", "keyboard-state"],
+  },
+
+  "group/hardware": {
+    "orientation": "inherit",
+    "modules": ["disk", "custom/space", "memory", "custom/space", "cpu"],
+  },
+  "group/source": {
+    "orientation": "inherit",
+    "modules": ["wireplumber#source"],
+  },
+  "group/sink": {
+    "orientation": "inherit",
+    "modules": ["wireplumber"],
+  },
+  "group/volume": {
+    "orientation": "inherit",
+    "modules": ["group/source", "custom/space", "group/sink"],
+  },
+  "group/power-menu": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false,
+    },
+    "modules": [
+      "custom/power-menu",
+      "custom/drawer-start",
+      "custom/space",
+      "user",
+      "custom/space",
+      "custom/drawer-end",
+    ],
+  },
+  "group/actions": {
+    "orientation": "inherit",
+
+    "modules": ["custom/snap", "custom/space", "custom/cliphist"],
+  },
+  "group/actions-drawer": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false,
+    },
+    "modules": [
+      "custom/actions-drawer-icon",
+      "custom/drawer-start",
+      "custom/space",
+      "group/actions",
+      "custom/space",
+      "custom/drawer-end",
+    ],
+  },
+  "group/systray": {
+    "orientation": "inherit",
+    "modules": [
+      "group/actions-drawer",
+      "custom/sep",
+      "custom/notification",
+      "custom/space",
+      "idle_inhibitor",
+      "custom/sep",
+      "group/power-menu",
+      "custom/sep",
+      "clock",
+    ],
+  },
+  // endregion
+}

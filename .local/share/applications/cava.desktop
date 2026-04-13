@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Cava
+Comment=A terminal-based audio visualizer
+Exec=alacritty -e cava %u
+Terminal=false
+Type=Application
+Categories=AudioVideo;Audio;Visualization;
+Icon=utilities-terminal
+StartupNotify=false

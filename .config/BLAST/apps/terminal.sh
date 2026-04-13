@@ -1,13 +1,17 @@
 #!/usr/bin/env sh
 
+open_term() {
+  alacritty --title Terminal "${@}"
+}
+
 if [ "${1}" = "launch" ]; then
   shift
   program="${1}"
   shift
-  wezterm start -- "${program}" "${1}"
+  open_term -e "${program}" "${1}"
 elif [ "${1}" = "cwd" ]; then
   shift
-  wezterm start --cwd "${1}"
+  open_term --working-directory "${1}"
 else
-  wezterm "${@}"
+  open_term "${@}"
 fi

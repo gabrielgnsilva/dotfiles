@@ -1,0 +1,50 @@
+workspace "A" { open-on-output "DP-1"; }
+workspace "S" { open-on-output "DP-1"; }
+workspace "D" { open-on-output "DP-1"; }
+workspace "1" { open-on-output "DP-1"; }
+workspace "2" { open-on-output "DP-1"; }
+workspace "3" { open-on-output "DP-1"; }
+workspace "0" {
+    open-on-output "DP-2";
+    layout {
+        default-column-width {
+            proportion 1.0;
+        }
+        preset-window-heights {
+            proportion 0.5
+            proportion 1.0
+            proportion 0.05
+        }
+    }
+}
+
+layout {
+    gaps 5
+    center-focused-column "never"
+    default-column-width {
+        proportion 0.5;
+    }
+    preset-column-widths {
+        proportion 0.25
+        proportion 0.5
+        proportion 0.75
+        proportion 1.0
+    }
+    preset-window-heights {
+        proportion 0.25
+        proportion 0.5
+        proportion 0.75
+        proportion 1.0
+    }
+    border { off; }
+    shadow { off; }
+    struts { }
+    focus-ring {
+        width 2
+        active-color "#9399b2"
+        inactive-color "transparent"
+        urgent-color "#f38ba8"
+    }
+}
+
+

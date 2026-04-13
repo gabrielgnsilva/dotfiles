@@ -3,51 +3,80 @@
 # shellcheck disable=SC2016
 
 # region: XDG Base Directories
-export XDG_CONFIG_HOME="${HOME}"/.config
+
 export XDG_CACHE_HOME="${HOME}"/.local/cache
+export XDG_CONFIG_HOME="${HOME}"/.config
 export XDG_DATA_HOME="${HOME}"/.local/share
 export XDG_STATE_HOME="${HOME}"/.local/state
 # regionend
 
-# region: Default programs
+# region: Programs
+
+# editor
 export EDITOR="nvim"
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
+
+# tmux
+export TMUX_TMPDIR="${XDG_RUNTIME_DIR}"
+
+# steam
+export RADV_PERFTEST=aco,gpl
+export RADV_USER_ENABLED_OPTION_STRING=antilag+
+export SDL_VIDEO_DRIVER=wayland
+export PROTON_ENABLE_WAYLAND=1
+export PROTON_NO_WM_DECORATION=1
+export PROTON_FSR4_UPGRADE=1
+export PROTON_ENABLE_HDR=1
+export PROTON_ENABLE_HDR_WSI=1
+export PROTON_USE_NTSYNC=1
+export DXVK_HDR=1
+export DXVK_ENABLE_GPL=1
+export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
 # regionend
 
 # region: $HOME Cleanup...
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+
 export XAUTHORITY="${XDG_RUNTIME_DIR}"/Xauthority
 export XCOMPOSEFILE="${XDG_CONFIG_HOME}}"/X11/xcompose
 [ -d "${XDG_CACHE_HOME}"/X11 ] || mkdir -p "${XDG_CACHE_HOME}"/X11
 export XCOMPOSECACHE="${XDG_CACHE_HOME}"/X11/xcompose
 [ -d "${XDG_CACHE_HOME}"/less ] || mkdir -p "${XDG_CACHE_HOME}"/less
+
 export LESSHISTFILE="${XDG_CACHE_HOME}"/less/lesshst
 export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
 export INPUTRC="${XDG_CONFIG_HOME}"/shell/inputrc
-export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
-export GNUPGHOME="${XDG_DATA_HOME}"/gnupg
-export TMUX_TMPDIR="${XDG_RUNTIME_DIR}"
-export ANDROID_SDK_HOME="${XDG_CONFIG_HOME}/android"
-[ -d "${XDG_CACHE_HOME}"/sqlite ] || mkdir -p "${XDG_CACHE_HOME}"/sqlite
-export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite/history"
+
 export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc-2.0"
+
+export GNUPGHOME="${XDG_DATA_HOME}"/gnupg
+export ANDROID_SDK_HOME="${XDG_CONFIG_HOME}/android"
+export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite/history"
+[ -d "${XDG_CACHE_HOME}"/sqlite ] || mkdir -p "${XDG_CACHE_HOME}"/sqlite
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME}"/java
 export CARGO_HOME="${XDG_DATA_HOME}"/cargo
 export GOPATH="${HOME}/.local/share/go"
 export GOBIN="${GOPATH}/bin"
-[ -d "${XDG_CACHE_HOME}"/go ] || mkdir -p "${XDG_CACHE_HOME}"/go
 export GOMODCACHE="${XDG_CACHE_HOME}/go/mod"
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
-export NVM_DIR="${HOME}/.config/nvm"
+[ -d "${XDG_CACHE_HOME}"/go ] || mkdir -p "${XDG_CACHE_HOME}"/go
+
 export PNPM_HOME="${HOME}/.local/share/pnpm"
-export GOPATH="${HOME}/.local/share/go"
-export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}"/npm/npmrc
+export NVM_DIR="${HOME}/.config/nvm"
 # regionend
 
 # region: Other program settings
 SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
 export SUDO_PROMPT
 export SUDO_ASKPASS="${HOME}/.local/bin/rofi-askpass"
-export ROC_ENABLE_PRE_VEGA=1
 export PIPEWIRE_LATENCY="128/48000" application
+export LD_LIBRARY_PATH=/opt/rocm/lib
+export LD_BIND_NOW=1
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
+--color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
+--color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
+--color=selected-bg:#45475A \
+--color=border:#6C7086,label:#CDD6F4"
 # regionend
 
 # region: Paths
@@ -57,9 +86,13 @@ PATH="${PATH}":"$(find ~/.local/bin -type d | paste -sd ':' -)"
 # Add path to GO Bin
 PATH="${PATH}":"${GOBIN}":
 # Add path to Java 8
-PATH="${PATH}":/usr/local/lib/java/jdk1.8.0_202/bin/
+PATH="${PATH}":/usr/local/lib/java/jdk1.8.0_202/bin
 # Add path to pnpm
 PATH="${PATH}":"${HOME}"/.local/share/pnpm
+# Add path to bun
+PATH="${PATH}":"${HOME}"/.local/cache/.bun/bin
+# Add path to ROCm
+PATH="${PATH}":/opt/rocm/bin
 
 export PATH
 # regionend

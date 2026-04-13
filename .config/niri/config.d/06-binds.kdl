@@ -1,0 +1,123 @@
+recent-windows { off; }
+hotkey-overlay { skip-at-startup; }
+screenshot-path null
+
+binds {
+    // System controls: volume, brightness, media playback, etc
+    Mod+Shift+Slash                                                                { show-hotkey-overlay; }
+    Mod+DEAD_GRAVE       hotkey-overlay-title="Logout menu"                        { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/logout_menu.sh"; }
+    Mod+Alt+M            hotkey-overlay-title="Default bg"                         { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/wallpaper.sh --default"; }
+    Mod+M                hotkey-overlay-title="Toggle bg"                          { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/wallpaper.sh --cycle"; }
+    XF86AudioRaiseVolume                                    allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/volume.sh +1"; }
+    XF86AudioLowerVolume                                    allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/volume.sh -1"; }
+    XF86AudioMute                                           allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/volume.sh --toggle-mute"; }
+
+    // Binds for running programs: terminal, app launcher, screen locker
+    Mod+R       hotkey-overlay-title="Run"               { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/app_launcher.sh"; }
+    Mod+Return  hotkey-overlay-title="Terminal"          { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/terminal.sh"; }
+    Mod+E       hotkey-overlay-title="File manager"      { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/file_manager.sh"; }
+    Mod+Q       hotkey-overlay-title="Browser"           { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/browser.sh"; }
+    Mod+Period  hotkey-overlay-title="Emoji menu"        { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/emoji_picker.sh"; }
+    Mod+V       hotkey-overlay-title="Clipboard history" { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/cliphist.sh"; }
+    Mod+X       hotkey-overlay-title="Color picker"      { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/color_picker.sh"; }
+    Mod+B       hotkey-overlay-title="Toggle taskbar"    { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/taskbar.sh --toggle"; }
+    Mod+Alt+B   hotkey-overlay-title="Reload taskbar"    { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/taskbar.sh --reload-config"; }
+    Print                                                { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/screenshot.sh --area"; }
+    Ctrl+Print                                           { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/screenshot.sh --screen"; }
+
+    Mod+Shift+Z hotkey-overlay-title="Zen current"       { spawn-sh "$XDG_CONFIG_HOME/niri/scripts/zen.sh"; }
+
+    // Window management binds
+    Mod+Escape repeat=false { toggle-overview; }
+    Mod+C repeat=false      { close-window; }
+    Mod+F                   { maximize-column; }
+    Mod+Alt+F               { fullscreen-window; }
+
+    // Move focus
+    Mod+Z           { focus-window-previous; }
+
+    Mod+Left        { focus-column-left; }
+    Mod+Down        { focus-window-or-workspace-down; }
+    Mod+Up          { focus-window-or-workspace-up; }
+    Mod+Right       { focus-column-right; }
+
+    Mod+H           { focus-column-left; }
+    Mod+J           { focus-window-or-workspace-down; }
+    Mod+K           { focus-window-or-workspace-up; }
+    Mod+L           { focus-column-right; }
+
+    Mod+Shift+Left  { focus-monitor-left; }
+    Mod+Shift+Down  { focus-monitor-down; }
+    Mod+Shift+Up    { focus-monitor-up; }
+    Mod+Shift+Right { focus-monitor-right; }
+
+    Mod+Shift+H     { focus-monitor-left; }
+    Mod+Shift+J     { focus-monitor-down; }
+    Mod+Shift+K     { focus-monitor-up; }
+    Mod+Shift+L     { focus-monitor-right; }
+
+    Mod+Home        { focus-column-first; }
+    Mod+End         { focus-column-last; }
+
+    // Move/Resize windows
+    Mod+Ctrl+Left      { move-column-left; }
+    Mod+Ctrl+Down      { move-window-down-or-to-workspace-down; }
+    Mod+Ctrl+Up        { move-window-up-or-to-workspace-up; }
+    Mod+Ctrl+Right     { move-column-right; }
+
+    Mod+Ctrl+H         { move-column-left; }
+    Mod+Ctrl+J         { move-window-down-or-to-workspace-down; }
+    Mod+Ctrl+K         { move-window-up-or-to-workspace-up; }
+    Mod+Ctrl+L         { move-column-right; }
+
+    Mod+Alt+Left       { move-column-left-or-to-monitor-left; }
+    Mod+Alt+Down       { move-column-to-monitor-down; }
+    Mod+Alt+Up         { move-column-to-monitor-up; }
+    Mod+Alt+Right      { move-column-right-or-to-monitor-right; }
+
+    Mod+Alt+H          { move-column-to-monitor-left; }
+    Mod+Alt+J          { move-column-to-monitor-down; }
+    Mod+Alt+K          { move-column-to-monitor-up; }
+    Mod+Alt+L          { move-column-to-monitor-right; }
+
+    Mod+Ctrl+Home      { move-column-to-first; }
+    Mod+Ctrl+End       { move-column-to-last; }
+
+    Mod+Space          { switch-preset-column-width; }
+    Mod+Shift+Space    { switch-preset-window-height; }
+    Mod+Ctrl+Space     { center-column; }
+
+    Mod+BracketLeft    { consume-window-into-column; }
+    Mod+BracketRight   { expel-window-from-column; }
+
+    // Switch workspaces
+    Mod+A      { focus-workspace "A"; }
+    Mod+S      { focus-workspace "S"; }
+    Mod+D      { focus-workspace "D"; }
+    Mod+1      { focus-workspace "1"; }
+    Mod+2      { focus-workspace "2"; }
+    Mod+3      { focus-workspace "3"; }
+    Mod+0      { focus-workspace "0"; }
+
+    Mod+Ctrl+A { move-column-to-workspace "A"; }
+    Mod+Ctrl+S { move-column-to-workspace "S"; }
+    Mod+Ctrl+D { move-column-to-workspace "D"; }
+    Mod+Ctrl+1 { move-column-to-workspace "1"; }
+    Mod+Ctrl+2 { move-column-to-workspace "2"; }
+    Mod+Ctrl+3 { move-column-to-workspace "3"; }
+    Mod+Ctrl+0 { move-column-to-workspace "0"; }
+
+    // Move the focused window between the floating and the tiling layout
+    Mod+Tab       { toggle-window-floating; }
+    Mod+Shift+Tab { switch-focus-between-floating-and-tiling; }
+
+    // Applications such as remote-desktop clients and software KVM switches may
+    // request that niri stops processing the keyboard shortcuts defined here
+    // so they may, for example, forward the key presses as-is to a remote machine.
+    // It's a good idea to bind an escape hatch to toggle the inhibitor,
+    // so a buggy application can't hold your session hostage.
+    //
+    // The allow-inhibiting=false property can be applied to other binds as well,
+    // which ensures niri always processes them, even when an inhibitor is active.
+    Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+}

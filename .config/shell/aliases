@@ -9,6 +9,15 @@ bin() {
   [ -f "${HOME}/.local/bin/${choice}" ] && ${EDITOR} "${HOME}/.local/bin/${choice}"
 }
 
+# Yazi Shell Wrapper
+# y() {
+#   tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+#   yazi "$@" --cwd-file="${tmp}"
+#   IFS= read -r '' cwd < "${tmp}"
+#   [ -n "${cwd}" ] && [ "${cwd}" != "${PWD}" ] && builtin cd -- "${cwd}" || exit 1
+#   rm -f -- "${tmp}"
+# }
+
 # Verbosity and settings that you pretty much just always are going to want.
 alias :q='exit' \
   cp="cp -iv" \
@@ -27,13 +36,16 @@ alias p='pacman' \
   trash='gio trash ' \
   e='${EDITOR}' \
   v='${EDITOR}' \
-  open="xdg-open"
+  open="xdg-open" \
+  code="opencode" \
+  o="opencode"
 
 # Refresh sudo when reused
 alias sudo='sudo -v; sudo '
 
 # Set dotfiles git-dir directory
 alias config='/usr/bin/git --git-dir="${HOME}"/.local/share/BLAST/dotfiles --work-tree="${HOME}"'
+alias dotfiles='GIT_DIR="${HOME}/.local/share/BLAST/dotfiles" GIT_WORK_TREE="${HOME}" nvim "${HOME}"'
 
 # custom command to alert when command has finished execution
 alias alert='notify-send --urgency=critical                                   \
@@ -48,3 +60,6 @@ alias diff='diff --color=auto ' \
   vdir='vdir --color=auto ' \
   ip='ip -color=auto ' \
   grep='grep --color=auto '
+
+# Count lines of code excluding common directories and file types
+alias cloc='cloc . --exclude-dir=node_modules,.next,dist,.turbo,.git,vendor,.angular --exclude-ext=yaml,yml,json,svg,_build'

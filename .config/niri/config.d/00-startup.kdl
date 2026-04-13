@@ -1,0 +1,15 @@
+spawn-sh-at-startup "$XDG_CONFIG_HOME/BLAST/scripts/xdg.sh"
+// spawn-sh-at-startup "systemctl --user start hyprpolkitagent"
+
+spawn-sh-at-startup "$XDG_CONFIG_HOME/BLAST/apps/taskbar.sh --show"
+spawn-sh-at-startup "udiskie --tray"
+spawn-sh-at-startup "nm-applet"
+
+spawn-sh-at-startup "wl-paste --type text --watch cliphist store"
+spawn-sh-at-startup "wl-paste --type image --watch cliphist store"
+
+spawn-sh-at-startup "$XDG_CONFIG_HOME/BLAST/scripts/wallpaper.sh --restore --fallback default"
+spawn-sh-at-startup "$XDG_CONFIG_HOME/BLAST/scripts/idle.sh --enable"
+// spawn-sh-at-startup "bluelight filter"
+
+spawn-sh-at-startup "$XDG_CONFIG_HOME/BLAST/scripts/volume.sh 45 --silent"

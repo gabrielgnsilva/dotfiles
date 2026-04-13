@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=LM Studio
+Comment=LM Studio Integrated Development Environment
+Exec=/opt/lm-studio/lm-studio.AppImage %U
+Terminal=false
+Type=Application
+Categories=Development;IDE;

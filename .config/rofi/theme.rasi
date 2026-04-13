@@ -8,18 +8,17 @@ configuration{
 
 * {
   /* General */
-  urgent    : #eb6f92;
-  background: #191724;
-  foreground: #e0def4;
+  urgent    : #f38ba8;
+  background: #1e1e2e;
+  foreground: #cdd6f4;
 
-  cur: #1f1d2e;
   cmt: #6e6a86;
-  cya: #9ccfd8;
-  grn: #31748f;
-  ora: #ebbcba;
-  pur: #c4a7e7;
-  red: #eb6f92;
-  yel: #f6c177;
+  cya: #89dceb;
+  grn: #a6e3a1;
+  ora: #fab387;
+  pur: #cba6f7;
+  red: #f38ba8;
+  yel: #f9e2af;
 
   border-color    : none;
   background-color: @background;
@@ -44,7 +43,7 @@ window {
 mainbox {
   border       : 2px;
   border-color : @cmt;
-  border-radius: 5px;
+  border-radius: 0;
   children     : [inputbar, listview];
 }
 

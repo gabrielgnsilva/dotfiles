@@ -1,0 +1,183 @@
+/** @format */
+
+/*
+ * "code" layout
+ * - same palette as minimal (imported)
+ * - terminal-ish: monospace + crisp separators + subtle transparency
+ * - no rounded corners, no module "chips"
+ */
+
+@import url('../colors.css');
+
+* {
+  border-radius: 0;
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  font-family: JetBrains Mono;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.modules-left {
+  background-color: transparent;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+.modules-center {
+  background-color: transparent;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.modules-right {
+  background-color: transparent;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  padding-top: 5px;
+}
+
+tooltip {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+tooltip label {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+window#waybar {
+  /* same color, with terminal-like transparency */
+  background-color: alpha(@background, 0.85);
+  color: @foreground;
+  transition: all 0.3s ease-in-out;
+
+  /* crisp baseline, like a terminal statusline */
+  border-bottom: 1px solid alpha(@nm_black, 0.55);
+}
+
+window#waybar.hidden {
+  background-color: transparent;
+  color: transparent;
+  border-bottom: none;
+}
+
+window#waybar label,
+window#waybar label.module,
+window#waybar box,
+window#waybar box.module {
+  background-color: transparent;
+}
+
+/* separators: subdued, like prompt dividers */
+window#waybar #custom-sep {
+  color: alpha(@nm_black, 0.9);
+  padding: 0 6px;
+}
+
+/* launcher: "command" accent */
+window#waybar #custom-apps {
+  color: @bgt_cyan;
+  letter-spacing: 0.5px;
+}
+
+/* workspaces: active looks like selected token */
+window#waybar #workspaces button:not(:first-child) {
+  margin-left: 10px;
+}
+window#waybar #workspaces button.active,
+window#waybar #workspaces button.focused {
+  color: @bgt_blue;
+  text-decoration: underline;
+}
+window#waybar #workspaces button.urgent {
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  background-color: @urgent;
+}
+
+/* window title (now left): treat like "current buffer" */
+window#waybar #window label {
+  color: @bgt_green;
+}
+window#waybar.empty #window {
+  color: transparent;
+}
+
+/* indicators */
+window#waybar #g-indicators #keyboard-state {
+  padding-left: 5px;
+}
+window#waybar #g-indicators #keyboard-state label:first-child {
+  padding-right: 5px;
+}
+
+/* tray */
+window#waybar #tray > .active {
+  -gtk-icon-effect: dim;
+}
+window#waybar #tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  background-color: @urgent;
+}
+
+/* hardware colors (same semantics as minimal) */
+window#waybar #hardware #disk {
+  color: @bgt_blue;
+}
+window#waybar #hardware #memory {
+  color: @bgt_red;
+}
+window#waybar #hardware #cpu {
+  color: @bgt_green;
+}
+
+/* volume */
+window#waybar #volume #source #wireplumber {
+  color: @bgt_blue;
+}
+window#waybar #volume #source #wireplumber.muted {
+  color: @bgt_black;
+}
+window#waybar #volume #sink #wireplumber {
+  color: @bgt_blue;
+}
+window#waybar #volume #sink #wireplumber.muted {
+  color: @bgt_black;
+}
+
+/* systray group */
+window#waybar #systray #actions-drawer {
+  color: @bgt_cyan;
+}
+window#waybar #systray #custom-notification {
+  color: @bgt_red;
+}
+window#waybar #systray #idle_inhibitor {
+  color: @bgt_blue;
+}
+window#waybar #systray #power-menu {
+  color: @bgt_yellow;
+}
+window#waybar #clock {
+  color: @bgt_magenta;
+}
+
+@keyframes blink {
+  to {
+    background-color: #ffffff;
+    color: black;
+  }
+}

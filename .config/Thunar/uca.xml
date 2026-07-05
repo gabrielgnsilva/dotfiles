@@ -26,7 +26,7 @@
     <name>Open Terminal Here</name>
     <unique-id>1657413314940369-1</unique-id>
     <command>${XDG_CONFIG_HOME}/BLAST/apps/terminal.sh cwd %F</command>
-    <description>Open Alacritty</description>
+    <description>Open Terminal</description>
     <patterns>*</patterns>
     <startup-notify />
     <directories />

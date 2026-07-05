@@ -1,3 +1,7 @@
+-- =============================================================================
+-- AUTO COMMANDS
+-- =============================================================================
+
 local create_autocmd = require('utils').create_autocmd
 
 create_autocmd('open_oil_on_startup', 'VimEnter', {
@@ -28,20 +32,36 @@ create_autocmd('open_oil_on_startup', 'VimEnter', {
   end,
 })
 
-create_autocmd('custom-term-open', 'termOpen', {
-  desc = 'Disable line numbers on terminal',
-  callback = function()
-    vim.opt.number = false
-    vim.opt.relativenumber = false
-  end,
-})
+create_autocmd(
+  'checktime',
+  {
+    'FocusGained',
+    'TermClose',
+    'TermLeave',
+    'BufEnter',
+    'CursorHold',
+    'CursorHoldI',
+  },
+  {
+    desc = 'Check if we need to reload the file when it changed',
+    callback = function()
+      if vim.o.buftype ~= 'nofile' then
+        vim.cmd('checktime')
+      end
+    end,
+  }
+)
 
-create_autocmd('checktime', { 'FocusGained', 'TermClose', 'TermLeave' }, {
-  desc = 'Check if we need to reload the file when it changed',
-  callback = function()
-    if vim.o.buftype ~= 'nofile' then
-      vim.cmd('checktime')
-    end
+create_autocmd('file_changed_shell_post', 'FileChangedShellPost', {
+  desc = 'Notify when file changed externally',
+  callback = function(event)
+    local file = vim.api.nvim_buf_get_name(event.buf)
+    local filename = file == '' and '[No Name]'
+      or vim.fn.fnamemodify(file, ':~:.')
+    vim.notify(
+      string.format('File changed on disk. Buffer reloaded: %s', filename),
+      vim.log.levels.INFO
+    )
   end,
 })
 
@@ -132,125 +152,13 @@ create_autocmd('close_with_q', 'FileType', {
   end,
 })
 
-create_autocmd('lint', { 'BufWritePost', 'InsertLeave' }, {
-  desc = 'Auto lint current buffer',
-  callback = function(event)
-    local buf = event.buf
-
-    -- Skip when snacks.bigfile is active (filetype is set to `bigfile`)
-    if vim.bo[buf].filetype == 'bigfile' then
-      return
-    end
-
-    if
-      vim.g.bigfile_detection_disabled ~= true
-      and require('utils.bigfile').has_long_lines(buf)
-    then
-      return
-    end
-
-    require('lint').try_lint()
-  end,
-})
-
-if vim.fn.has('wsl') == 1 then
-  create_autocmd('clipboard', 'FocusGained', {
-    desc = 'Sync with system clipboard on focus gained',
-    pattern = { '*' },
-    command = [[call setreg("@", getreg("+"))]],
-  })
-  create_autocmd('clipboard', 'FocusLost', {
-    desc = 'Sync with system clipboard on focus lost',
-    pattern = { '*' },
-    command = [[call setreg("+", getreg("@"))]],
-  })
-end
-
-create_autocmd('long_lines_detection', 'BufReadPost', {
-  desc = 'Disable heavy features for files with very long lines',
-  callback = function(event)
-    local buf = event.buf
-
-    if vim.g.bigfile_detection_disabled == true then
-      return
-    end
-
-    -- Skip when snacks.bigfile is active (filetype is set to `bigfile`)
-    if vim.bo[buf].filetype == 'bigfile' then
-      return
-    end
-
-    if not require('utils.bigfile').has_long_lines(buf) then
-      return
-    end
-
-    vim.notify(
-      'Long lines detected, disabling heavy features',
-      vim.log.levels.WARN
-    )
-
-    -- LSP
-    vim.b[buf].disable_lsp = true
-
-    -- Syntax and filetype
-    vim.bo[buf].syntax = 'off'
-    vim.bo[buf].filetype = ''
-
-    -- Wrap
-    vim.wo.wrap = false
-
-    -- Line numbers
-    vim.wo.relativenumber = false
-
-    -- Cursor highlighting
-    vim.wo.cursorline = false
-    vim.wo.cursorcolumn = false
-
-    -- Swap and undo (I/O)
-    vim.bo[buf].swapfile = false
-    vim.bo[buf].undofile = false
-    vim.bo[buf].undolevels = -1
-
-    -- Folding
-    vim.wo.foldenable = false
-    vim.wo.foldmethod = 'manual'
-
-    -- Matchparen (builtin plugin)
-    if vim.fn.exists(':NoMatchParen') ~= 0 then
-      vim.cmd('NoMatchParen')
-    end
-
-    -- Memory management
-    vim.bo[buf].bufhidden = 'unload'
-
-    -- Plugins
-    vim.b[buf].snacks_indent = false
-  end,
-})
-
-create_autocmd('lsp_bigfile_guard', 'LspAttach', {
-  desc = 'Prevent LSP from attaching to buffers with long lines',
-  callback = function(args)
-    local buf = args.buf
-
-    if not (vim.bo[buf].filetype == 'bigfile' or vim.b[buf].disable_lsp) then
-      return
-    end
-
-    local client_id = args.data.client_id
-    vim.schedule(function()
-      pcall(vim.lsp.buf_detach_client, buf, client_id)
-    end)
-  end,
-})
-
 create_autocmd('vertical_helper', { 'FileType' }, {
-  desc = 'Open help in vertical spli',
+  desc = 'Open help in vertical split',
   pattern = { 'help' },
   command = 'wincmd L',
 })
 
-create_autocmd('auto_resize_splits', { 'VimREsized' }, {
+create_autocmd('auto_resize_splits', { 'VimResized' }, {
   desc = 'Resize splits when the terminal is resized',
   command = 'wincmd =',
 })
@@ -261,5 +169,3 @@ create_autocmd('no_auto_comment', { 'FileType' }, {
     vim.opt_local.formatoptions:remove({ 'c', 'r', 'o' })
   end,
 })
-
--- create_autocmd('create_autocmd',

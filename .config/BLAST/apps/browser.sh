@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-/opt/zen/zen
+exec /opt/zen/zen

@@ -2,7 +2,6 @@ local opt = vim.opt_local
 local g = vim.g
 
 opt.wrap = true
-
 opt.spell = true
 opt.spelllang = 'pt_br,en_us'
 

@@ -15,7 +15,7 @@
   margin: 0;
   padding: 0;
   min-height: 0;
-  font-family: JetBrains Mono;
+  font-family: JetBrains Mono Nerd Font;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
@@ -51,13 +51,9 @@ tooltip label {
 }
 
 window#waybar {
-  /* same color, with terminal-like transparency */
-  background-color: alpha(@background, 0.85);
+  background-color: alpha(@background, 0.88);
   color: @foreground;
   transition: all 0.3s ease-in-out;
-
-  /* crisp baseline, like a terminal statusline */
-  border-bottom: 1px solid alpha(@nm_black, 0.55);
 }
 
 window#waybar.hidden {
@@ -75,7 +71,7 @@ window#waybar box.module {
 
 /* separators: subdued, like prompt dividers */
 window#waybar #custom-sep {
-  color: alpha(@nm_black, 0.9);
+  color: alpha(@bgt_black, 0.9);
   padding: 0 6px;
 }
 
@@ -91,8 +87,7 @@ window#waybar #workspaces button:not(:first-child) {
 }
 window#waybar #workspaces button.active,
 window#waybar #workspaces button.focused {
-  color: @bgt_blue;
-  text-decoration: underline;
+  color: @bgt_red;
 }
 window#waybar #workspaces button.urgent {
   animation-name: blink;
@@ -100,6 +95,7 @@ window#waybar #workspaces button.urgent {
   animation-timing-function: steps(12);
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  color: @background;
   background-color: @urgent;
 }
 
@@ -130,6 +126,7 @@ window#waybar #tray > .needs-attention {
   animation-timing-function: steps(12);
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  color: @background;
   background-color: @urgent;
 }
 
@@ -165,7 +162,7 @@ window#waybar #systray #actions-drawer {
 window#waybar #systray #custom-notification {
   color: @bgt_red;
 }
-window#waybar #systray #idle_inhibitor {
+window#waybar #systray #custom-idle-inhibitor {
   color: @bgt_blue;
 }
 window#waybar #systray #power-menu {
@@ -177,7 +174,7 @@ window#waybar #clock {
 
 @keyframes blink {
   to {
-    background-color: #ffffff;
-    color: black;
+    background-color: @nm_yellow;
+    color: @background;
   }
 }

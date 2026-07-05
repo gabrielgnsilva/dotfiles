@@ -27,9 +27,6 @@ require('options')
 require('lazy').setup(require('configs.lazy'))
 require('autocmds')
 
-require('custom.src.bigfile-detection')
-
 vim.schedule(function()
   require('utils.mappings').load_keymap('global')
-  require('custom.init').setupAll()
 end)

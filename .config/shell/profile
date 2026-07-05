@@ -1,98 +1,90 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # shellcheck disable=SC2016
 
-# region: XDG Base Directories
+# ==============================================================================
+# PROFILE
+# ------------------------------------------------------------------------------
+# This script is executed once when a login shell/session starts.
+#
+# Its purpose is to set up the environment for the user, including environment
+# variables, PATH modifications, and other session-specific settings.
+# ==============================================================================
 
-export XDG_CACHE_HOME="${HOME}"/.local/cache
-export XDG_CONFIG_HOME="${HOME}"/.config
-export XDG_DATA_HOME="${HOME}"/.local/share
-export XDG_STATE_HOME="${HOME}"/.local/state
-# regionend
+# == ENVIRONMENT ================================================================
+env_file="${XDG_CONFIG_HOME:-${HOME}/.config}/shell/env"
+[ -r "${env_file}" ] && . "${env_file}"
+unset env_file
 
-# region: Programs
+# == XDG SESSION ===============================================================
+export XDG_CURRENT_DESKTOP="niri"
+export XDG_SESSION_DESKTOP="niri"
+export DESKTOP_SESSION="niri"
+export XDG_SESSION_TYPE="wayland"
 
-# editor
-export EDITOR="nvim"
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.lua" | source $MYVIMRC'
+# == QT ========================================================================
+export QT_QPA_PLATFORM="wayland;xcb"
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_AUTO_SCREEN_SCALE_FACTOR="1"
 
-# tmux
-export TMUX_TMPDIR="${XDG_RUNTIME_DIR}"
+# == GDK =======================================================================
+# export GDK_BACKEND="wayland,x11"
 
-# steam
-export RADV_PERFTEST=aco,gpl
-export RADV_USER_ENABLED_OPTION_STRING=antilag+
-export SDL_VIDEO_DRIVER=wayland
-export PROTON_ENABLE_WAYLAND=1
-export PROTON_NO_WM_DECORATION=1
-export PROTON_FSR4_UPGRADE=1
-export PROTON_ENABLE_HDR=1
-export PROTON_ENABLE_HDR_WSI=1
-export PROTON_USE_NTSYNC=1
-export DXVK_HDR=1
-export DXVK_ENABLE_GPL=1
-export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
-# regionend
+# == SDL =======================================================================
+export SDL_VIDEODRIVER="wayland"
 
-# region: $HOME Cleanup...
-export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+# == Clutter ===================================================================
+export CLUTTER_BACKEND="wayland"
 
-export XAUTHORITY="${XDG_RUNTIME_DIR}"/Xauthority
-export XCOMPOSEFILE="${XDG_CONFIG_HOME}}"/X11/xcompose
-[ -d "${XDG_CACHE_HOME}"/X11 ] || mkdir -p "${XDG_CACHE_HOME}"/X11
-export XCOMPOSECACHE="${XDG_CACHE_HOME}"/X11/xcompose
-[ -d "${XDG_CACHE_HOME}"/less ] || mkdir -p "${XDG_CACHE_HOME}"/less
+# == PIPEWIRE ==================================================================
+export PIPEWIRE_LATENCY="128/48000"
 
-export LESSHISTFILE="${XDG_CACHE_HOME}"/less/lesshst
-export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
-export INPUTRC="${XDG_CONFIG_HOME}"/shell/inputrc
-
+# == GTK =======================================================================
+export GTK_THEME="Breeze-Dark"
+export GTK_IM_MODULE="simple"
 export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc-2.0"
 
-export GNUPGHOME="${XDG_DATA_HOME}"/gnupg
-export ANDROID_SDK_HOME="${XDG_CONFIG_HOME}/android"
-export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite/history"
-[ -d "${XDG_CACHE_HOME}"/sqlite ] || mkdir -p "${XDG_CACHE_HOME}"/sqlite
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME}"/java
-export CARGO_HOME="${XDG_DATA_HOME}"/cargo
-export GOPATH="${HOME}/.local/share/go"
-export GOBIN="${GOPATH}/bin"
-export GOMODCACHE="${XDG_CACHE_HOME}/go/mod"
-[ -d "${XDG_CACHE_HOME}"/go ] || mkdir -p "${XDG_CACHE_HOME}"/go
+# == THEME =====================================================================
+export XCURSOR_PATH="${HOME}/.local/share/icons:/usr/share/icons"
+export XCURSOR_THEME="breeze_cursors"
+export XCURSOR_SIZE="24"
 
-export PNPM_HOME="${HOME}/.local/share/pnpm"
-export NVM_DIR="${HOME}/.config/nvm"
-# regionend
+# == STEAM =====================================================================
+# environment variables I use for gaming on Linux, mostly for steam and proton.
+export RADV_PERFTEST="aco,gpl"
+export RADV_USER_ENABLED_OPTION_STRING="antilag+"
+export PROTON_ENABLE_WAYLAND="1"
+export PROTON_NO_WM_DECORATION="1"
+export PROTON_FSR4_UPGRADE="1"
+export PROTON_ENABLE_HDR="1"
+export PROTON_ENABLE_HDR_WSI="1"
+export PROTON_USE_NTSYNC="1"
+export DXVK_HDR="1"
+export DXVK_ENABLE_GPL="1"
+export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP="1"
+export MESA_SHADER_CACHE_MAX_SIZE="12G"
 
-# region: Other program settings
-SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
-export SUDO_PROMPT
-export SUDO_ASKPASS="${HOME}/.local/bin/rofi-askpass"
-export PIPEWIRE_LATENCY="128/48000" application
-export LD_LIBRARY_PATH=/opt/rocm/lib
-export LD_BIND_NOW=1
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
---color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
---color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
---color=selected-bg:#45475A \
---color=border:#6C7086,label:#CDD6F4"
-# regionend
+# == PATH ======================================================================
+# Custom bin directory
 
-# region: Paths
+add_path() {
+  [ -d "${1}" ] \
+    && case ":${PATH}:" in *":${1}:"*) ;; *) PATH="${1}:${PATH}" ;; esac
+}
 
-# Add `~/.local/bin` and all it's directories to $PATH
-PATH="${PATH}":"$(find ~/.local/bin -type d | paste -sd ':' -)"
-# Add path to GO Bin
-PATH="${PATH}":"${GOBIN}":
-# Add path to Java 8
-PATH="${PATH}":/usr/local/lib/java/jdk1.8.0_202/bin
-# Add path to pnpm
-PATH="${PATH}":"${HOME}"/.local/share/pnpm
-# Add path to bun
-PATH="${PATH}":"${HOME}"/.local/cache/.bun/bin
-# Add path to ROCm
-PATH="${PATH}":/opt/rocm/bin
+add_path "${HOME}/bin"                        # Add path to custom bin directory
+add_path "${HOME}/.local/bin"                 # Add path to custom bin directory
+add_path "${HOME}/.local/share/pnpm/bin"      # Add path to pnpm
+add_path "${HOME}/.local/cache/.bun/bin"      # Add path to bun
+add_path "${GOBIN}"                           # Add path to GO Bin
+add_path /opt/rocm/bin                        # Add path to ROCm
+add_path /usr/local/lib/java/jdk1.8.0_202/bin # Add path to Java 8
 
 export PATH
-# regionend
+
+unset -f add_path
+
+# == TOOLS =====================================================================
+
+# -- Less ----------------------------------------------------------------------
+[ -d "${XDG_CACHE_HOME}/less" ] || mkdir -p "${XDG_CACHE_HOME}/less"

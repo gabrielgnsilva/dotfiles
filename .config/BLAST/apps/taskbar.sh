@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
 launch_taskbar() {
-  waybar \
-    -c "${XDG_CONFIG_HOME}"/waybar/config.d/minimal/config.jsonc \
-    -s "${XDG_CONFIG_HOME}"/waybar/config.d/minimal/style.css
+  exec waybar \
+    --config "${XDG_CONFIG_HOME}/waybar/config.d/minimal/config.jsonc" \
+    --style "${XDG_CONFIG_HOME}/waybar/config.d/minimal/style.css"
 }
 
 main() {
@@ -23,7 +23,8 @@ main() {
   fi
 
   if [ "${1}" = '--reload-config' ]; then
-    killall waybar && sleep 0.2
+    killall waybar 2> /dev/null || true
+    sleep 0.2
     launch_taskbar
     exit 0
   fi

@@ -1,0 +1,81 @@
+/* Cyberpunk GTK override */
+
+@define-color cyber_bg #0a0b14;
+@define-color cyber_surface #151722;
+@define-color cyber_surface_alt #26335f;
+@define-color cyber_fg #e6f7ff;
+@define-color cyber_dim #6f7899;
+@define-color cyber_red #ff3b6b;
+@define-color cyber_yellow #fcee09;
+@define-color cyber_cyan #00f5ff;
+
+window,
+dialog,
+popover,
+menu,
+tooltip {
+  background-color: @cyber_bg;
+  color: @cyber_fg;
+}
+
+headerbar,
+toolbar,
+menubar,
+.titlebar {
+  background-color: @cyber_bg;
+  color: @cyber_fg;
+  border-bottom: 1px solid @cyber_red;
+}
+
+button,
+entry,
+spinbutton,
+combobox,
+textview,
+treeview,
+list,
+row {
+  background-color: @cyber_surface;
+  color: @cyber_fg;
+  border-color: @cyber_red;
+}
+
+button:hover,
+row:hover {
+  background-color: @cyber_surface_alt;
+  border-color: @cyber_yellow;
+}
+
+button:checked,
+button:active,
+row:selected,
+*:selected {
+  background-color: @cyber_red;
+  color: @cyber_bg;
+}
+
+entry:focus,
+textview:focus,
+spinbutton:focus {
+  border-color: @cyber_red;
+  box-shadow: 0 0 0 1px @cyber_red;
+}
+
+label:disabled,
+button:disabled,
+entry:disabled {
+  color: @cyber_dim;
+}
+
+scrollbar slider {
+  background-color: @cyber_red;
+  border-radius: 0;
+}
+
+scrollbar trough {
+  background-color: @cyber_surface;
+}
+
+tooltip {
+  border: 1px solid @cyber_red;
+}

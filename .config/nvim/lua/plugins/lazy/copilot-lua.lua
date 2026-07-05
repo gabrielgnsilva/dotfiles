@@ -12,7 +12,12 @@ return {
       keymap = { accept = false, next = false, prev = false },
     },
     panel = { enabled = false },
-    filetypes = { markdown = true, help = false },
+    filetypes = {
+      dockerfile = true,
+      markdown = true,
+      yaml = true,
+      help = false,
+    },
   },
   config = function(_, opts)
     require('copilot').setup(opts)
@@ -41,11 +46,12 @@ return {
             cmd = function()
               if require('copilot.suggestion').is_visible() then
                 require('copilot.suggestion').accept()
-                return
+                return ''
               end
               return '<c-a>'
             end,
             desc = 'Accept Copilot suggestion',
+            opts = { expr = true, silent = true },
           },
           {
             key = '<M-]>',
@@ -70,11 +76,12 @@ return {
             cmd = function()
               if require('copilot.suggestion').is_visible() then
                 require('copilot.suggestion').dismiss()
-                return
+                return ''
               end
               return '<c-x>'
             end,
             desc = 'Dismiss Copilot suggestion',
+            opts = { expr = true, silent = true },
           },
         },
       },

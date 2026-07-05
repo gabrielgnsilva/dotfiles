@@ -1,11 +1,15 @@
+-- =============================================================================
+-- MAPPINGS
+-- =============================================================================
+
 --[[ Modes:
-[c]ommand line
-[i]nsert
-[n]ormal
-[s]elect
-[t]erminal
-[v]isual
-[x](v)isual Line
+  [c]ommand line
+  [i]nsert
+  [n]ormal
+  [s]elect
+  [t]erminal
+  [v]isual
+  [x](v)isual Line
 ]]
 
 local M = {}
@@ -40,60 +44,51 @@ M.global = {
         cmd = ":'<,'>sort!<cr>gv=gv",
         desc = 'Sort lines descending',
       },
-      {
-        key = '<leader>d',
-        cmd = '"_d',
-        desc = 'Delete without copying',
-      },
-      {
-        key = '<leader>p',
-        cmd = '"_dP',
-        desc = 'Paste without copying',
-      },
+      { key = '<leader>d', cmd = '"_d', desc = 'Delete without copying' },
+      { key = '<leader>p', cmd = '"_dP', desc = 'Paste without copying' },
     },
   },
   {
     mode = { 'n' },
     bindings = {
       {
-        key = '<leader>sf',
-        cmd = ':so<cr>',
-        desc = 'Source current file',
+        key = '<leader>re',
+        cmd = '<cmd>restart<cr>',
+        desc = 'Restart Neovim (:restart)',
+      },
+      { key = '<leader>sf', cmd = ':so<cr>', desc = 'Source current file' },
+      { key = 'Q', cmd = '<nop>', desc = 'Do nothing (disable ex mode)' },
+      {
+        key = '<leader>yp',
+        cmd = function()
+          local path = vim.fn.expand('%:p')
+          vim.fn.setreg('+', path)
+          vim.notify(string.format('file:%s', path), vim.log.levels.INFO)
+        end,
+        desc = 'Copy current file path to system clipboard',
       },
       {
-        key = 'Q',
-        cmd = '<nop>',
-        desc = 'Do nothing (disable ex mode)',
+        key = '<leader>yrp',
+        cmd = function()
+          local path = vim.fn.expand('%:.')
+          vim.fn.setreg('+', path)
+          vim.notify(string.format('file:%s', path), vim.log.levels.INFO)
+        end,
+        desc = 'Copy current file path relative to current working directory to system clipboard',
       },
-      {
-        key = 'J',
-        cmd = 'mzJ`z',
-        desc = 'Append line below to current line',
-      },
+      { key = 'J', cmd = 'mzJ`z', desc = 'Append line below to current line' },
       {
         key = 'K',
         cmd = 'mz:move -2|j<cr>`z',
         desc = 'Append line below to current line',
       },
-      {
-        key = '<leader>nj',
-        cmd = 'o<Esc>"_D',
-        desc = 'Add new line below',
-      },
-      {
-        key = '<leader>nk',
-        cmd = 'O<Esc>"_D',
-        desc = 'Add new line above',
-      },
-      { key = '<C-n>', cmd = '<C-d>zz', desc = 'Move page down' },
+      { key = '<leader>nj', cmd = 'o<Esc>"_D', desc = 'Add new line below' },
+      { key = '<leader>nk', cmd = 'O<Esc>"_D', desc = 'Add new line above' },
+      { key = '<C-d>', cmd = '<C-d>zz', desc = 'Move page down' },
       { key = '<C-u>', cmd = '<C-u>zz', desc = 'Move page up' },
       { key = 'N', cmd = 'Nzzzv', desc = 'Move to previous match' },
       { key = 'n', cmd = 'nzzzv', desc = 'Move to next match' },
-      {
-        key = '<leader>d',
-        cmd = '"_d',
-        desc = 'Delete without copying',
-      },
+      { key = '<leader>d', cmd = '"_d', desc = 'Delete without copying' },
       {
         key = '<leader>sh',
         cmd = '<C-w>h',
@@ -114,11 +109,7 @@ M.global = {
         cmd = '<C-w>l',
         desc = 'Move to right window buffer',
       },
-      {
-        key = '<leader>cw',
-        cmd = ':close<cr>',
-        desc = 'Close window buffer',
-      },
+      { key = '<leader>cw', cmd = ':close<cr>', desc = 'Close window buffer' },
       {
         key = '<leader>se',
         cmd = '<C-w>=',
@@ -208,11 +199,7 @@ M.global = {
         cmd = '<cmd>cprev<cr>zzzv',
         desc = 'Previous quickfix list item',
       },
-      {
-        key = ';q',
-        cmd = '<cmd>cclose<cr>',
-        desc = 'Close quickfix list',
-      },
+      { key = ';q', cmd = '<cmd>cclose<cr>', desc = 'Close quickfix list' },
       {
         key = '<leader>rw',
         cmd = [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
@@ -320,6 +307,16 @@ M.global = {
           table.insert(lines, '==== End ====')
           vim.notify(table.concat(lines, '\n'), vim.log.levels.INFO)
         end,
+      },
+    },
+  },
+  {
+    mode = { 't' },
+    bindings = {
+      {
+        key = '<esc><esc>',
+        cmd = '<C-\\><C-n>',
+        desc = 'Exit terminal mode',
       },
     },
   },

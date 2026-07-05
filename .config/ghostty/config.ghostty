@@ -1,0 +1,79 @@
+# shell / env
+command               = /bin/zsh --login --interactive
+working-directory     = inherit
+confirm-close-surface = false
+
+# keep Ghostty shell integration, but do not force bar cursor at prompt
+shell-integration          = zsh
+shell-integration-features = no-cursor,ssh-env,ssh-terminfo
+
+# font
+font-family             = JetBrains Mono Nerd Font
+font-family-bold        = JetBrains Mono Nerd Font
+font-family-italic      = JetBrains Mono Nerd Font
+font-family-bold-italic = JetBrains Mono Nerd Font
+font-style              = Regular
+font-style-bold         = Bold
+font-style-italic       = Italic
+font-style-bold-italic  = Bold Italic
+font-size               = 16
+
+# window
+window-padding-x       = 5
+window-padding-y       = 1
+window-padding-balance = false
+
+# bell
+bell-features = no-system,no-audio,no-attention,no-title,no-border
+
+# selection / clipboard
+copy-on-select          = clipboard
+selection-foreground    = #ffffff
+selection-background    = #26335f
+selection-clear-on-copy = false
+mouse-hide-while-typing = true
+
+# cursor
+cursor-style       = block
+cursor-style-blink = true
+cursor-color       = #00f5ff
+cursor-text        = #0a0b14
+
+# colors
+background = #0a0b14
+foreground = #e6f7ff
+
+# search colors
+search-foreground          = #0a0b14
+search-background          = #fcee09
+search-selected-foreground = #0a0b14
+search-selected-background = #00ff9f
+
+# normal ANSI
+palette = 0=#151722
+palette = 1=#ff3b6b
+palette = 2=#00ff9f
+palette = 3=#fcee09
+palette = 4=#2f7bff
+palette = 5=#ff2bd6
+palette = 6=#00f5ff
+palette = 7=#d7e6ff
+
+# bright ANSI
+palette = 8=#3b405c
+palette = 9=#ff5c8a
+palette = 10=#4dffc3
+palette = 11=#fff36b
+palette = 12=#5c9dff
+palette = 13=#ff6be6
+palette = 14=#6bfaff
+palette = 15=#ffffff
+
+# indexed colors
+palette = 16=#ff9f1c
+palette = 17=#b026ff
+
+# keybindings
+keybind = ctrl+0=reset_font_size
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1

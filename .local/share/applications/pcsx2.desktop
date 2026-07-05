@@ -1,7 +1,6 @@
 [Desktop Entry]
 Name=PCSX2
-Exec=/opt/pcsx2/pcsx2.AppImage
-Icon=/opt/pcsx2/pcsx2.svg
+Exec=pcsx2
 Comment=PlayStation 2 Emulator
 Terminal=false
 Type=Application

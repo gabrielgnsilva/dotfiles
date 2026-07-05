@@ -41,26 +41,27 @@ main() {
         +*)
             value="${action#+}"
             case "${value}" in
-                ''|*[!0-9]*)
+                '' | *[!0-9]*)
                     printf "Invalid volume increment: %s\n" "${action}" >&2
                     exit 1
                     ;;
             esac
-            pamixer --increase "${value}"
+            pulsemixer --change-volume +${value}
+            pulsemixer --max-volume 100
             ;;
         -*)
             value="${action#-}"
             case "${value}" in
-                ''|*[!0-9]*)
+                '' | *[!0-9]*)
                     printf "Invalid volume decrement: %s\n" "${action}" >&2
                     exit 1
                     ;;
             esac
-            pamixer --decrease "${value}"
+            pulsemixer --change-volume -${value}
             ;;
         *)
             case "${action}" in
-                ''|*[!0-9]*)
+                '' | *[!0-9]*)
                     printf "Invalid argument: %s\n" "${action}" >&2
                     printf "Expected {+N|-N|0-100|--toggle-mute}.\n" >&2
                     exit 1
@@ -72,7 +73,8 @@ main() {
                 exit 1
             fi
 
-            pamixer --set-volume "${action}"
+            pulsemixer --set-volume "${action}"
+            pulsemixer --max-volume 100
             ;;
     esac
 
@@ -80,9 +82,9 @@ main() {
         exit 0
     fi
 
-    currentvol="$(pamixer --get-volume)"
-    mute="$(pamixer --get-mute)"
-    if [ "${mute}" = "true" ]; then
+    currentvol="$(pulsemixer --get-volume | awk '{print $1}')"
+    mute="$(pulsemixer --get-mute)"
+    if [ "${mute}" = "1" ]; then
         # Show the sound muted notification
         notify-send -a "Volume-App" -u low -t 1000 -i audio-volume-muted \
             -h int:value:"${currentvol}" "Volume Muted !"

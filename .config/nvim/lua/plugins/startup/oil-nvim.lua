@@ -1,15 +1,15 @@
+--[[ INFO:
+  Lazy loading is not recommended because it is very tricky to make it work
+  correctly in all situations.
+]]
+
 return {
   'stevearc/oil.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  priority = 1000,
   opts = {
-    columns = { 'icon', 'permissions', 'size' },
+    columns = { 'permissions', 'size' },
     delete_to_trash = true,
     view_options = { show_hidden = true },
-    -- float = { border = 'rounded' },
-    -- confirmation = { border = 'rounded' },
-    -- progress = { border = 'rounded' },
-    -- ssh = { border = 'rounded' },
-    -- keymaps_help = { border = 'rounded' },
   },
   config = function(_, opts)
     local oil = require('oil')
@@ -26,10 +26,20 @@ return {
           {
             key = 'yp',
             cmd = function()
-              oil.actions.copy_entry_path.callback()
-              vim.fn.setreg('+', vim.fn.getreg(vim.v.register))
+              local entry = oil.get_cursor_entry()
+              local dir = oil.get_current_dir()
+              if not entry or not dir then
+                return
+              end
+              local abspath = vim.fn.fnamemodify(dir, ':p') .. entry.name
+              vim.fn.setreg('+', abspath)
+              vim.notify(
+                'Copied absolute path to clipboard:\n' .. abspath,
+                vim.log.levels.INFO,
+                { title = 'Oil' }
+              )
             end,
-            desc = 'Copy filepath to system clipboard',
+            desc = 'Copy absolute path to system clipboard',
           },
           {
             key = 'yrp',
@@ -41,7 +51,13 @@ return {
               end
               local relpath = vim.fn.fnamemodify(dir, ':.')
               vim.fn.setreg('+', relpath .. entry.name)
+              vim.notify(
+                'Copied relative path to clipboard:\n' .. relpath .. entry.name,
+                vim.log.levels.INFO,
+                { title = 'Oil' }
+              )
             end,
+            desc = 'Copy relative path to system clipboard',
           },
         },
       },

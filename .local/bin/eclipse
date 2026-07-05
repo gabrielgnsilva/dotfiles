@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+user_root="${XDG_CONFIG_HOME:-${HOME}/.config}/java"
+
+if [ ! -d "${user_root}" ]; then
+  printf "Creating user root directory for Java preferences: %s\n" "${user_root}"
+  mkdir --verbose --parents "${user_root}"
+fi
+
+exec env GDK_BACKEND="x11" \
+  _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${user_root}" \
+  "${HOME}/.local/opt/eclipse/eclipse" \
+  -clean

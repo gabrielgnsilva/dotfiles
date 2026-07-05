@@ -1,4 +1,5 @@
 local create_autocmd = require('utils').create_autocmd
+local supports_method = require('utils.lsp').supports_method
 
 local M = {}
 
@@ -14,10 +15,10 @@ M.diagnostics = {
   severity_sort = true,
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = '󰅙',
-      [vim.diagnostic.severity.INFO] = '󰋼',
-      [vim.diagnostic.severity.HINT] = '󰌵',
-      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.ERROR] = '!!',
+      [vim.diagnostic.severity.INFO] = 'ii',
+      [vim.diagnostic.severity.HINT] = '??',
+      [vim.diagnostic.severity.WARN] = '^^',
     },
     linehl = {
       [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
@@ -46,6 +47,25 @@ M.ignored_diagnostics = {
 M.on_attach = function(client, bufnr)
   vim.diagnostic.config(vim.deepcopy(M.diagnostics))
 
+  if client:supports_method('textDocument/completion') then
+    -- INFO: Native Autocomplete is not as good as nvim-cmp
+    --   vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+
+    require('utils.mappings').load_keymap({
+      {
+        mode = 'i',
+        bindings = {
+          {
+            key = { '<C-Space>', '<C-@>' },
+            cmd = vim.lsp.buf.completion,
+            desc = 'LSP Trigger completion',
+            opts = { buffer = bufnr, silent = true },
+          },
+        },
+      },
+    })
+  end
+
   if client:supports_method('textDocument/inlayHint') then
     if
       vim.api.nvim_buf_is_valid(bufnr)
@@ -64,27 +84,12 @@ M.on_attach = function(client, bufnr)
   end
 
   if client:supports_method('textDocument/codeLens') then
-    vim.lsp.codelens.refresh({ bufnr = bufnr })
-    create_autocmd(
-      'CodeLensRefresh',
-      { 'BufEnter', 'CursorHold', 'InsertLeave' },
-      {
-        desc = 'Refresh LSP CodeLens',
-        buffer = bufnr,
-        callback = vim.lsp.codelens.refresh,
-      }
-    )
-  end
-
-  if
-    not client:supports_method('textDocument/willSaveWaitUntil')
-    and client:supports_method('textDocument/formatting')
-  then
-    create_autocmd('ConformAutoFormat', { 'BufWritePre' }, {
-      desc = 'Auto format current buffer on save',
+    vim.lsp.codelens.enable(true, { bufnr = bufnr })
+    create_autocmd('CodeLensRefresh', { 'BufEnter', 'BufWritePost' }, {
+      desc = 'Refresh LSP CodeLens',
       buffer = bufnr,
-      callback = function()
-        require('conform').format({ bufnr = bufnr })
+      callback = function(ev)
+        vim.lsp.codelens.enable(true, { bufnr = ev.buf })
       end,
     })
   end
@@ -137,7 +142,13 @@ M.on_attach = function(client, bufnr)
         },
         {
           key = '<leader>ca',
-          cmd = vim.lsp.buf.code_action,
+          cmd = function()
+            if supports_method('textDocument/codeAction', bufnr) then
+              vim.lsp.buf.code_action()
+            else
+              vim.notify('Provider not attached yet...', vim.log.levels.WARN)
+            end
+          end,
           desc = 'LSP Show code actions',
           opts = { buffer = bufnr },
         },
@@ -153,13 +164,15 @@ M.on_attach = function(client, bufnr)
 
   if client.server_capabilities.signatureHelpProvider then
     require('utils.mappings').load_keymap({
-      mode = 'n',
-      bindings = {
-        {
-          key = 'gh',
-          cmd = vim.lsp.buf.signature_help,
-          desc = 'LSP Show signature help',
-          opts = { buffer = bufnr },
+      {
+        mode = 'n',
+        bindings = {
+          {
+            key = 'gh',
+            cmd = vim.lsp.buf.signature_help,
+            desc = 'LSP Show signature help',
+            opts = { buffer = bufnr },
+          },
         },
       },
     })
@@ -208,155 +221,198 @@ M.capabilities.textDocument.completion.completionItem = {
   },
 }
 
----@type table<string, vim.lsp.Config | boolean>
+---@class LspServerSpecEager: vim.lsp.Config
+---@field defer? false
+---@field config? vim.lsp.Config
+---@field override_capabilities? table<string, any>
+
+---@class LspServerSpecDeferred
+---@field defer true
+---@field filetypes? string[]
+---@field config fun():vim.lsp.Config
+---@field override_capabilities? table<string, any>
+
+---@type table<string, boolean|LspServerSpecEager|LspServerSpecDeferred>
 M.servers = {
+  -- SECTION: eagerly load servers with default config
   ['*'] = {
-    capabilities = vim.deepcopy(M.capabilities),
-    on_init = M.on_init,
-    root_markers = { '.git', 'package.json' },
+    config = {
+      capabilities = vim.deepcopy(M.capabilities),
+      on_init = M.on_init,
+      root_markers = { '.git', 'package.json' },
+    },
   },
   angularls = true,
-  bashls = true,
-  clangd = {
-    init_options = {
-      clangdFileStatus = true,
+  bashls = {
+    config = {
+      settings = {
+        bashIde = {
+          shellcheckPath = '',
+        },
+      },
     },
-    filetypes = { 'c' },
   },
   cssls = true,
-  emmet_ls = {
-    filetypes = {
-      'css',
-      'eruby',
-      'html',
-      'htmlangular',
-      'javascript',
-      'javascript.jsx',
-      'javascriptreact',
-      'less',
-      'pug',
-      'sass',
-      'scss',
-      'svelte',
-      'typescript',
-      'typescript.tsx',
-      'typescriptreact',
-      'vue',
-    },
-  },
-  gopls = {
-    settings = {
-      gopls = {
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
-        },
-      },
-    },
-  },
   graphql = true,
   html = true,
-  jdtls = false,
-  jsonls = {
-    override_capabilities = { documentFormattingProvider = false },
-    settings = {
-      json = {
-        schemas = require('schemastore').json.schemas(),
-        validate = { enable = true },
-      },
-    },
-  },
   lemminx = true,
-  lua_ls = {
-    cmd = { 'lua-language-server' },
-    filetypes = { 'lua' },
-    root_markers = {
-      '.git',
-      '.luacheckrc',
-      '.luarc.json',
-      '.luarc.jsonc',
-      '.stylua.toml',
-      'lazy-lock.json',
-      'selene.toml',
-      'selene.yml',
-      'stylua.toml',
-    },
-    settings = {
-      Lua = {
-        runtime = { version = 'LuaJIT' },
-        completion = { callSnippet = 'Replace' },
-        codeLens = false,
-        hint = { enable = false },
-        diagnostics = { globals = { 'vim' } },
-        workspace = {
-          library = {
-            vim.fn.expand('$VIMRUNTIME/lua'),
-            vim.fn.expand('$VIMRUNTIME/lua/vim/lsp'),
-            vim.fn.stdpath('data') .. '/lazy/lazy.nvim/lua/lazy',
-            vim.fn.stdpath('data') .. '/lazy/cmp-nvim-lsp/lua/cmp_nvim_lsp',
-            '${3rd}/luv/library',
-          },
-          maxPreload = 100000,
-          preloadFileSize = 1000,
-        },
-      },
-    },
-  },
   pyright = true,
   ruff = true,
   rust_analyzer = true,
   sqls = true,
   svelte = true,
+  jdtls = false,
+  clangd = {
+    config = {
+      filetypes = { 'c' },
+      init_options = {
+        clangdFileStatus = true,
+      },
+    },
+  },
+  emmet_ls = {
+    config = {
+      filetypes = {
+        'css',
+        'eruby',
+        'html',
+        'htmlangular',
+        'javascript',
+        'javascriptreact',
+        'less',
+        'pug',
+        'sass',
+        'scss',
+        'svelte',
+        'typescript',
+        'typescriptreact',
+        'vue',
+      },
+    },
+  },
+  gopls = {
+    config = {
+      settings = {
+        gopls = {
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constantValues = true,
+            functionTypeParameters = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
+        },
+      },
+    },
+  },
+  lua_ls = {
+    config = {
+      cmd = { 'lua-language-server' },
+      filetypes = { 'lua' },
+      root_markers = {
+        '.git',
+        '.luacheckrc',
+        '.luarc.json',
+        '.luarc.jsonc',
+        '.stylua.toml',
+        'lazy-lock.json',
+        'selene.toml',
+        'selene.yml',
+        'stylua.toml',
+      },
+      settings = {
+        Lua = {
+          runtime = { version = 'LuaJIT' },
+          completion = { callSnippet = 'Replace' },
+          codeLens = false,
+          hint = { enable = false },
+          workspace = {
+            library = {
+              vim.fn.expand('$VIMRUNTIME/lua'),
+              vim.fn.expand('$VIMRUNTIME/lua/vim/lsp'),
+              vim.fn.stdpath('data') .. '/lazy/lazy.nvim/lua',
+              vim.fn.stdpath('data') .. '/lazy/cmp-nvim-lsp/lua',
+              vim.fn.stdpath('data') .. '/lazy/plenary.nvim/lua',
+              '${3rd}/luv/library',
+            },
+            maxPreload = 100000,
+            preloadFileSize = 1000,
+          },
+        },
+      },
+    },
+  },
   tailwindcss = {
-    filetypes = {
-      'css',
-      'html',
-      'htmlangular',
-      'javascript',
-      'javascript.jsx',
-      'javascriptreact',
-      'scss',
-      'svelte',
-      'typescript',
-      'typescript.tsx',
-      'typescriptreact',
-      'vue',
+    config = {
+      filetypes = {
+        'css',
+        'html',
+        'htmlangular',
+        'javascript',
+        'javascriptreact',
+        'scss',
+        'svelte',
+        'typescript',
+        'typescriptreact',
+        'vue',
+      },
     },
   },
   vtsls = {
-    override_capabilities = { documentFormattingProvider = false },
-    settings = {
-      complete_function_calls = true,
-      vtsls = {
-        enableMoveToFileCodeAction = true,
-        autoUseWorkspaceTsdk = true,
-        experimental = {
-          maxInlayHintLength = 30,
-          completion = { enableServerSideFuzzyMatch = true },
+    config = {
+      override_capabilities = { documentFormattingProvider = false },
+      settings = {
+        complete_function_calls = true,
+        vtsls = {
+          enableMoveToFileCodeAction = true,
+          autoUseWorkspaceTsdk = true,
+          experimental = {
+            maxInlayHintLength = 30,
+            completion = { enableServerSideFuzzyMatch = true },
+          },
         },
-      },
-      javascript = {
-        updateImportsOnFileMove = { enabled = 'always' },
-        suggest = { completeFunctionCalls = true },
-      },
-      typescript = {
-        updateImportsOnFileMove = { enabled = 'always' },
-        suggest = { completeFunctionCalls = true },
+        javascript = {
+          updateImportsOnFileMove = { enabled = 'always' },
+          suggest = { completeFunctionCalls = true },
+        },
+        typescript = {
+          updateImportsOnFileMove = { enabled = 'always' },
+          suggest = { completeFunctionCalls = true },
+        },
       },
     },
   },
+  -- SECTION: Deferred loading servers with custom config
+  jsonls = {
+    defer = true,
+    filetypes = { 'json', 'jsonc' },
+    config = function()
+      return {
+        override_capabilities = { documentFormattingProvider = false },
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      }
+    end,
+  },
   yamlls = {
-    settings = {
-      yaml = {
-        schemaStore = { enable = false, url = '' },
-        schemas = require('schemastore').yaml.schemas(),
-      },
-    },
+    defer = true,
+    filetypes = { 'yaml' },
+    config = function()
+      return {
+        settings = {
+          yaml = {
+            schemaStore = { enable = false, url = '' },
+            schemas = require('schemastore').yaml.schemas(),
+          },
+        },
+      }
+    end,
   },
 }
 

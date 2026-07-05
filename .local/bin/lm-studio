@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+exec env LD_LIBRARY_PATH="/opt/rocm/lib" \
+  LD_BIND_NOW="1" \
+  "${HOME}/.local/opt/lm-studio/lm-studio.AppImage"

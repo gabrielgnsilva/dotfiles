@@ -2,7 +2,7 @@ configuration {
   modi            : "window,ssh,run,emoji";
   icon-theme      : "Papirus-Dark";
   show-icons      : true;
-  terminal        : "alacritty";
+  terminal        : "kitty";
   sort            : true;
   sorting-method  : "normal";
   case-sensitive  : false;

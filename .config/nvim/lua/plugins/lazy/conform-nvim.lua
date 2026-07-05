@@ -1,6 +1,3 @@
-local rcfiles_path =
-  string.format('%s/configs/conform', vim.fn.stdpath('config'))
-
 return {
   'stevearc/conform.nvim',
   event = { 'BufReadPost', 'BufNewFile' },
@@ -28,12 +25,12 @@ return {
       jsonc = { 'prettier' },
       lua = { 'stylua' },
       markdown = { 'prettier' },
-      mysql = { 'sqlfmt' },
+      mysql = { 'sql-formatter' },
       python = { 'black', 'isort' },
       rust = { 'rustfmt' },
       scss = { 'prettier' },
       sh = { 'shfmt' },
-      sql = { 'sqlfmt' },
+      sql = { 'sql-formatter' },
       tex = { 'tex-fmt' },
       typescript = { 'prettier' },
       typescriptreact = { 'prettier' },
@@ -44,12 +41,17 @@ return {
     formatters = {
       injected = { options = { ignore_errors = true } },
       prettier = {
+        command = 'prettier',
         prepend_args = {
           '--config',
-          string.format('%s/prettierrc.json', rcfiles_path),
+          string.format(
+            '%s/prettierrc.json',
+            require('configs.rc_files').get_rcfiles_path('conform')
+          ),
         },
       },
       shfmt = {
+        command = 'shfmt',
         prepend_args = {
           '--indent',
           '4',
@@ -58,19 +60,36 @@ return {
           '--space-redirects',
         },
       },
-      sqlfmt = { prepend_args = { '--line-length', '79' } },
+      ['sql-formatter'] = {
+        command = 'sql-formatter',
+        prepend_args = {
+          '--config',
+          [[{
+            "useTabs": false,
+            "tabWidth": 2,
+            "keywordCase": 'lower',
+            "dataTypeCase": 'lower',
+            "functionCase": 'lower'
+          }]],
+        },
+      },
       stylua = {
+        command = 'stylua',
         prepend_args = {
           '--config-path',
-          string.format('%s/stylua.toml', rcfiles_path),
+          string.format(
+            '%s/stylua.toml',
+            require('configs.rc_files').get_rcfiles_path('conform')
+          ),
         },
       },
       tidy = {
+        command = 'tidy',
         prepend_args = {
           '-xml',
           '-indent',
           '-wrap',
-          '79',
+          '80',
           '-quiet',
           '-asxml',
           '-utf8',

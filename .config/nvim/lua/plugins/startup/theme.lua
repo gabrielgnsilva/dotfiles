@@ -1,9 +1,21 @@
+--[[
+  Theme is not lazy loaded because it needs to be loaded before all other
+  plugins to ensure that the colors are applied correctly.
+]]
+
 return {
   'catppuccin/nvim',
   name = 'catppuccin',
   priority = 1000,
   opts = {
     transparent_background = false,
+    color_overrides = {
+      mocha = {
+        base = '#0a0b14',
+        mantle = '#0a0b14',
+        crust = '#151722',
+      },
+    },
     custom_highlights = function(colors)
       return {
         FloatBorder = { bg = 'none' },

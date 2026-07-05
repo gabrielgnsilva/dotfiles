@@ -14,8 +14,7 @@ U.create_autocmd = function(name, event, opts)
     bufnr = opts.buffer
   end
 
-  local group_name = bufnr
-      and string.format('UserGroup_%s_buf_%d', name, bufnr)
+  local group_name = bufnr and string.format('UserGroup_%s_buf_%d', name, bufnr)
     or string.format('UserGroup_%s', name)
   local group = vim.api.nvim_create_augroup(group_name, { clear = false })
 

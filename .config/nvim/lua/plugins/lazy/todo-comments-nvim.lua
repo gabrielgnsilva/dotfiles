@@ -4,16 +4,6 @@ return {
   opts = {
     signs = false,
     keywords = {
-      REGION = {
-        icon = ' ',
-        color = '#10B981',
-        alt = { 'region', '#region', '#REGION' },
-      },
-      SECTION = {
-        icon = ' ',
-        color = '#B94F7E',
-        alt = { '#SECTION', '#section', 'section' },
-      },
       DONE = { icon = ' ', color = 'hint', alt = { 'DONE', 'OK' } },
       FIX = {
         icon = ' ',
@@ -23,14 +13,10 @@ return {
       IMPORTANT = {
         icon = ' ',
         color = 'warning',
-        alt = {
-          'IMPORTANT',
-          '!!!',
-          '!!',
-        },
+        alt = { 'IMPORTANT', '!!!', '!!' },
       },
       TODO = { icon = ' ', color = 'info' },
-      HACK = { icon = ' ', color = 'warning' },
+      HACK = { icon = ' ', color = 'warning', alt = { 'SECURITY' } },
       WARN = { icon = ' ', color = 'warning', alt = { 'WARNING' } },
       PERF = { icon = ' ', alt = { 'PERFORMANCE', 'OPTIMIZE' } },
       NOTE = { icon = ' ', color = 'hint', alt = { 'INFO' } },

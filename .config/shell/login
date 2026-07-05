@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+
+# ==============================================================================
+# LOGIN
+# ------------------------------------------------------------------------------
+# This script is executed after profile and rc, only for login shells.
+#
+# Its purpose is to perform one-time startup tasks,
+# agent/session initialization, login-only checks, optional welcome messages.
+# ==============================================================================
+
+# == VALIDATION ================================================================
+# Check if the script is running on the correct TTY and if the niri session
+# is already running.
+[ "$(tty 2> /dev/null)" != "/dev/tty1" ] && return
+pgrep -u "$(id -u)" -x niri > /dev/null 2>&1 && return
+
+# == GTK/GNOME SETTINGS ========================================================
+if command -v gsettings > /dev/null 2>&1 && [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+  gsettings set org.gnome.desktop.interface cursor-size "${XCURSOR_SIZE}"
+  gsettings set org.gnome.desktop.interface cursor-theme "${XCURSOR_THEME}"
+  gsettings set org.gnome.desktop.interface document-font-name 'CaskaydiaCove Nerd Font 10'
+  gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
+  gsettings set org.gnome.desktop.interface font-hinting 'full'
+  gsettings set org.gnome.desktop.interface font-name 'CaskaydiaCove Nerd Font 10'
+  gsettings set org.gnome.desktop.interface gtk-theme 'Breeze-Dark'
+  gsettings set org.gnome.desktop.interface icon-theme 'breeze-dark'
+  gsettings set org.gnome.desktop.interface monospace-font-name 'CaskaydiaCove Nerd Font Mono 9'
+fi
+
+# == SESSION ===================================================================
+command -v niri-session > /dev/null 2>&1 \
+  && exec niri-session -l \
+  || echo "failed to start niri-session" >&2

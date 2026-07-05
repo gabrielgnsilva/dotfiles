@@ -32,11 +32,15 @@ return {
     'rust',
     'scss',
     'sql',
+    'svelte',
     'tmux',
     'toml',
+    'tsx',
     'typescript',
+    'typst',
     'vim',
     'vimdoc',
+    'vue',
     'xcompose',
     'xml',
     'yaml',
@@ -83,23 +87,23 @@ return {
     use_languagetree = true,
     additional_vim_regex_highlighting = false, -- Run `:h syntax` and tree-sitter at the same time
     disable = function(_, buf)
-      if vim.g.bigfile_detection_disabled == true then
+      local BF = require('bigfile_detection')
+
+      if BF.is_detection_disabled(buf) then
         return false
       end
 
-      -- Disable for large files
-      local maxFileSize = 500 * 1024 -- 500KB
-      local ok, stats =
-        pcall((vim.uv or vim.loop).fs_stat, vim.api.nvim_buf_get_name(buf))
-      if ok and stats and stats.size > maxFileSize then
-        vim.notify(
-          'Treesitter highlighting has been deactivated on this file!'
-        )
+      local reason = BF.reason(buf)
+      if reason == 'snacks_bigfile' then
         return true
       end
 
-      -- Disable for files with very long lines
-      if require('utils.bigfile').has_long_lines(buf) then
+      if reason == 'large_file' then
+        vim.notify('Treesitter highlighting has been deactivated on this file!')
+        return true
+      end
+
+      if reason == 'long_lines' then
         vim.notify(
           'Treesitter highlighting disabled: long lines detected',
           vim.log.levels.WARN

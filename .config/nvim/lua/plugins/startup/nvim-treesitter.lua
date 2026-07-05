@@ -1,6 +1,11 @@
+--[[
+  This plugin does not support lazy-loading.
+]]
+
 return {
   'nvim-treesitter/nvim-treesitter',
   branch = 'main',
+  priority = 1000,
   dependencies = {
     {
       'nvim-treesitter/nvim-treesitter-textobjects',

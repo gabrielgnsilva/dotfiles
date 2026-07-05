@@ -42,6 +42,13 @@ M.get_buf_snippets = function(bufnr)
   return snippets
 end
 
+M._resolve_body = function(snippet, bufnr)
+  if type(snippet.body) == 'function' then
+    return snippet.body(bufnr)
+  end
+  return snippet.body
+end
+
 M._load_snippets = function()
   local snippet_files = vim.fn.glob(
     string.format('%s/lua/snippets/**/*.lua', vim.fn.stdpath('config')),
@@ -75,21 +82,18 @@ M.setup = function()
   require('cmp').register_source('vim.snippet', {
     complete = function(_, _, callback)
       local bufnr = vim.api.nvim_get_current_buf()
-      if not M._cache[bufnr] then
-        local completion_items = vim.tbl_map(function(s)
-          --- @type lsp.CompletionItem
-          return {
-            word = s.trigger,
-            label = s.trigger,
-            kind = vim.lsp.protocol.CompletionItemKind.Snippet,
-            insertText = s.body,
-            insertTextFormat = vim.lsp.protocol.InsertTextFormat.Snippet,
-            documentation = { kind = 'markdown', value = s.description or '' },
-          }
-        end, M.get_buf_snippets(bufnr))
-        M._cache[bufnr] = completion_items
-      end
-      callback(M._cache[bufnr])
+      local completion_items = vim.tbl_map(function(s)
+        --- @type lsp.CompletionItem
+        return {
+          word = s.trigger,
+          label = s.trigger,
+          kind = vim.lsp.protocol.CompletionItemKind.Snippet,
+          insertText = M._resolve_body(s, bufnr),
+          insertTextFormat = vim.lsp.protocol.InsertTextFormat.Snippet,
+          documentation = { kind = 'markdown', value = s.description or '' },
+        }
+      end, M.get_buf_snippets(bufnr))
+      callback(completion_items)
     end,
   })
 

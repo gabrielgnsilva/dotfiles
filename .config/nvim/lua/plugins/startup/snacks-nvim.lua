@@ -1,14 +1,25 @@
+--[[ INFO:
+  A couple of plugins require `snacks.nvim` to be set-up early.
+  Setup creates some autocmds and does not load any plugins.
+]]
+
 return {
   'folke/snacks.nvim',
   priority = 1000,
+  dependencies = { 'stevearc/oil.nvim' },
   opts = {
     dashboard = { enabled = false },
     explorer = { enabled = false },
-    image = { enabled = false },
+    lazygit = { enabled = false },
     scope = { enabled = false },
     scroll = { enabled = false },
-    statuscolumn = { enabled = false },
     words = { enabled = false },
+    image = {
+      enabled = true,
+    },
+    statuscolumn = {
+      refresh = 1000, -- ms
+    },
     bigfile = {
       enabled = true,
       notify = true,
@@ -43,16 +54,23 @@ return {
     },
   },
   config = function(_, opts)
+    local oil = require('oil')
     local snacks = require('snacks')
     snacks.setup(opts)
 
     vim.notify = snacks.notifier
 
-    vim.api.nvim_set_option_value(
-      'statuscolumn',
-      [[%!v:lua.require'snacks.statuscolumn'.get()]],
-      { scope = 'global' }
-    )
+    local cwd = function(callback, source)
+      local current_dir = oil.get_current_dir()
+      if current_dir ~= nil then
+        return function()
+          callback({ [source] = current_dir })
+        end
+      end
+      return function()
+        callback()
+      end
+    end
 
     require('utils.mappings').load_keymap({
       {
@@ -69,15 +87,14 @@ return {
           { key = '<leader>fD', cmd = snacks.picker.diagnostics,        desc = 'Fuzzy find diagnostics on cwd' },
           { key = '<leader>fd', cmd = snacks.picker.diagnostics_buffer, desc = 'Fuzzy find diagnostics on current buffer' },
           -- navigation
-          { key = '<c-d>',      cmd = snacks.picker.explorer,           desc = 'Open file explorer' },
           { key = '<leader>f/', cmd = snacks.picker.lines,              desc = 'Fuzzy find string on current buffer' },
           { key = '<leader>fb', cmd = snacks.picker.buffers,            desc = 'Fuzzy find currently open buffers' },
           { key = '<leader>fz', cmd = snacks.picker.zoxide,             desc = 'Fuzzy find zoxide entries' },
-          { key = '<leader>ff', cmd = snacks.picker.files,              desc = 'Fuzzy find files on cwd' },
+          { key = '<leader>ff', cmd = cwd(snacks.picker.files, 'dirs'), desc = 'Fuzzy find files on cwd' },
           { key = '<leader>fm', cmd = snacks.picker.marks,              desc = 'Fuzzy find marks' },
           { key = '<leader>fp', cmd = snacks.picker.projects,           desc = 'Fuzzy find projects' },
           { key = '<leader>fr', cmd = snacks.picker.recent,             desc = 'Fuzzy find recent files' },
-          { key = '<leader>fw', cmd = snacks.picker.grep,               desc = 'Fuzzy find string on cwd' },
+          { key = '<leader>fw', cmd = cwd(snacks.picker.grep, 'dirs'),  desc = 'Fuzzy find string on cwd' },
           -- misc
           { key = '<leader>fH', cmd = snacks.picker.highlights,         desc = 'Fuzzy find highlights' },
           { key = '<leader>fM', cmd = snacks.picker.man,                desc = 'Fuzzy find man pages' },

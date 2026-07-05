@@ -1,0 +1,58 @@
+*bigfile-detection.txt*  Big file detection helper for Neovim
+
+==============================================================================
+CONTENTS                                        *bigfile-detection-contents*
+
+1. Introduction .......................... |bigfile-detection-introduction|
+2. Installation .......................... |bigfile-detection-installation|
+3. Commands .................................... |bigfile-detection-commands|
+4. Testing ..................................... |bigfile-detection-testing|
+
+==============================================================================
+1. Introduction                        *bigfile-detection-introduction*
+
+bigfile-detection.nvim detects heavy buffers and disables expensive editor
+features based on large file size, long lines, or optional Snacks integration.
+
+==============================================================================
+2. Installation                        *bigfile-detection-installation*
+
+Example with lazy.nvim: >lua
+  {
+    'gabrielgnsilva/bigfile-detection.nvim',
+    main = 'bigfile_detection',
+    opts = {},
+  }
+<
+
+Configuration is validated during setup. Threshold values must be greater than
+0 and notification enablement must be a boolean.
+
+==============================================================================
+3. Commands                                  *bigfile-detection-commands*
+
+                                                   *:BigfileDisable*
+:BigfileDisable
+  Disable bigfile detection and restore the current buffer.
+
+                                                   *:BigfileEnable*
+:BigfileEnable
+  Enable bigfile detection globally.
+
+                                                   *:BigfileToggle*
+:BigfileToggle
+  Toggle bigfile detection globally.
+
+                                                   *:BigfileRestore*
+:BigfileRestore
+  Restore the current buffer after bigfile handling.
+
+==============================================================================
+4. Testing                                   *bigfile-detection-testing*
+
+From the plugin directory: >
+  make test
+<
+
+==============================================================================
+vim:tw=78:ts=8:noet:ft=help:norl:

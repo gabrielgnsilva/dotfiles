@@ -8,8 +8,9 @@ return {
       VeryLazy  You can use this event for things that can load later
                 and are not important for the initial UI
     ]]
-    { 'nvim-lua/plenary.nvim', import = 'plugins.startup', lazy = false },
-    { 'nvim-lua/plenary.nvim', import = 'plugins.lazy', lazy = true },
+    { 'nvim-lua/plenary.nvim', lazy = false, priority = 1001 }, -- Used by many plugins, so load it first
+    { import = 'plugins.startup', lazy = false, priority = 1000 }, -- Load startup plugins immediately
+    { import = 'plugins.lazy', event = 'VeryLazy', priority = 50 }, -- Load the rest of the plugins on the VeryLazy event
   },
   defaults = { version = false }, -- Always use the latest git commit
   checker = {
@@ -26,12 +27,34 @@ return {
   },
   ui = {
     border = vim.g.border_style or 'rounded',
+    -- stylua: ignore start
     icons = {
-      ft = '',
-      lazy = '󰂠 ',
-      loaded = '',
-      not_loaded = '',
+      cmd        = '[cmd]',
+      config     = '[cfg]',
+      debug      = '[dbg]',
+      event      = '[event]',
+      favorite   = '[fav]',
+      ft         = '[ft]',
+      init       = '[init]',
+      import     = '[import]',
+      keys       = '[keys]',
+      lazy       = '[lazy]',
+      loaded     = '[x]',
+      not_loaded = '[ ]',
+      plugin     = '[plugin]',
+      runtime    = '[rt]',
+      require    = '[req]',
+      source     = '[src]',
+      start      = '[start]',
+      task       = '[task]',
+      list       = {
+        '-',
+        '>',
+        '*',
+        '~',
+      },
     },
+    -- stylua: ignore end
   },
   performance = {
     rtp = {

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-[ -f ~/.config/user-dirs.dirs ] && ./"${HOME}"/.config/user-dirs.dirs
-OUTPUT_DIR="${XDG_PICTURES_DIR:-${HOME}/Pictures}"
+[ -f ~/.config/user-dirs.dirs ] && . "${HOME}/.config/user-dirs.dirs"
+OUTPUT_DIR="${XDG_PICTURES_DIR:-${HOME}/pictures}/screenshots"
 
 if [ ! -d "${OUTPUT_DIR}" ]; then
   notify-send "Screenshot directory does not exist: ${OUTPUT_DIR}" -u critical -t 3000

@@ -2,7 +2,7 @@ return {
   'michaelrommel/nvim-silicon',
   cmd = 'Silicon',
   opts = {
-    background = '#94e2d5',
+    background = '#ff3b6b',
     font = 'FiraCode Nerd Font=34;Hack Nerd Font=16',
     theme = 'OneHalfDark',
     to_clipboard = true,

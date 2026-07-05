@@ -14,12 +14,12 @@
   },
   "custom/apps": {
     "format": "RUN",
-    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/app_launcher.sh",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/app-launcher.sh",
     "tooltip": false,
   },
   "custom/power-menu": {
     "format": "[POWER]",
-    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/logout_menu.sh",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/logout-menu.sh",
     "tooltip": false,
   },
   "custom/actions-drawer-icon": {
@@ -32,6 +32,15 @@
     "on-click-right": "${XDG_CONFIG_HOME}/BLAST/apps/cliphist.sh delete",
     "on-click-middle": "${XDG_CONFIG_HOME}/BLAST/apps/cliphist.sh wipe",
     "tooltip-format": "Left: Open clipboard Manager\nRight: Delete an entry\nMiddle: Clear list",
+  },
+  "custom/vpn": {
+    "return-type": "json",
+    "exec": "${XDG_CONFIG_HOME}/BLAST/apps/vpn.sh --status",
+    "format": "({text})",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/apps/vpn.sh --toggle",
+    "on-click-right": "${XDG_CONFIG_HOME}/BLAST/apps/vpn.sh --choose",
+    "on-click-middle": "${XDG_CONFIG_HOME}/BLAST/apps/vpn.sh --disconnect",
+    "restart-interval": 1,
   },
   "custom/notification": {
     "return-type": "json",
@@ -60,24 +69,22 @@
   // region: waybar
 
   "niri/window": {
-    "format": "{title}",
+    "format": "<span text_transform='lowercase'>{title}</span>",
     "max-length": 50,
     "separate-outputs": true,
-    "rewrite": {
-      ".*@.*:*": "Terminal",
-    },
   },
   "niri/workspaces": {
     "all-outputs": false,
-    "format": "{icon}",
+    "format": "[{icon}]",
     "format-icons": {
-      "A": "A",
-      "S": "S",
-      "D": "D",
-      "1": "1",
-      "2": "2",
-      "3": "3",
-      "7": "0",
+      "op1": "OP_1",
+      "op2": "OP_2",
+      "op3": "OP_3",
+      "lab": "LAB",
+      "sim": "SIM",
+      "net": "NET",
+      "dai": "DAI",
+      "sys": "SYS",
     },
   },
   "network": {
@@ -180,7 +187,7 @@
     "format-muted": "<span strikethrough='true'>VOL</span>",
     "on-click": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh --toggle-mute",
     "on-click-middle": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh 45",
-    "on-click-right": "${XDG_CONFIG_HOME}/BLAST/apps/terminal.sh launch ${XDG_CONFIG_HOME}/BLAST/apps/volume_mixer.sh",
+    "on-click-right": "${XDG_CONFIG_HOME}/BLAST/apps/terminal.sh launch ${XDG_CONFIG_HOME}/BLAST/apps/volume-mixer.sh",
     "on-scroll-up": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh +1",
     "on-scroll-down": "${XDG_CONFIG_HOME}/BLAST/scripts/volume.sh -1",
     "tooltip": false,
@@ -200,15 +207,12 @@
     "interval": 60,
     "icon": false,
   },
-  "idle_inhibitor": {
-    "format": "({icon})",
-    "format-icons": {
-      "activated": "AWAKE",
-      "deactivated": "IDLE",
-    },
-    "tooltip": "true",
-    "tooltip-format-activated": "Currently blocking idle",
-    "tooltip-format-deactivated": "Currently allowing idle",
+  "custom/idle-inhibitor": {
+    "return-type": "json",
+    "exec": "${XDG_CONFIG_HOME}/BLAST/scripts/idle.sh --status",
+    "format": "({text})",
+    "on-click": "${XDG_CONFIG_HOME}/BLAST/scripts/idle.sh --toggle",
+    "restart-interval": 1,
   },
   // endregion
 
@@ -274,9 +278,11 @@
     "modules": [
       "group/actions-drawer",
       "custom/sep",
+      "custom/vpn",
+      "custom/space",
       "custom/notification",
       "custom/space",
-      "idle_inhibitor",
+      "custom/idle-inhibitor",
       "custom/sep",
       "group/power-menu",
       "custom/sep",

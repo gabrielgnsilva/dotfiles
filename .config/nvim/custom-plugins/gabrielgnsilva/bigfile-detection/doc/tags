@@ -1,0 +1,10 @@
+:BigfileDisable	bigfile-detection.txt	/*:BigfileDisable*
+:BigfileEnable	bigfile-detection.txt	/*:BigfileEnable*
+:BigfileRestore	bigfile-detection.txt	/*:BigfileRestore*
+:BigfileToggle	bigfile-detection.txt	/*:BigfileToggle*
+bigfile-detection-commands	bigfile-detection.txt	/*bigfile-detection-commands*
+bigfile-detection-contents	bigfile-detection.txt	/*bigfile-detection-contents*
+bigfile-detection-installation	bigfile-detection.txt	/*bigfile-detection-installation*
+bigfile-detection-introduction	bigfile-detection.txt	/*bigfile-detection-introduction*
+bigfile-detection-testing	bigfile-detection.txt	/*bigfile-detection-testing*
+bigfile-detection.txt	bigfile-detection.txt	/*bigfile-detection.txt*

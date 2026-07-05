@@ -44,7 +44,11 @@
 
     // Modules
     "include": ["${XDG_CONFIG_HOME}/waybar/config.d/minimal/modules.jsonc"],
-    "modules-left": ["niri/window"],
+    "modules-left": [
+      "niri/workspaces",
+      "custom/sep",
+      "niri/window"
+    ],
     "modules-center": [],
     "modules-right": [
       "group/g-indicators",

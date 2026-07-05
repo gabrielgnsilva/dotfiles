@@ -4,6 +4,7 @@ local rcfiles_path =
 return {
   'mfussenegger/nvim-lint',
   event = { 'BufReadPost', 'BufNewFile' },
+  -- dependencies = { 'bigfile_detection' },
   opts = {
     linters_by_ft = {
       bash = { 'shellcheck' },
@@ -38,14 +39,11 @@ return {
         shellcheck = {
           -- stylua: ignore start
           args = {
-            '-e',            'SC2312',
-            '-e',            'SC2154',
-            '-e',            'SC1090',
-            '-e',            'SC2016',
-            '--source-path', 'SCRIPTDIR',
-            '--enable',      'all',
-            '--format',      'tty',
-            '--external-sources',
+            '--source-path=SCRIPTDIR',
+            '--enable=all',
+            '--exclude=SC2312,SC2154,SC1090,SC2016',
+            '--format=json1',
+            -- '--external-sources',
             '-',
           },
           -- stylua: ignore end
@@ -55,6 +53,8 @@ return {
   },
   config = function(_, opts)
     local lint = require('lint')
+    local bigfile_detection = require('bigfile_detection')
+
     lint.linters_by_ft = opts.linters_by_ft
     for name, config in pairs(opts.linters.custom) do
       lint.linters[name] = config
@@ -64,6 +64,16 @@ return {
         lint.linters[linter][opt] = config
       end
     end
+
+    require('utils').create_autocmd('NvimLintAuto', 'BufWritePost', {
+      desc = 'Auto lint current buffer',
+      callback = function(event)
+        if bigfile_detection.should_disable('lint', event.buf) then
+          return
+        end
+        lint.try_lint()
+      end,
+    })
 
     require('utils.mappings').load_keymap({
       {

@@ -1,0 +1,8 @@
+include "config.d/00-startup.kdl"
+include "config.d/01-monitor.kdl"
+include "config.d/02-keyboard.kdl"
+include "config.d/03-layout.kdl"
+include "config.d/04-workspace.kdl"
+include "config.d/05-decoration.kdl"
+include "config.d/06-window-rule.kdl"
+include "config.d/07-binds.kdl"

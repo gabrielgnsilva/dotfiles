@@ -1,0 +1,115 @@
+configuration {
+  emoji  { display-name: "󰞅"; }
+  dmenu  { display-name: ""; }
+  drun   { display-name: ""; }
+  run    { display-name: ""; }
+  window { display-name: ""; }
+}
+
+* {
+  /* General */
+  urgent    : #ff3b6b;
+  background: #0a0b14;
+  foreground: #e6f7ff;
+
+  cmt: #3b405c;
+  cya: #00f5ff;
+  grn: #00ff9f;
+  ora: #ff9f1c;
+  pur: #ff2bd6;
+  red: #ff3b6b;
+  yel: #fcee09;
+
+  border-color    : none;
+  background-color: @background;
+  text-color      : @foreground;
+
+  text-transform: capitalize;
+  font          : "Cantarell 12";
+  spacing       : 2;
+}
+
+window {
+  location     : north west;
+  y-offset     : 30px;
+  x-offset     : 30px;
+  width        : 25%;
+  height       : 15%;
+  border       : 1px;
+  border-color : @red;
+  border-radius: 0px;
+}
+
+mainbox {
+  border       : 2px;
+  border-color : @cmt;
+  border-radius: 0;
+  children     : [inputbar, listview];
+}
+
+message {
+  padding: 2px;
+  margin : 0;
+}
+
+textbox {
+  text-color      : @cya;
+  padding         : 0 5px;
+  margin          : 10px 5px;
+  horizontal-align: 0.5;
+  vertical-align  : 0.5;
+}
+
+inputbar {
+  margin  : 0 0 3px 0;
+  children: [prompt, entry];
+}
+
+prompt {
+  background-color: inherit;
+  text-color      : @cmt;
+  padding         : 14px;
+}
+
+entry {
+  text-color      : @cya;
+  placeholder     : " Search";
+  margin          : 0 5px;
+  padding         : 0 50px 0 0;
+  vertical-align  : 0.5;
+  horizontal-align: 0.5;
+}
+
+listview {
+  lines       : 9;
+  dynamic     : true;
+  fixed-height: false;
+  cycle       : false;
+  scrollbar   : false;
+  margin      : 0 4px 4px 4px; /* Hide the last element border */
+}
+
+element {
+  cursor      : pointer;
+  orientation : horizontal;
+  children    : [element-text];
+  padding     : 4px 5px;
+  spacing     : 5px;
+}
+
+element-text {
+  text-color    : @cmt;
+  cursor        : pointer;
+  vertical-align: 0.5;
+}
+
+element selected {
+  border      : 2px;
+  border-color: @red;
+}
+
+element-text selected {
+  text-color  : @yel;
+  border-color: transparent;
+  border      : 0 10px;
+}

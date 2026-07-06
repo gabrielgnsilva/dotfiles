@@ -1,0 +1,20 @@
+mainbox {
+  children: [message, inputbar];
+}
+
+window {
+  height: 10%;
+}
+
+configuration {
+  dmenu  { display-name: "󰖟 "; }
+}
+
+entry {
+  placeholder: " Type here...";
+}
+
+window {
+  location: center;
+  x-offset: -18px;
+}

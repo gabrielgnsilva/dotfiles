@@ -1,17 +1,36 @@
 # Options
 $include /etc/inputrc
 
-set show-all-if-ambiguous on  # Partially complete the word and show all possible completions.
-set echo-control-characters off  # Disable ^C after Ctrl+C is pressed.
-set completion-ignore-case On  # This line sets auto completion to ignore cases.
+set show-all-if-ambiguous on    # Partially complete the word and show all possible completions.
+set echo-control-characters off # Disable ^C after Ctrl+C is pressed.
+set completion-ignore-case On   # This line sets auto completion to ignore cases.
 
 # Color files by types
 
-set colored-stats On  # Note that this may cause completion text blink.
-set visible-stats On  # Append char to indicate type.
-set mark-symlinked-directories On  # Mark symlinked directories.
-set colored-completion-prefix On  # Color the common prefix.
-set menu-complete-display-prefix On  # Color the common prefix in menu-complete.
+set colored-stats On                # Note that this may cause completion text blink.
+set visible-stats On                # Append char to indicate type.
+set mark-symlinked-directories On   # Mark symlinked directories.
+set colored-completion-prefix On    # Color the common prefix.
+set menu-complete-display-prefix On # Color the common prefix in menu-complete.
+
+# VI Mode
+set editing-mode vi
+
+$if mode=vi
+set show-mode-in-prompt on
+set vi-ins-mode-string \1\e[6 q\2
+set vi-cmd-mode-string \1\e[2 q\2
+
+set keymap vi-command
+# These are for vi-command mode
+"\C-l": clear-screen
+"\C-a": beginning-of-line
+
+set keymap vi-insert
+# these are for vi-insert mode
+Control-l: clear-screen
+Control-a: beginning-of-line
+$endif
 
 # Keybindings
 

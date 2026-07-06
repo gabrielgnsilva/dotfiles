@@ -1,0 +1,111 @@
+#!/usr/bin/env sh
+
+# ==============================================================================
+# ALIASES
+# ------------------------------------------------------------------------------
+# Define aliases and very small convenience wrappers that behave like aliases.
+# ==============================================================================
+
+# Set dotfiles git-dir directory
+alias config='/usr/bin/git \
+  --git-dir="${XDG_DATA_HOME:-${HOME}/.local/share}/BLAST/dotfiles" \
+  --work-tree="${HOME}" '
+alias dotfiles='tmux new-session -A -s dotfiles -c "${HOME}" \
+  -e GIT_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/BLAST/dotfiles" \
+  -e GIT_WORK_TREE="${HOME}"'
+
+# Use neovim for `vim` if present.
+if command -v nvim > /dev/null 2>&1; then
+  alias e='nvim'
+  alias v='nvim'
+  alias vim='nvim'
+  alias vimdiff='nvim -d'
+fi
+
+# Verbosity and interactive flags for common commands
+alias sudo='sudo -v; sudo ' # Refresh sudo timestamp before running command
+
+alias cp='cp -iv'                                           # Ask before overwriting and show what is being copied
+alias mv='mv -iv'                                           # Ask before overwriting and show what is being moved
+alias rm='rm -vI'                                           # Ask before removing more than 3 files or recursively, and show what is being removed
+alias trash='gio trash '                                    # Move files to trash instead of deleting
+alias sxiv='nsxiv'                                          # Use nsxiv instead of sxiv for image viewing
+alias wget='wget --hsts-file="${XDG_STATE_HOME}/wget-hsts"' # Use a custom HSTS file for wget to avoid permission issues
+
+alias open='xdg-open'                               # Open files or URLs with the default application
+alias ft='xdg-mime query filetype'                  # Query the MIME type of a file
+alias sc='shellcheck -x -P SCRIPTDIR -f tty -o all' # Run shellcheck with specific options for scripts
+
+alias t='tmux new -A -s'        # Create or attach to a tmux session with the given name
+alias ta='tmux attach -t'       # Attach to an existing tmux session with the given name
+alias tk='tmux kill-session -t' # Kill a tmux session with the given name
+alias tls='tmux list-sessions'  # List all tmux sessions
+
+alias gf='git fetch --all --prune' # Fetch all remotes and prune deleted branches
+alias gp='git pull --ff-only'      # Pull changes from the current branch's upstream, only if it can be fast-forwarded
+
+# Notify when a long-running command has finished
+alias alert='notify-send \
+  --urgency=critical \
+  -a "Hey, your command has finished !" \
+  -i "$([ "${?}" = 0 ] && echo terminal || echo error)" \
+  "$(history | tail -n1 | sed -e "'"s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//"'")"'
+
+# Count lines of code in the current directory
+alias cloc='cloc . \
+  --exclude-dir=node_modules,.next,dist,.turbo,.git,vendor,.angular \
+  --exclude-ext=yaml,yml,json,svg,_build'
+
+# Run opencode with Claude code disabled and in pure mode
+alias opencode='OPENCODE_DISABLE_CLAUDE_CODE="1" opencode --pure'
+
+# Use different SSH clients based on the terminal type
+ssh() {
+  case "${TERM}" in
+    "xterm-kitty") command -v kitten > /dev/null 2>&1 && kitten ssh "${@}" || command ssh "${@}" ;;
+    "xterm-ghostty") command -v ghostty > /dev/null 2>&1 && ghostty ssh "${@}" || command ssh "${@}" ;;
+    *) command ssh "${@}" ;;
+  esac
+}
+
+# Colorize commands when possible.
+if command -v dircolors > /dev/null 2>&1; then
+  dircolors_file="${XDG_CONFIG_HOME}/dircolors"
+  [ -f "${dircolors_file}" ] && [ -r "${dircolors_file}" ] \
+    || dircolors_file="${HOME}/.dircolors"
+
+  if [ -f "${dircolors_file}" ] && [ -r "${dircolors_file}" ]; then
+    eval "$(dircolors -b "${dircolors_file}")"
+  else
+    eval "$(dircolors -b)"
+  fi
+
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
+  alias diff='diff --color=auto '
+  alias grep='rg --color=auto'
+  alias egrep='egrep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias ip='ip -color=auto'
+  alias cat='bat --color=auto'
+  alias ls='eza \
+    --long \
+    --all \
+    --no-quotes \
+    --modified \
+    --group-directories-first \
+    --git \
+    --color=auto'
+  alias tree='eza --tree --group-directories-first'
+else
+  alias grep='rg'
+  alias cat='bat'
+  alias ls='eza \
+    --long \
+    --all \
+    --no-quotes \
+    --modified \
+    --group-directories-first \
+    --git'
+  alias tree='eza --tree --group-directories-first'
+fi

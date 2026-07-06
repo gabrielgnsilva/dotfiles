@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+file="${1}"
+expected_sum="${2}"
+
+if [ ! -f "${file}" ]; then
+  echo "File not found: ${file}"
+  exit 1
+fi
+
+if [ -z "${expected_sum}" ]; then
+  echo "Expected checksum not provided"
+  exit 1
+fi
+
+actual_sum="$(sha256sum "${file}" | awk '{print $1}')"
+
+echo "Expected: ${expected_sum}"
+echo "Actual  : ${actual_sum}"
+
+if [ "${actual_sum}" = "${expected_sum}" ]; then
+  echo "Result:   OK"
+  exit 0
+else
+  echo "Result:   FAILED"
+  exit 1
+fi

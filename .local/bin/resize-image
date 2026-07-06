@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+from typing import Sequence
+
+from PIL import Image, ImageEnhance, ImageFilter
+
+src_path = Path("/mnt/data/artworks-udGFRWxI09W25zeU-My0QMQ-t1080x1080.jpg")
+img = Image.open(src_path).convert("RGB")
+
+target_w, target_h = 1920, 1080
+
+# Create a blurred background by resizing/cropping the source to cover 1920x1080
+# Cover resize: scale so both dims >= target, then center-crop
+scale = max(target_w / img.width, target_h / img.height)
+bg = img.resize(
+    (int(img.width * scale), int(img.height * scale)), Image.Resampling.LANCZOS
+)
+left = (bg.width - target_w) // 2
+top = (bg.height - target_h) // 2
+bg = bg.crop((left, top, left + target_w, top + target_h))
+
+# Blur and slightly darken to make the centered art pop
+bg = bg.filter(ImageFilter.GaussianBlur(radius=28))
+bg = ImageEnhance.Brightness(bg).enhance(0.85)
+bg = ImageEnhance.Contrast(bg).enhance(1.05)
+
+# Foreground: keep original at 1080px height (fits), optionally add a subtle shadow
+fg = img.resize((target_h, target_h), Image.Resampling.LANCZOS)  # 1080x1080
+
+# Create shadow
+shadow = Image.new("RGBA", (fg.width + 40, fg.height + 40), (0, 0, 0, 0))
+fg_rgba = fg.convert("RGBA")
+alpha = fg_rgba.split()[-1] if fg_rgba.mode == "RGBA" else Image.new("L", fg.size, 255)
+# Use a rectangular soft shadow (since source has no transparency, just use full mask)
+mask = Image.new("L", fg.size, 255).filter(ImageFilter.GaussianBlur(radius=10))
+shadow.paste((0, 0, 0, 180), (20, 20), mask)
+
+# Composite onto background
+canvas = bg.convert("RGBA")
+x = (target_w - fg.width) // 2
+y = (target_h - fg.height) // 2  # should be 0
+dest_shadow: Sequence[int] = [x - 20, y - 20]
+dest_fg: Sequence[int] = [x, y]
+canvas.alpha_composite(shadow, dest_shadow)
+canvas.alpha_composite(fg_rgba, dest_fg)
+
+out_path = Path("/mnt/data/recreate_1920x1080.png")
+canvas.convert("RGB").save(out_path, "PNG")
+
+str(out_path)

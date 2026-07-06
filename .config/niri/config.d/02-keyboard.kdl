@@ -1,0 +1,16 @@
+input {
+    keyboard {
+        numlock
+        repeat-rate 35
+        repeat-delay 200
+        xkb {
+            layout "us"
+            variant "intl"
+        }
+    }
+    mouse {
+        accel-profile "flat"
+    }
+    touchpad { off; }
+    trackpoint { off; }
+}

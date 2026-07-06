@@ -1,0 +1,71 @@
+#!/usr/bin/env sh
+
+# ==============================================================================
+# RC
+# ------------------------------------------------------------------------------
+# This script is executed whenever an interactive shell starts.
+#
+# Its purpose is to set up shared interactive shell behavior: terminal-only
+# environment variables, history defaults, aliases, interactive tool setup,
+# and small convenience functions. Shell-specific files handle prompt,
+# completion, keybindings, and shell options.
+# ==============================================================================
+
+case "${-}" in
+  *i*) ;;
+  *) return 0 2> /dev/null || exit 0 ;;
+esac
+
+# == ENVIRONMENT VARIABLES =====================================================
+if [ -t 0 ]; then
+  GPG_TTY="$(tty)" && export GPG_TTY
+fi
+
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export LESS="-R"
+
+export FZF_DEFAULT_OPTS=" \
+  --color=bg+:#151722,bg:#0A0B14,spinner:#00F5FF,hl:#FF3B6B \
+  --color=fg:#E6F7FF,header:#FF3B6B,info:#B026FF,pointer:#FCEE09 \
+  --color=marker:#00F5FF,fg+:#00F5FF,prompt:#FF2BD6,hl+:#FF5C8A \
+  --color=selected-bg:#26335F \
+  --color=border:#FF3B6B,label:#E6F7FF"
+
+if command -v tput > /dev/null 2>&1 && [ -t 1 ]; then
+  SUDO_PROMPT="$(tput setab 1)$(tput setaf 7)$(tput bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): " \
+    && export SUDO_PROMPT
+fi
+
+# == HISTORY ===================================================================
+HISTFILE="${XDG_CACHE_HOME}/history"
+HISTSIZE=100000
+
+# == SOURCED CONFIG ============================================================
+aliases_file="${XDG_CONFIG_HOME}/shell/aliases"
+if [ -f "${aliases_file}" ] && [ -r "${aliases_file}" ]; then
+  . "${aliases_file}"
+fi
+unset aliases_file
+
+# == TOOLS =====================================================================
+
+# -- Lesspipe ------------------------------------------------------------------
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# -- Zoxide --------------------------------------------------------------------
+command -v zoxide > /dev/null 2>&1 \
+  && eval "$(zoxide init --cmd cd zsh)"
+
+# -- NVM -----------------------------------------------------------------------
+nvm() {
+  init_nvm=/usr/share/nvm/init-nvm.sh
+
+  if [ ! -f "${init_nvm}" ] || [ ! -r "${init_nvm}" ] || [ ! -s "${init_nvm}" ]; then
+    printf "Error: NVM initialization script not found or empty: %s\n" "${init_nvm}" >&2
+    return 1
+  fi
+
+  unset -f nvm
+  . "${init_nvm}"
+  nvm "${@}"
+}

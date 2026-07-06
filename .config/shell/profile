@@ -1,0 +1,90 @@
+#!/usr/bin/env sh
+
+# shellcheck disable=SC2016
+
+# ==============================================================================
+# PROFILE
+# ------------------------------------------------------------------------------
+# This script is executed once when a login shell/session starts.
+#
+# Its purpose is to set up the environment for the user, including environment
+# variables, PATH modifications, and other session-specific settings.
+# ==============================================================================
+
+# == ENVIRONMENT ================================================================
+env_file="${XDG_CONFIG_HOME:-${HOME}/.config}/shell/env"
+[ -r "${env_file}" ] && . "${env_file}"
+unset env_file
+
+# == XDG SESSION ===============================================================
+export XDG_CURRENT_DESKTOP="niri"
+export XDG_SESSION_DESKTOP="niri"
+export DESKTOP_SESSION="niri"
+export XDG_SESSION_TYPE="wayland"
+
+# == QT ========================================================================
+export QT_QPA_PLATFORM="wayland;xcb"
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_AUTO_SCREEN_SCALE_FACTOR="1"
+
+# == GDK =======================================================================
+# export GDK_BACKEND="wayland,x11"
+
+# == SDL =======================================================================
+export SDL_VIDEODRIVER="wayland"
+
+# == Clutter ===================================================================
+export CLUTTER_BACKEND="wayland"
+
+# == PIPEWIRE ==================================================================
+export PIPEWIRE_LATENCY="128/48000"
+
+# == GTK =======================================================================
+export GTK_THEME="Breeze-Dark"
+export GTK_IM_MODULE="simple"
+export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc-2.0"
+
+# == THEME =====================================================================
+export XCURSOR_PATH="${HOME}/.local/share/icons:/usr/share/icons"
+export XCURSOR_THEME="breeze_cursors"
+export XCURSOR_SIZE="24"
+
+# == STEAM =====================================================================
+# environment variables I use for gaming on Linux, mostly for steam and proton.
+export RADV_PERFTEST="aco,gpl"
+export RADV_USER_ENABLED_OPTION_STRING="antilag+"
+export PROTON_ENABLE_WAYLAND="1"
+export PROTON_NO_WM_DECORATION="1"
+export PROTON_FSR4_UPGRADE="1"
+export PROTON_ENABLE_HDR="1"
+export PROTON_ENABLE_HDR_WSI="1"
+export PROTON_USE_NTSYNC="1"
+export DXVK_HDR="1"
+export DXVK_ENABLE_GPL="1"
+export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP="1"
+export MESA_SHADER_CACHE_MAX_SIZE="12G"
+
+# == PATH ======================================================================
+# Custom bin directory
+
+add_path() {
+  [ -d "${1}" ] \
+    && case ":${PATH}:" in *":${1}:"*) ;; *) PATH="${1}:${PATH}" ;; esac
+}
+
+add_path "${HOME}/bin"                        # Add path to custom bin directory
+add_path "${HOME}/.local/bin"                 # Add path to custom bin directory
+add_path "${HOME}/.local/share/pnpm/bin"      # Add path to pnpm
+add_path "${HOME}/.local/cache/.bun/bin"      # Add path to bun
+add_path "${GOBIN}"                           # Add path to GO Bin
+add_path /opt/rocm/bin                        # Add path to ROCm
+add_path /usr/local/lib/java/jdk1.8.0_202/bin # Add path to Java 8
+
+export PATH
+
+unset -f add_path
+
+# == TOOLS =====================================================================
+
+# -- Less ----------------------------------------------------------------------
+[ -d "${XDG_CACHE_HOME}/less" ] || mkdir -p "${XDG_CACHE_HOME}/less"

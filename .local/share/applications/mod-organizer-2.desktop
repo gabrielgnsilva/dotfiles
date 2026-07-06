@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Mod Organizer 2
+Comment=Mod Organizer 2
+Exec=run-with-proton 489830 /media/games/modding/apps/MO2/ModOrganizer.exe
+Terminal=false
+Type=Application
+Categories=Game;Utility;

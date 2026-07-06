@@ -1,11 +1,11 @@
-local opt = vim.opt
-local map = vim.keymap.set
+local opt = vim.opt_local
+local g = vim.g
 
 opt.wrap = true
-opt.breakindent = true
-opt.linebreak = true
-opt.spelllang = 'pt_br,en_us'
 opt.spell = true
+opt.spelllang = 'pt_br,en_us'
 
-map('n', 'j', 'gj')
-map('n', 'k', 'gk')
+g.markdown_recommended_style = 0
+g.markdown_syntax_conceal = 1
+
+require('utils.mappings').load_keymap('markdown')

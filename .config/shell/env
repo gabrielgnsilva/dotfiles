@@ -1,0 +1,57 @@
+#!/usr/bin/env sh
+
+# shellcheck disable=SC2016
+
+# ==============================================================================
+# ENVIRONMENT VARIABLES
+# ------------------------------------------------------------------------------
+# Define environment variables that should always exist, regardless of shell
+# type.
+# ==============================================================================
+
+# == XDG BASE DIRECTORIES ======================================================
+# See: https://wiki.archlinux.org/title/XDG_Base_Directory
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-${HOME}/.local/state}"
+
+# == SHELL =====================================================================
+export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
+
+# == EDITOR ====================================================================
+export EDITOR="nvim"
+export PAGER="less"
+export MANPAGER="less"
+export VISUAL="nvim"
+
+# == LANGUAGES =================================================================
+export NVM_DIR="${XDG_DATA_HOME}/nvm"
+export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export GOPATH="${XDG_DATA_HOME}/go"
+export GOBIN="${GOPATH}/bin"
+export GOMODCACHE="${XDG_CACHE_HOME}/go/mod"
+export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
+export LEIN_HOME="${XDG_DATA_HOME}/lein"
+
+# == GPG =======================================================================
+export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
+
+# == APPLICATIONS ==============================================================
+export ANDROID_HOME="${XDG_DATA_HOME}/android-sdk"
+export ANDROID_USER_HOME="${XDG_DATA_HOME}/android"
+
+export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite/history"
+export LESSHISTFILE="${XDG_CACHE_HOME}/less/lesshst"
+export WGETRC="${XDG_CONFIG_HOME}/wgetrc"
+export ECLIPSE_HOME="/opt/eclipse"
+
+# == ROCM ======================================================================
+export ROCM_PATH="/opt/rocm"
+export HIP_PATH="/opt/rocm"
+
+# INFO: Use this only in wrappers for apps that need ROCm
+# LD_LIBRARY_PATH="/opt/rocm/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" LD_BIND_NOW=1 \
+#   /usr/bin/application --app-option value

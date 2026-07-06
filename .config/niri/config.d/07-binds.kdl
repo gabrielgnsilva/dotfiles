@@ -1,0 +1,140 @@
+recent-windows { off; }
+hotkey-overlay { skip-at-startup; }
+screenshot-path null
+
+binds {
+    // Show the hotkey overlay
+    Mod+Slash { show-hotkey-overlay; }
+
+    // System controls
+    Mod+DEAD_GRAVE       hotkey-overlay-title="SYS MENU"           { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/logout-menu.sh"; }
+    Mod+M                hotkey-overlay-title="SWITCH BG"          { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/wallpaper.sh --cycle"; }
+    Mod+Ctrl+M           hotkey-overlay-title="SWITCH BG TO CORP"  { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/corp-mode.sh"; }
+    Mod+Alt+M            hotkey-overlay-title="RESET BG"           { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/wallpaper.sh --default"; }
+
+    // Volume control
+    XF86AudioMute        hotkey-overlay-title="MUTE VOLUME"  allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/volume.sh --toggle-mute"; }
+    XF86AudioRaiseVolume hotkey-overlay-title="RAISE VOLUME" allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/volume.sh +1"; }
+    XF86AudioLowerVolume hotkey-overlay-title="LOWER VOLUME" allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/volume.sh -1"; }
+
+    // Media control
+    XF86Tools            hotkey-overlay-title="MEDIA PLAYER"     allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/media.sh open"; }
+    XF86AudioPlay        hotkey-overlay-title="MEDIA PLAY/PAUSE" allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/media.sh play-pause"; }
+    XF86AudioStop        hotkey-overlay-title="MEDIA STOP"       allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/media.sh stop"; }
+    XF86AudioPrev        hotkey-overlay-title="MEDIA PREVIOUS"   allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/media.sh previous"; }
+    XF86AudioNext        hotkey-overlay-title="MEDIA NEXT"       allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/media.sh next"; }
+    XF86AudioForward     hotkey-overlay-title="MEDIA FORWARD"    allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/media.sh forward"; }
+    XF86AudioRewind      hotkey-overlay-title="MEDIA REWIND"     allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/media.sh rewind"; }
+
+    // Binds for running programs: terminal, app launcher, screen locker
+    Mod+R      hotkey-overlay-title="DAEMON"         { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/app-launcher.sh"; }
+    Mod+Return hotkey-overlay-title="RUN"            { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/terminal.sh"; }
+    Mod+E      hotkey-overlay-title="FILE"           { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/file-manager.sh"; }
+    Mod+Q      hotkey-overlay-title="NET"            { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/browser.sh"; }
+    Mod+Period hotkey-overlay-title="ICON MENU"      { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/emoji-picker.sh"; }
+    Mod+V      hotkey-overlay-title="HISTORY"        { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/cliphist.sh"; }
+    Mod+X      hotkey-overlay-title="COLOR PICKER"   { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/color-picker.sh"; }
+    Mod+B      hotkey-overlay-title="TOGGLE SYSBAR"  { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/taskbar.sh --toggle"; }
+    Mod+Alt+B  hotkey-overlay-title="RELOAD SYSBAR"  { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/taskbar.sh --reload-config"; }
+    Print      hotkey-overlay-title="CAPTURE"        { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/screenshot.sh --area"; }
+    Ctrl+Print hotkey-overlay-title="CAPTURE WINDOW" { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/screenshot.sh --screen"; }
+
+    // Window management binds
+    Mod+Escape  repeat=false hotkey-overlay-title="TOGGLE OVERVIEW"   { toggle-overview; }
+    Mod+Shift+Q repeat=false hotkey-overlay-title="CLOSE WINDOW"      { close-window; }
+    Mod+F                    hotkey-overlay-title="MAXIMIZE WINDOW"   { maximize-column; }
+    Mod+Alt+F                hotkey-overlay-title="FULLSCREEN WINDOW" { fullscreen-window; }
+
+    // Move focus
+    Mod+Z           hotkey-overlay-title="FOCUS PREVIOUS" { focus-window-previous; }
+
+    Mod+Left        hotkey-overlay-title="FOCUS LEFT"  { focus-column-left; }
+    Mod+Down        hotkey-overlay-title="FOCUS DOWN"  { focus-window-or-workspace-down; }
+    Mod+Up          hotkey-overlay-title="FOCUS UP"    { focus-window-or-workspace-up; }
+    Mod+Right       hotkey-overlay-title="FOCUS RIGHT" { focus-column-right; }
+
+    Mod+H           hotkey-overlay-title="FOCUS LEFT"  { focus-column-left; }
+    Mod+J           hotkey-overlay-title="FOCUS DOWN"  { focus-window-or-workspace-down; }
+    Mod+K           hotkey-overlay-title="FOCUS UP"    { focus-window-or-workspace-up; }
+    Mod+L           hotkey-overlay-title="FOCUS RIGHT" { focus-column-right; }
+
+    Mod+Shift+Left  hotkey-overlay-title="FOCUS DISPLAY LEFT"  { focus-monitor-left; }
+    Mod+Shift+Down  hotkey-overlay-title="FOCUS DISPLAY DOWN"  { focus-monitor-down; }
+    Mod+Shift+Up    hotkey-overlay-title="FOCUS DISPLAY UP"    { focus-monitor-up; }
+    Mod+Shift+Right hotkey-overlay-title="FOCUS DISPLAY RIGHT" { focus-monitor-right; }
+
+    Mod+Shift+H     hotkey-overlay-title="FOCUS DISPLAY LEFT"  { focus-monitor-left; }
+    Mod+Shift+J     hotkey-overlay-title="FOCUS DISPLAY DOWN"  { focus-monitor-down; }
+    Mod+Shift+K     hotkey-overlay-title="FOCUS DISPLAY UP"    { focus-monitor-up; }
+    Mod+Shift+L     hotkey-overlay-title="FOCUS DISPLAY RIGHT" { focus-monitor-right; }
+
+    Mod+Home        hotkey-overlay-title="FOCUS FIRST" { focus-column-first; }
+    Mod+End         hotkey-overlay-title="FOCUS LAST"  { focus-column-last; }
+
+    // Move/Resize windows
+    Mod+Ctrl+Left    hotkey-overlay-title="MOVE LEFT"  { move-column-left; }
+    Mod+Ctrl+Down    hotkey-overlay-title="MOVE DOWN"  { move-window-down-or-to-workspace-down; }
+    Mod+Ctrl+Up      hotkey-overlay-title="MOVE UP"    { move-window-up-or-to-workspace-up; }
+    Mod+Ctrl+Right   hotkey-overlay-title="MOVE RIGHT" { move-column-right; }
+
+    Mod+Ctrl+H       hotkey-overlay-title="MOVE LEFT"  { move-column-left; }
+    Mod+Ctrl+J       hotkey-overlay-title="MOVE DOWN"  { move-window-down-or-to-workspace-down; }
+    Mod+Ctrl+K       hotkey-overlay-title="MOVE UP"    { move-window-up-or-to-workspace-up; }
+    Mod+Ctrl+L       hotkey-overlay-title="MOVE RIGHT" { move-column-right; }
+
+    Mod+Alt+Left     hotkey-overlay-title="MOVE DISPLAY LEFT"  { move-column-left-or-to-monitor-left; }
+    Mod+Alt+Down     hotkey-overlay-title="MOVE DISPLAY DOWN"  { move-column-to-monitor-down; }
+    Mod+Alt+Up       hotkey-overlay-title="MOVE DISPLAY UP"    { move-column-to-monitor-up; }
+    Mod+Alt+Right    hotkey-overlay-title="MOVE DISPLAY RIGHT" { move-column-right-or-to-monitor-right; }
+
+    Mod+Alt+H        hotkey-overlay-title="MOVE DISPLAY LEFT"  { move-column-to-monitor-left; }
+    Mod+Alt+J        hotkey-overlay-title="MOVE DISPLAY DOWN"  { move-column-to-monitor-down; }
+    Mod+Alt+K        hotkey-overlay-title="MOVE DISPLAY UP"    { move-column-to-monitor-up; }
+    Mod+Alt+L        hotkey-overlay-title="MOVE DISPLAY RIGHT" { move-column-to-monitor-right; }
+
+    Mod+Ctrl+Home    hotkey-overlay-title="MOVE FIRST" { move-column-to-first; }
+    Mod+Ctrl+End     hotkey-overlay-title="MOVE LAST"  { move-column-to-last; }
+
+    Mod+Space        hotkey-overlay-title="WIDTH PRESET"  { switch-preset-column-width; }
+    Mod+Shift+Space  hotkey-overlay-title="HEIGHT PRESET" { switch-preset-window-height; }
+    Mod+Ctrl+Space   hotkey-overlay-title="CENTER COLUMN" { center-column; }
+
+    Mod+BracketLeft  hotkey-overlay-title="ABSORB WINDOW" { consume-window-into-column; }
+    Mod+BracketRight hotkey-overlay-title="EXPEL WINDOW"  { expel-window-from-column; }
+
+    // Switch workspaces
+    Mod+1      hotkey-overlay-title="FOCUS workspace OP1" { focus-workspace "op1"; }
+    Mod+2      hotkey-overlay-title="FOCUS workspace OP2" { focus-workspace "op2"; }
+    Mod+3      hotkey-overlay-title="FOCUS workspace OP3" { focus-workspace "op3"; }
+    Mod+4      hotkey-overlay-title="FOCUS workspace LAB" { focus-workspace "lab"; }
+    Mod+5      hotkey-overlay-title="FOCUS workspace SIM" { focus-workspace "sim"; }
+    Mod+A      hotkey-overlay-title="FOCUS workspace NET" { focus-workspace "net"; }
+    Mod+S      hotkey-overlay-title="FOCUS workspace DAI" { focus-workspace "dai"; }
+    Mod+D      hotkey-overlay-title="FOCUS workspace SYS" { focus-workspace "sys"; }
+
+    Mod+Ctrl+1 hotkey-overlay-title="MOVE WINDOW TO OP1" { move-column-to-workspace "op1"; }
+    Mod+Ctrl+2 hotkey-overlay-title="MOVE WINDOW TO OP2" { move-column-to-workspace "op2"; }
+    Mod+Ctrl+3 hotkey-overlay-title="MOVE WINDOW TO OP3" { move-column-to-workspace "op3"; }
+    Mod+Ctrl+4 hotkey-overlay-title="MOVE WINDOW TO LAB" { move-column-to-workspace "lab"; }
+    Mod+Ctrl+5 hotkey-overlay-title="MOVE WINDOW TO SIM" { move-column-to-workspace "sim"; }
+    Mod+Ctrl+A hotkey-overlay-title="MOVE WINDOW TO NET" { move-column-to-workspace "net"; }
+    Mod+Ctrl+S hotkey-overlay-title="MOVE WINDOW TO DAI" { move-column-to-workspace "dai"; }
+    Mod+Ctrl+D hotkey-overlay-title="MOVE WINDOW TO SYS" { move-column-to-workspace "sys"; }
+
+    // Move the focused window between the floating and the tiling layout
+    Mod+Tab       hotkey-overlay-title="TOGGLE FLOAT" { toggle-window-floating; }
+    Mod+Shift+Tab hotkey-overlay-title="FOCUS FLOAT"  { switch-focus-between-floating-and-tiling; }
+
+    // Applications such as remote-desktop clients and software KVM switches may
+    // request that niri stops processing the keyboard shortcuts defined here
+    // so they may, for example, forward the key presses as-is to a remote machine.
+    // It's a good idea to bind an escape hatch to toggle the inhibitor,
+    // so a buggy application can't hold your session hostage.
+    //
+    // The allow-inhibiting=false property can be applied to other binds as well,
+    // which ensures niri always processes them, even when an inhibitor is active.
+    Mod+Shift+Escape hotkey-overlay-title="TOGGLE SHORTCUTS" allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    // Panic mode
+    Mod+P hotkey-overlay-title="PANIC" repeat=false allow-inhibiting=false { spawn-sh "for mon in DP-1 DP-2; do niri msg action focus-monitor $mon; niri msg action spawn -- alacritty --title Panic-Terminal; sleep 0.25; niri msg action fullscreen-window; done"; }
+}

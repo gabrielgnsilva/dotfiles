@@ -15,7 +15,7 @@ company_wallpaper() {
 list_companies() {
   [ ! -d "${WORK_DIR}" ] && return 0
 
-  for COMPANY_DIR in "${WORK_DIR}/*"; do
+  for COMPANY_DIR in "${WORK_DIR}"/*; do
     [ -d "${COMPANY_DIR}" ] || continue
     COMPANY="${COMPANY_DIR##*/}"
     company_wallpaper "${COMPANY}" > /dev/null && printf '%s\n' "${COMPANY}"

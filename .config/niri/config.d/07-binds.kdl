@@ -111,6 +111,7 @@ binds {
     Mod+A      hotkey-overlay-title="FOCUS workspace NET" { focus-workspace "net"; }
     Mod+S      hotkey-overlay-title="FOCUS workspace DAI" { focus-workspace "dai"; }
     Mod+D      hotkey-overlay-title="FOCUS workspace SYS" { focus-workspace "sys"; }
+    Mod+G      hotkey-overlay-title="FOCUS workspace DOC" { focus-workspace "doc"; }
 
     Mod+Ctrl+1 hotkey-overlay-title="MOVE WINDOW TO OP1" { move-column-to-workspace "op1"; }
     Mod+Ctrl+2 hotkey-overlay-title="MOVE WINDOW TO OP2" { move-column-to-workspace "op2"; }
@@ -120,6 +121,7 @@ binds {
     Mod+Ctrl+A hotkey-overlay-title="MOVE WINDOW TO NET" { move-column-to-workspace "net"; }
     Mod+Ctrl+S hotkey-overlay-title="MOVE WINDOW TO DAI" { move-column-to-workspace "dai"; }
     Mod+Ctrl+D hotkey-overlay-title="MOVE WINDOW TO SYS" { move-column-to-workspace "sys"; }
+    Mod+Ctrl+G hotkey-overlay-title="MOVE WINDOW TO DOC" { move-column-to-workspace "doc"; }
 
     // Move the focused window between the floating and the tiling layout
     Mod+Tab       hotkey-overlay-title="TOGGLE FLOAT" { toggle-window-floating; }

@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-exec /opt/zen/zen
+exec "${HOME}/.local/bin/zen"

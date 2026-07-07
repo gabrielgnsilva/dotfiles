@@ -85,6 +85,7 @@
       "net": "NET",
       "dai": "DAI",
       "sys": "SYS",
+      "doc": "DOC",
     },
   },
   "network": {

@@ -6,4 +6,3 @@ Exec=zen %u
 Terminal=false
 Type=Application
 Categories=Network;WebBrowser;
-NoDisplay=true

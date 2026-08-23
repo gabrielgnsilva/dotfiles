@@ -1,0 +1,104 @@
+#!/usr/bin/env sh
+
+set -eu
+
+error() {
+    command printf "%b\n" "${*}" >&2
+}
+
+println() {
+    command printf "%b\n" "${*}" >&1
+}
+
+abort() {
+    status="${1}"
+    shift
+    error "${*}"
+    exit "${status}"
+}
+
+println '== Available updates =='
+if updates=$(command checkupdates); then
+    we_have_updates=1
+    println "${updates}"
+else
+    status="${?}"
+    case "${status}" in
+        2)
+            we_have_updates=0
+            println 'No updates available.'
+            ;;
+        *)
+            abort "${status}" 'Failed to check for updates.'
+            ;;
+    esac
+fi
+
+if [ "${we_have_updates}" -eq 1 ]; then
+    println '\nReview the list above before continuing.'
+    command printf 'Continue with upgrade? [y/N] '
+    command read -r answer
+    case "${answer}" in
+        [Yy]) we_about_to_update=1 ;;
+        *) we_about_to_update=0 ;;
+    esac
+
+    if [ "${we_about_to_update}" -eq 1 ]; then
+        command sudo pacman -Syu
+
+        println '\n== Configuration changes =='
+        if files=$(command pacdiff -o); then
+            if [ -n "${files}" ]; then
+                println "${files}"
+                command pacdiff -s
+            else
+                println 'No configuration changes found.'
+                sleep 1
+            fi
+        else
+            abort "${?}" 'Failed to check configuration changes.'
+        fi
+
+        println '\n== Packages requiring rebuild =='
+        if output=$(command checkrebuild); then
+            if [ -n "${output}" ]; then
+                println "${output}"
+            else
+                println "No packages requiring rebuild found."
+            fi
+            sleep 1
+        else
+            abort "${?}" "Command failed: checkrebuild"
+        fi
+    fi
+
+fi
+
+println '\n== Orphaned dependencies =='
+if output=$(command pacman -Qdt); then
+    println "${output}"
+else
+    status="${?}"
+    case "${status}" in
+        1)
+            println "No orphaned dependencies found."
+            sleep 1
+            ;;
+        *) abort "${status}" "Command failed: pacman -Qdt" ;;
+    esac
+fi
+
+println '\n== Foreign / AUR packages =='
+if output=$(command pacman -Qm); then
+    if [ -n "${output}" ]; then
+        println "${output}"
+    else
+        println "No foreign / AUR packages found."
+    fi
+    sleep 1
+else
+    abort "${?}" "Command failed: pacman -Qm"
+fi
+
+println '\n== Package database integrity =='
+command pacreport

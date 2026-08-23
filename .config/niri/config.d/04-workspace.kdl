@@ -2,8 +2,8 @@
 workspace "op1" { open-on-output "DP-1"; }
 workspace "op2" { open-on-output "DP-1"; }
 workspace "op3" { open-on-output "DP-1"; }
-workspace "lab"   { open-on-output "DP-1"; }
-workspace "sim"   { open-on-output "DP-1"; }
+workspace "lab" { open-on-output "DP-1"; }
+workspace "sim" { open-on-output "DP-1"; }
 
 // Secondary (DP-2)
 workspace "net" {

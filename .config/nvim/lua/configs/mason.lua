@@ -25,6 +25,7 @@ return {
     'impl', -- Go Tool
     'sqlfluff', -- SQL Linter
     'sql-formatter', -- SQL Formatter
+    'luacheck', -- Lua formatter
     'stylua', -- Lua formatter
     'markdownlint', -- Markdown Linter
     'jsonlint', -- JSON Linter

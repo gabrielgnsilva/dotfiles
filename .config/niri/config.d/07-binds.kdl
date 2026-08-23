@@ -7,10 +7,11 @@ binds {
     Mod+Slash { show-hotkey-overlay; }
 
     // System controls
-    Mod+DEAD_GRAVE       hotkey-overlay-title="SYS MENU"           { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/logout-menu.sh"; }
-    Mod+M                hotkey-overlay-title="SWITCH BG"          { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/wallpaper.sh --cycle"; }
-    Mod+Ctrl+M           hotkey-overlay-title="SWITCH BG TO CORP"  { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/corp-mode.sh"; }
-    Mod+Alt+M            hotkey-overlay-title="RESET BG"           { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/wallpaper.sh --default"; }
+    Mod+DEAD_GRAVE       hotkey-overlay-title="SYS MENU"               { spawn-sh "$XDG_CONFIG_HOME/BLAST/apps/logout-menu.sh"; }
+    Mod+M                hotkey-overlay-title="SWITCH BG"              { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/wallpaper.sh --cycle"; }
+    Mod+Ctrl+M           hotkey-overlay-title="SWITCH BG TO CORP"      { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/corp-mode.sh"; }
+    Mod+Alt+M            hotkey-overlay-title="RESET BG"               { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/wallpaper.sh --default"; }
+    Mod+Ctrl+P           hotkey-overlay-title="TOGGLE INTERNET ACCESS" { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/internet.sh --toggle"; }
 
     // Volume control
     XF86AudioMute        hotkey-overlay-title="MUTE VOLUME"  allow-when-locked=true { spawn-sh "$XDG_CONFIG_HOME/BLAST/scripts/volume.sh --toggle-mute"; }
@@ -136,7 +137,4 @@ binds {
     // The allow-inhibiting=false property can be applied to other binds as well,
     // which ensures niri always processes them, even when an inhibitor is active.
     Mod+Shift+Escape hotkey-overlay-title="TOGGLE SHORTCUTS" allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-
-    // Panic mode
-    Mod+P hotkey-overlay-title="PANIC" repeat=false allow-inhibiting=false { spawn-sh "for mon in DP-1 DP-2; do niri msg action focus-monitor $mon; niri msg action spawn -- alacritty --title Panic-Terminal; sleep 0.25; niri msg action fullscreen-window; done"; }
 }

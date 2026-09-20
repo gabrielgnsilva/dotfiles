@@ -49,6 +49,12 @@ export XCURSOR_PATH="${HOME}/.local/share/icons:/usr/share/icons"
 export XCURSOR_THEME="breeze_cursors"
 export XCURSOR_SIZE="24"
 
+# == ANSIBLE ===================================================================
+export ANSIBLE_HOME="${XDG_CONFIG_HOME}/ansible"
+export ANSIBLE_GALAXY_CACHE_DIR="${XDG_CACHE_HOME}/ansible/galaxy_cache"
+export ANSIBLE_LOCAL_TEMP="${XDG_CACHE_HOME}/ansible/tmp"
+export ANSIBLE_SSH_CONTROL_PATH_DIR="${XDG_CACHE_HOME}/ansible/cp"
+
 # == STEAM =====================================================================
 # environment variables I use for gaming on Linux, mostly for steam and proton.
 export RADV_PERFTEST="aco,gpl"

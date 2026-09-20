@@ -57,7 +57,7 @@ alias cloc='cloc . \
   --exclude-ext=yaml,yml,json,svg,_build'
 
 # Run opencode with Claude code disabled and in pure mode
-alias opencode='OPENCODE_DISABLE_CLAUDE_CODE="1" opencode --pure'
+alias opencode='OPENCODE_DISABLE_CLAUDE_CODE="1" opencode'
 
 # Use different SSH clients based on the terminal type
 ssh() {

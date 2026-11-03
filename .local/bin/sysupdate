@@ -17,6 +17,17 @@ abort() {
     exit "${status}"
 }
 
+kernel_package_state() {
+    command pacman -Q \
+        linux \
+        linux-lts \
+        linux-zen \
+        linux-hardened \
+        2> /dev/null || true
+}
+
+reboot_required=0
+
 println '== Available updates =='
 if updates=$(command checkupdates); then
     we_have_updates=1
@@ -44,7 +55,18 @@ if [ "${we_have_updates}" -eq 1 ]; then
     esac
 
     if [ "${we_about_to_update}" -eq 1 ]; then
-        command sudo pacman -Syu
+        kernel_state=$(kernel_package_state)
+        if command sudo pacman -Syu; then
+            if [ "${kernel_state}" != "$(kernel_package_state)" ]; then
+                reboot_required=1
+            else
+                reboot_required=0
+            fi
+
+        else
+            status="${?}"
+            abort "${status}" 'System upgrade failed; reboot status was not checked.'
+        fi
 
         println '\n== Configuration changes =='
         if files=$(command pacdiff -o); then
@@ -102,3 +124,12 @@ fi
 
 println '\n== Package database integrity =='
 command pacreport
+
+println '\n== Reboot status =='
+if [ "${reboot_required}" -eq 1 ]; then
+    println 'A kernel package was updated; reboot is recommended.'
+elif [ -e /run/reboot-required ]; then
+    println 'The system reports that a reboot is required.'
+else
+    println 'No reboot appears to be required.'
+fi

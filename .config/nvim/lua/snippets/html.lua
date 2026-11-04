@@ -39,6 +39,24 @@ add(
 )
 -- #endregion
 
+-- #region: Angular
+add(
+  'transloco',
+  [=[<ng-container *transloco="let translate">
+  ${0}
+</ng-container>]=],
+  'Transloco container (without prefix)'
+)
+
+add(
+  'transloco',
+  [=[<ng-container *transloco="let translate; prefix: '${1:type}'">
+  ${0}
+</ng-container>]=],
+  'Transloco container (with prefix)'
+)
+-- #endregion
+
 -- #region: Fluig
 add(
   'fluig-libraries',

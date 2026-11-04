@@ -33,6 +33,11 @@
     "on-click-middle": "${XDG_CONFIG_HOME}/BLAST/apps/cliphist.sh wipe",
     "tooltip-format": "Left: Open clipboard Manager\nRight: Delete an entry\nMiddle: Clear list",
   },
+  "custom/mget": {
+    "format": "mGet",
+    "on-click": "${XDG_CONFIG_HOME}/waybar/scripts/mget.sh",
+    "tooltip": false,
+  },
   "custom/vpn": {
     "return-type": "json",
     "exec": "${XDG_CONFIG_HOME}/BLAST/apps/vpn.sh --status",
@@ -266,7 +271,7 @@
   "group/actions": {
     "orientation": "inherit",
 
-    "modules": ["custom/snap", "custom/space", "custom/cliphist"],
+    "modules": ["custom/snap", "custom/space", "custom/cliphist", "custom/space", "custom/mget"],
   },
   "group/actions-drawer": {
     "orientation": "inherit",

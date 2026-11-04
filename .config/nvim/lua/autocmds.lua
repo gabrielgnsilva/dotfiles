@@ -3,6 +3,27 @@
 -- =============================================================================
 
 local create_autocmd = require('utils').create_autocmd
+local detach_lsp_clients = require('utils.lsp').detach_clients
+
+create_autocmd('no_lsp_special_buffers', { 'BufEnter', 'FileType', 'LspAttach' }, {
+  desc = 'Do not run LSP clients in special buffers',
+  callback = function(args)
+    local bo = vim.bo[args.buf]
+
+    if bo.buftype == '' and bo.filetype ~= 'qf' then
+      return
+    end
+
+    local bufnr = args.buf
+    vim.schedule(function()
+      if not vim.api.nvim_buf_is_valid(bufnr) then
+        return
+      end
+
+      detach_lsp_clients(bufnr)
+    end)
+  end,
+})
 
 create_autocmd('open_oil_on_startup', 'VimEnter', {
   desc = 'Open Oil when starting without args',

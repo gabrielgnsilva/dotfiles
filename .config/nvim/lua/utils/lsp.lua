@@ -2,6 +2,12 @@ local M = {}
 
 M._deferred = nil
 
+function M.detach_clients(bufnr)
+  for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+    pcall(vim.lsp.buf_detach_client, bufnr, client.id)
+  end
+end
+
 function M.supports_method(action, bufnr)
   for _, lsp_client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
     if lsp_client:supports_method(action) then

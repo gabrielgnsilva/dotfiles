@@ -5,6 +5,11 @@ return {
   event = 'InsertEnter',
   cmd = 'Copilot',
   opts = {
+    -- Quickfix buffers are rewritten by picker actions. Keeping Copilot away
+    -- from them avoids Neovim LSP incremental-sync assertions.
+    should_attach = function(bufnr)
+      return vim.bo[bufnr].buflisted and vim.bo[bufnr].buftype == ''
+    end,
     suggestion = {
       enabled = true,
       auto_trigger = true,
@@ -17,6 +22,7 @@ return {
       markdown = true,
       yaml = true,
       help = false,
+      qf = false,
     },
   },
   config = function(_, opts)

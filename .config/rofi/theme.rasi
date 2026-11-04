@@ -8,41 +8,43 @@ configuration {
 
 * {
   /* General */
-  urgent    : #ff3b6b;
-  background: #0a0b14;
-  foreground: #e6f7ff;
+  background    : #2D353B;
+  foreground    : #D3C6AA;
 
-  cmt: #3b405c;
-  cya: #00f5ff;
-  grn: #00ff9f;
-  ora: #ff9f1c;
-  pur: #ff2bd6;
-  red: #ff3b6b;
-  yel: #fcee09;
+  background-alt: #343F44;
 
-  border-color    : none;
+  border        : #859289;
+  accent        : #A7C080;
+
+  selected-bg   : #543A48;
+  selected-fg   : #D3C6AA;
+
+  urgent        : #E67E80;
+  active        : #83C092;
+
   background-color: @background;
+  border-color    : none;
+  font            : "JetBrains Mono Nerd Font 12";
+  spacing         : 2;
   text-color      : @foreground;
-
-  text-transform: capitalize;
-  font          : "Cantarell 12";
-  spacing       : 2;
+  text-transform  : capitalize;
 }
 
 window {
-  location     : north west;
-  y-offset     : 30px;
-  x-offset     : 30px;
-  width        : 25%;
-  height       : 15%;
-  border       : 1px;
-  border-color : @red;
-  border-radius: 0px;
+  location        : north west;
+  y-offset        : 30px;
+  x-offset        : 30px;
+  width           : 25%;
+  height          : 15%;
+  border          : 1px;
+  border-color    : @border;
+  border-radius   : 0px;
+  background-color: @background;
 }
 
 mainbox {
   border       : 2px;
-  border-color : @cmt;
+  border-color : @border;
   border-radius: 0;
   children     : [inputbar, listview];
 }
@@ -53,7 +55,7 @@ message {
 }
 
 textbox {
-  text-color      : @cya;
+  text-color      : @foreground;
   padding         : 0 5px;
   margin          : 10px 5px;
   horizontal-align: 0.5;
@@ -61,18 +63,20 @@ textbox {
 }
 
 inputbar {
-  margin  : 0 0 3px 0;
-  children: [prompt, entry];
+  margin          : 0 0 3px 0;
+  children        : [prompt, entry];
+  background-color: @background-alt;
+  text-color      : @foreground;
 }
 
 prompt {
   background-color: inherit;
-  text-color      : @cmt;
+  text-color      : @foreground;
   padding         : 14px;
 }
 
 entry {
-  text-color      : @cya;
+  text-color      : @foreground;
   placeholder     : " Search";
   margin          : 0 5px;
   padding         : 0 50px 0 0;
@@ -90,26 +94,38 @@ listview {
 }
 
 element {
-  cursor      : pointer;
-  orientation : horizontal;
-  children    : [element-text];
-  padding     : 4px 5px;
-  spacing     : 5px;
+  cursor          : pointer;
+  orientation     : horizontal;
+  children        : [element-text];
+  padding         : 4px 5px;
+  spacing         : 5px;
+  background-color: transparent;
+  text-color      : @foreground;
 }
 
 element-text {
-  text-color    : @cmt;
+  text-color    : @foreground;
   cursor        : pointer;
   vertical-align: 0.5;
 }
 
 element selected {
-  border      : 2px;
-  border-color: @red;
+  border          : 2px;
+  border-color    : @accent;
+  background-color: @selected-bg;
+  text-color      : @selected-fg;
 }
 
 element-text selected {
-  text-color  : @yel;
+  text-color  : @foreground;
   border-color: transparent;
   border      : 0 10px;
+}
+
+element urgent {
+  text-color: @urgent;
+}
+
+element active {
+  text-color: @active;
 }

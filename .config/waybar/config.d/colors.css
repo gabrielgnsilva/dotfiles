@@ -1,26 +1,22 @@
 /** @format */
 
 /* General */
-@define-color background  #0a0b14;
-@define-color foreground  #e6f7ff;
-@define-color urgent      #ff3b6b;
+@define-color background  #2D353B;
+@define-color foreground  #D3C6AA;
+@define-color urgent      #E67E80;
 
-/* Normal colors */
-@define-color nm_black    #151722;
-@define-color nm_red      #ff3b6b;
-@define-color nm_green    #00ff9f;
-@define-color nm_yellow   #fcee09;
-@define-color nm_blue     #2f7bff;
-@define-color nm_magenta  #ff2bd6;
-@define-color nm_cyan     #00f5ff;
-@define-color nm_white    #d7e6ff;
+@define-color background1 #343F44;
+@define-color background2 #3D484D;
 
-/* Bright colors */
-@define-color bgt_black   #3b405c;
-@define-color bgt_red     #ff5c8a;
-@define-color bgt_green   #4dffc3;
-@define-color bgt_yellow  #fff36b;
-@define-color bgt_blue    #5c9dff;
-@define-color bgt_magenta #ff6be6;
-@define-color bgt_cyan    #6bfaff;
-@define-color bgt_white   #ffffff;
+@define-color border      #859289;
+@define-color focus       #A7C080;
+
+@define-color red         #E67E80;
+@define-color orange      #E69875;
+@define-color yellow      #DBBC7F;
+@define-color green       #A7C080;
+@define-color blue        #7FBBB3;
+@define-color magenta     #D699B6;
+@define-color cyan        #83C092;
+
+@define-color disabled    #859289;

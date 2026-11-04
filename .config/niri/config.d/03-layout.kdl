@@ -16,13 +16,27 @@ layout {
         proportion 0.75
         proportion 1.0
     }
-    border { off; }
+    border {
+        off
+        width 2
+        active-color "#A7C080"
+        inactive-color "#859289"
+        urgent-color "#E67E80"
+    }
+    tab-indicator {
+        active-color "#A7C080"
+        inactive-color "#859289"
+        urgent-color "#E67E80"
+    }
+    insert-hint {
+        color "#A7C08080"
+    }
     shadow { off; }
     struts { }
     focus-ring {
         width 2
-        active-color "#ff3b6b"
+        active-color "#A7C080"
         inactive-color "transparent"
-        urgent-color "#fcee09"
+        urgent-color "#E67E80"
     }
 }

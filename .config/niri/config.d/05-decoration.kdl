@@ -4,7 +4,7 @@ animations { off; }
 
 overview {
     zoom 0.7
-    backdrop-color "#0a0b14"
+    backdrop-color "#232A2E"
     workspace-shadow { off; }
 }
 

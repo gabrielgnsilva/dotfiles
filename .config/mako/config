@@ -1,7 +1,7 @@
-background-color=#0a0b14
-text-color=#e6f7ff
-border-color=#ff3b6b
-progress-color=over #26335f
+background-color=#343F44
+text-color=#D3C6AA
+border-color=#A7C080
+progress-color=over #A7C080
 
 sort=-time
 layer=overlay
@@ -19,8 +19,14 @@ ignore-timeout=1
 font=JetBrains Mono Nerd Font Bold 12
 on-button-right=dismiss-all
 
-[urgency=high]
-border-color=#ff3b6b
+[urgency=low]
+border-color=#859289
+
+[urgency=normal]
+border-color=#A7C080
+
+[urgency=critical]
+border-color=#E67E80
 default-timeout=0
 
 [mode=do-not-disturb]

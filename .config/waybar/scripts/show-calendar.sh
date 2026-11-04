@@ -8,7 +8,7 @@ notification() {
 
   if [ "${1}" = "+0 months" ]; then
     # Apply sed command to modify the output
-    days=$(echo "${days}" | sed --null-data "s|${today}|<span underline='single' underline_color='#ff5458'><b>${today}</b></span>|1")
+    days=$(echo "${days}" | sed --null-data "s|${today}|<span underline='single' underline_color='#A7C080'><b>${today}</b></span>|1")
   fi
 
   description="\n<i>       ~ calendar</i> 󰸗 "

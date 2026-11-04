@@ -1,81 +1,50 @@
-/* Cyberpunk GTK override */
+/** @format */
 
-@define-color cyber_bg #0a0b14;
-@define-color cyber_surface #151722;
-@define-color cyber_surface_alt #26335f;
-@define-color cyber_fg #e6f7ff;
-@define-color cyber_dim #6f7899;
-@define-color cyber_red #ff3b6b;
-@define-color cyber_yellow #fcee09;
-@define-color cyber_cyan #00f5ff;
+@define-color theme_bg_color #2D353B;
+@define-color theme_fg_color #D3C6AA;
+@define-color base_color #2D353B;
+@define-color text_color #D3C6AA;
+@define-color selected_bg_color #543A48;
+@define-color selected_fg_color #D3C6AA;
+@define-color insensitive_fg_color #859289;
+@define-color borders #859289;
+@define-color warning_color #DBBC7F;
+@define-color error_color #E67E80;
+@define-color success_color #A7C080;
 
 window,
-dialog,
-popover,
-menu,
-tooltip {
-  background-color: @cyber_bg;
-  color: @cyber_fg;
+.background {
+  background-color: @theme_bg_color;
+  color: @theme_fg_color;
 }
 
-headerbar,
-toolbar,
-menubar,
-.titlebar {
-  background-color: @cyber_bg;
-  color: @cyber_fg;
-  border-bottom: 1px solid @cyber_red;
-}
-
-button,
 entry,
-spinbutton,
-combobox,
 textview,
-treeview,
-list,
-row {
-  background-color: @cyber_surface;
-  color: @cyber_fg;
-  border-color: @cyber_red;
+treeview {
+  background-color: @base_color;
+  color: @text_color;
 }
 
-button:hover,
-row:hover {
-  background-color: @cyber_surface_alt;
-  border-color: @cyber_yellow;
+button {
+  background-color: #343f44;
+  color: #d3c6aa;
+  border-color: #859289;
 }
 
-button:checked,
+button:hover {
+  background-color: #3d484d;
+}
+
 button:active,
-row:selected,
+button:checked {
+  background-color: #475258;
+}
+
 *:selected {
-  background-color: @cyber_red;
-  color: @cyber_bg;
+  background-color: #543a48;
+  color: #d3c6aa;
 }
 
-entry:focus,
-textview:focus,
-spinbutton:focus {
-  border-color: @cyber_red;
-  box-shadow: 0 0 0 1px @cyber_red;
-}
-
-label:disabled,
-button:disabled,
-entry:disabled {
-  color: @cyber_dim;
-}
-
-scrollbar slider {
-  background-color: @cyber_red;
-  border-radius: 0;
-}
-
-scrollbar trough {
-  background-color: @cyber_surface;
-}
-
-tooltip {
-  border: 1px solid @cyber_red;
+*:disabled {
+  color: #859289;
 }

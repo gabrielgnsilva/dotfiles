@@ -33,6 +33,11 @@
     "on-click-middle": "${XDG_CONFIG_HOME}/BLAST/apps/cliphist.sh wipe",
     "tooltip-format": "Left: Open clipboard Manager\nRight: Delete an entry\nMiddle: Clear list",
   },
+  "custom/mget": {
+    "format": "mGet",
+    "on-click": "${XDG_CONFIG_HOME}/waybar/scripts/mget.sh",
+    "tooltip": false,
+  },
   "custom/vpn": {
     "return-type": "json",
     "exec": "${XDG_CONFIG_HOME}/BLAST/apps/vpn.sh --status",
@@ -157,6 +162,15 @@
       "unlocked": "-",
     },
   },
+  "custom/ai-models": {
+    "return-type": "json",
+    "exec": "${XDG_CONFIG_HOME}/waybar/scripts/ai-models.sh",
+    "interval": 5,
+    "exec-if": "command -v curl >/dev/null && command -v jq >/dev/null",
+    "on-click": "${XDG_CONFIG_HOME}/waybar/scripts/ai-models.sh --notify",
+    "on-click-right": "${XDG_CONFIG_HOME}/waybar/scripts/ai-models.sh --menu",
+    "tooltip": true,
+  },
   "disk": {
     "interval": 30,
     "format": "DISK: {percentage_used}%",
@@ -220,7 +234,7 @@
   // region: groups
   "group/g-indicators": {
     "orientation": "inherit",
-    "modules": ["gamemode", "privacy", "keyboard-state"],
+    "modules": ["gamemode", "privacy", "custom/ai-models", "keyboard-state"],
   },
 
   "group/hardware": {
@@ -257,7 +271,7 @@
   "group/actions": {
     "orientation": "inherit",
 
-    "modules": ["custom/snap", "custom/space", "custom/cliphist"],
+    "modules": ["custom/snap", "custom/space", "custom/cliphist", "custom/space", "custom/mget"],
   },
   "group/actions-drawer": {
     "orientation": "inherit",

@@ -28,50 +28,50 @@ bell-features = no-system,no-audio,no-attention,no-title,no-border
 
 # selection / clipboard
 copy-on-select          = clipboard
-selection-foreground    = #ffffff
-selection-background    = #26335f
+selection-foreground    = #D3C6AA
+selection-background    = #543A48
 selection-clear-on-copy = false
 mouse-hide-while-typing = true
 
 # cursor
 cursor-style       = block
 cursor-style-blink = true
-cursor-color       = #00f5ff
-cursor-text        = #0a0b14
+cursor-color       = #D3C6AA
+cursor-text        = #2D353B
 
 # colors
-background = #0a0b14
-foreground = #e6f7ff
+background = #2D353B
+foreground = #D3C6AA
 
-# search colors
-search-foreground          = #0a0b14
-search-background          = #fcee09
-search-selected-foreground = #0a0b14
-search-selected-background = #00ff9f
+# Search colors
+search-foreground          = #2D353B
+search-background          = #DBBC7F
+search-selected-foreground = #2D353B
+search-selected-background = #A7C080
 
 # normal ANSI
-palette = 0=#151722
-palette = 1=#ff3b6b
-palette = 2=#00ff9f
-palette = 3=#fcee09
-palette = 4=#2f7bff
-palette = 5=#ff2bd6
-palette = 6=#00f5ff
-palette = 7=#d7e6ff
+palette = 0=#475258
+palette = 1=#E67E80
+palette = 2=#A7C080
+palette = 3=#DBBC7F
+palette = 4=#7FBBB3
+palette = 5=#D699B6
+palette = 6=#83C092
+palette = 7=#D3C6AA
 
 # bright ANSI
-palette = 8=#3b405c
-palette = 9=#ff5c8a
-palette = 10=#4dffc3
-palette = 11=#fff36b
-palette = 12=#5c9dff
-palette = 13=#ff6be6
-palette = 14=#6bfaff
-palette = 15=#ffffff
+palette = 8=#859289
+palette = 9=#E67E80
+palette = 10=#A7C080
+palette = 11=#DBBC7F
+palette = 12=#7FBBB3
+palette = 13=#D699B6
+palette = 14=#83C092
+palette = 15=#D3C6AA
 
 # indexed colors
-palette = 16=#ff9f1c
-palette = 17=#b026ff
+palette = 16=#E69875
+palette = 17=#D699B6
 
 # keybindings
 keybind = ctrl+0=reset_font_size

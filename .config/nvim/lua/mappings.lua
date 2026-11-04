@@ -44,6 +44,11 @@ M.global = {
         cmd = ":'<,'>sort!<cr>gv=gv",
         desc = 'Sort lines descending',
       },
+      {
+        key = '<leader>mcp',
+        cmd = 'gw',
+        desc = 'Make selected comments pretty',
+      },
       { key = '<leader>d', cmd = '"_d', desc = 'Delete without copying' },
       { key = '<leader>p', cmd = '"_dP', desc = 'Paste without copying' },
     },
@@ -84,6 +89,16 @@ M.global = {
       },
       { key = '<leader>nj', cmd = 'o<Esc>"_D', desc = 'Add new line below' },
       { key = '<leader>nk', cmd = 'O<Esc>"_D', desc = 'Add new line above' },
+      {
+        key = '<leader>mcp',
+        cmd = 'gww',
+        desc = 'Make comment pretty',
+      },
+      {
+        key = '<leader>mbcp',
+        cmd = 'gwip',
+        desc = 'Make block comment pretty',
+      },
       { key = '<C-d>', cmd = '<C-d>zz', desc = 'Move page down' },
       { key = '<C-u>', cmd = '<C-u>zz', desc = 'Move page up' },
       { key = 'N', cmd = 'Nzzzv', desc = 'Move to previous match' },

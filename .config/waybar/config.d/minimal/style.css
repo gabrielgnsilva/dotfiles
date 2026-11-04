@@ -71,13 +71,13 @@ window#waybar box.module {
 
 /* separators: subdued, like prompt dividers */
 window#waybar #custom-sep {
-  color: alpha(@bgt_black, 0.9);
+  color: alpha(@background1, 0.9);
   padding: 0 6px;
 }
 
 /* launcher: "command" accent */
 window#waybar #custom-apps {
-  color: @bgt_cyan;
+  color: @cyan;
   letter-spacing: 0.5px;
 }
 
@@ -87,7 +87,7 @@ window#waybar #workspaces button:not(:first-child) {
 }
 window#waybar #workspaces button.active,
 window#waybar #workspaces button.focused {
-  color: @bgt_red;
+  color: @red;
 }
 window#waybar #workspaces button.urgent {
   animation-name: blink;
@@ -96,12 +96,12 @@ window#waybar #workspaces button.urgent {
   animation-iteration-count: infinite;
   animation-direction: alternate;
   color: @background;
-  background-color: @urgent;
+  background-color: @red;
 }
 
 /* window title (now left): treat like "current buffer" */
 window#waybar #window label {
-  color: @bgt_green;
+  color: @green;
 }
 window#waybar.empty #window {
   color: transparent;
@@ -109,6 +109,9 @@ window#waybar.empty #window {
 
 /* indicators */
 window#waybar #g-indicators #keyboard-state {
+  padding-left: 5px;
+}
+window#waybar #g-indicators #custom-ai-models {
   padding-left: 5px;
 }
 window#waybar #g-indicators #keyboard-state label:first-child {
@@ -127,54 +130,54 @@ window#waybar #tray > .needs-attention {
   animation-iteration-count: infinite;
   animation-direction: alternate;
   color: @background;
-  background-color: @urgent;
+  background-color: @red;
 }
 
 /* hardware colors (same semantics as minimal) */
 window#waybar #hardware #disk {
-  color: @bgt_blue;
+  color: @blue;
 }
 window#waybar #hardware #memory {
-  color: @bgt_red;
+  color: @red;
 }
 window#waybar #hardware #cpu {
-  color: @bgt_green;
+  color: @green;
 }
 
 /* volume */
 window#waybar #volume #source #wireplumber {
-  color: @bgt_blue;
+  color: @blue;
 }
 window#waybar #volume #source #wireplumber.muted {
-  color: @bgt_black;
+  color: @background1;
 }
 window#waybar #volume #sink #wireplumber {
-  color: @bgt_blue;
+  color: @blue;
 }
 window#waybar #volume #sink #wireplumber.muted {
-  color: @bgt_black;
+  color: @background1;
 }
 
 /* systray group */
 window#waybar #systray #actions-drawer {
-  color: @bgt_cyan;
+  color: @cyan;
 }
 window#waybar #systray #custom-notification {
-  color: @bgt_red;
+  color: @red;
 }
 window#waybar #systray #custom-idle-inhibitor {
-  color: @bgt_blue;
+  color: @blue;
 }
 window#waybar #systray #power-menu {
-  color: @bgt_yellow;
+  color: @yellow;
 }
 window#waybar #clock {
-  color: @bgt_magenta;
+  color: @magenta;
 }
 
 @keyframes blink {
   to {
-    background-color: @nm_yellow;
+    background-color: @yellow;
     color: @background;
   }
 }

@@ -1,78 +1,85 @@
-/* Cyberpunk GTK override */
+/** @format */
 
-@define-color cyber_bg #0a0b14;
-@define-color cyber_surface #151722;
-@define-color cyber_surface_alt #26335f;
-@define-color cyber_fg #e6f7ff;
-@define-color cyber_dim #6f7899;
-@define-color cyber_red #ff3b6b;
-@define-color cyber_yellow #fcee09;
-@define-color cyber_cyan #00f5ff;
+@define-color background #2D353B;
+@define-color foreground #D3C6AA;
+@define-color background1 #343F44;
+@define-color background2 #3D484D;
+@define-color background3 #475258;
+@define-color border #859289;
+@define-color focus #A7C080;
+@define-color selection_bg #543A48;
+@define-color selection_fg #D3C6AA;
+@define-color disabled #859289;
+@define-color red #E67E80;
+@define-color yellow #DBBC7F;
+@define-color green #A7C080;
+@define-color blue #7FBBB3;
+@define-color error_bg #514045;
+@define-color warning_bg #4D4C43;
+@define-color success_bg #425047;
+@define-color info_bg #3A515D;
 
 window,
-dialog,
-popover,
-tooltip {
-  background-color: @cyber_bg;
-  color: @cyber_fg;
+.background {
+  background-color: @background;
+  color: @foreground;
 }
 
-headerbar,
-toolbar,
-.titlebar {
-  background-color: @cyber_bg;
-  color: @cyber_fg;
-  border-bottom: 1px solid @cyber_red;
+headerbar {
+  background-color: @background1;
+  color: @foreground;
 }
 
-button,
 entry,
-spinbutton,
-combobox,
 textview,
-list,
-row {
-  background-color: @cyber_surface;
-  color: @cyber_fg;
-  border-color: @cyber_red;
+listview,
+columnview {
+  background-color: @background;
+  color: @foreground;
 }
 
-button:hover,
-row:hover {
-  background-color: @cyber_surface_alt;
-  border-color: @cyber_yellow;
+button {
+  background-color: @background1;
+  color: @foreground;
+  border-color: @border;
 }
 
-button:checked,
+button:hover {
+  background-color: @background2;
+}
+
 button:active,
-row:selected,
+button:checked {
+  background-color: @background3;
+}
+
 *:selected {
-  background-color: @cyber_red;
-  color: @cyber_bg;
+  background-color: @selection_bg;
+  color: @selection_fg;
 }
 
-entry:focus,
-textview:focus,
-spinbutton:focus {
-  border-color: @cyber_red;
-  box-shadow: 0 0 0 1px @cyber_red;
+*:disabled {
+  color: @disabled;
 }
 
-label:disabled,
-button:disabled,
-entry:disabled {
-  color: @cyber_dim;
-}
-
-scrollbar slider {
-  background-color: @cyber_red;
-  border-radius: 0;
-}
-
-scrollbar trough {
-  background-color: @cyber_surface;
+selection {
+  background-color: @selection_bg;
+  color: @selection_fg;
 }
 
 tooltip {
-  border: 1px solid @cyber_red;
+  background-color: @background2;
+  color: @foreground;
+}
+
+.error {
+  color: @red;
+}
+
+.warning {
+  color: @yellow;
+}
+
+.success {
+  color: @green;
 }

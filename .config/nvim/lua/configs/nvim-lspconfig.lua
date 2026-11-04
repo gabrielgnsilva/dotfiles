@@ -3,6 +3,10 @@ local supports_method = require('utils.lsp').supports_method
 
 local M = {}
 
+-- Some language servers can return stale/out-of-range inlay-hint positions.
+-- Keep the built-in renderer from raising errors until those responses are fixed.
+M.enable_inlay_hints = false
+
 ---@type vim.diagnostic.Opts
 M.diagnostics = {
   underline = false,
@@ -66,7 +70,7 @@ M.on_attach = function(client, bufnr)
     })
   end
 
-  if client:supports_method('textDocument/inlayHint') then
+  if M.enable_inlay_hints and client:supports_method('textDocument/inlayHint') then
     if
       vim.api.nvim_buf_is_valid(bufnr)
       and vim.bo[bufnr].buftype == ''
@@ -136,7 +140,18 @@ M.on_attach = function(client, bufnr)
         },
         {
           key = '<leader>rn',
-          cmd = vim.lsp.buf.rename,
+          cmd = function()
+            local preferred_client = vim.tbl_contains(
+              { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+              vim.bo.filetype
+            ) and 'vtsls' or vim.bo.filetype == 'htmlangular' and 'angularls' or nil
+
+            vim.lsp.buf.rename(nil, {
+              filter = preferred_client and function(rename_client)
+                return rename_client.name == preferred_client
+              end,
+            })
+          end,
           desc = 'LSP Rename symbol',
           opts = { buffer = bufnr },
         },

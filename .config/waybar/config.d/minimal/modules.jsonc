@@ -157,6 +157,15 @@
       "unlocked": "-",
     },
   },
+  "custom/ai-models": {
+    "return-type": "json",
+    "exec": "${XDG_CONFIG_HOME}/waybar/scripts/ai-models.sh",
+    "interval": 5,
+    "exec-if": "command -v curl >/dev/null && command -v jq >/dev/null",
+    "on-click": "${XDG_CONFIG_HOME}/waybar/scripts/ai-models.sh --notify",
+    "on-click-right": "${XDG_CONFIG_HOME}/waybar/scripts/ai-models.sh --menu",
+    "tooltip": true,
+  },
   "disk": {
     "interval": 30,
     "format": "DISK: {percentage_used}%",
@@ -220,7 +229,7 @@
   // region: groups
   "group/g-indicators": {
     "orientation": "inherit",
-    "modules": ["gamemode", "privacy", "keyboard-state"],
+    "modules": ["gamemode", "privacy", "custom/ai-models", "keyboard-state"],
   },
 
   "group/hardware": {

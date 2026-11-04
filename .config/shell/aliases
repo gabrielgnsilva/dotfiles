@@ -40,6 +40,7 @@ alias t='tmux new -A -s'        # Create or attach to a tmux session with the gi
 alias ta='tmux attach -t'       # Attach to an existing tmux session with the given name
 alias tk='tmux kill-session -t' # Kill a tmux session with the given name
 alias tls='tmux list-sessions'  # List all tmux sessions
+alias tstart='cd -- "$(tmux display-message -p "#{pane_start_path}")"'
 
 alias gf='git fetch --all --prune' # Fetch all remotes and prune deleted branches
 alias gp='git pull --ff-only'      # Pull changes from the current branch's upstream, only if it can be fast-forwarded
@@ -56,8 +57,17 @@ alias cloc='cloc . \
   --exclude-dir=node_modules,.next,dist,.turbo,.git,vendor,.angular \
   --exclude-ext=yaml,yml,json,svg,_build'
 
-# Run opencode with Claude code disabled and in pure mode
-alias opencode='OPENCODE_DISABLE_CLAUDE_CODE="1" opencode --pure'
+# AI aliases
+alias forge='opencode --standalone' # Full interactive OpenCode session
+alias ask='opencode run \
+  --model "openai/gpt-5.6-luna#medium" \
+  --agent "ask" \
+  --thinking \
+  --standalone'
+alias chat='opencode mini \
+  --model "openai/gpt-5.6-luna#medium" \
+  --agent "build" \
+  --standalone'
 
 # Use different SSH clients based on the terminal type
 ssh() {
